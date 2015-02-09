@@ -17,7 +17,7 @@ import org.json.JSONObject;
 public class MainWindow extends JFrame {
 	
 	//Panel Objects
-	private JTextField txtName;
+	private JTextField txtLocation;
 	private JLabel lblTemp;
 	private JLabel lblName;
 	private JPanel panel;
@@ -42,8 +42,8 @@ public class MainWindow extends JFrame {
 		//Initialize Panel Objects
 		panel = new JPanel();
 		lblName = new JLabel("Enter City Name:");
-		txtName = new JTextField();
-		txtName.setPreferredSize(new Dimension(75, 25));
+		txtLocation = new JTextField();
+		txtLocation.setPreferredSize(new Dimension(75, 25));
 		lblTemp = new JLabel();
 		btnCompute = new JButton("Look Up Temperature");
 		
@@ -52,7 +52,7 @@ public class MainWindow extends JFrame {
 			public void actionPerformed(ActionEvent event) {
 				
 				//Parse Data
-				City myCity = new City(txtName.getText());
+				City myCity = new City(txtLocation.getText());
 				
 				//If Error, Respond Accordingly
 				if(myCity.validate!=true){
@@ -60,7 +60,7 @@ public class MainWindow extends JFrame {
 					
 				//If Valid, Display Data on Screen
 				} else {
-					lblTemp.setText("It is " + myCity.currentWeather.temperature + " degrees in " + txtName.getText());
+					lblTemp.setText("It is " + myCity.currentWeather.temperature + " degrees in " + txtLocation.getText());
 				}
 			}
 
@@ -76,7 +76,7 @@ public class MainWindow extends JFrame {
 		.createParallelGroup(GroupLayout.Alignment.LEADING)
 			.addGroup(layout.createSequentialGroup()
 				.addComponent(lblName)
-				.addComponent(txtName))
+				.addComponent(txtLocation))
 				.addGroup(layout.createSequentialGroup()
 				.addComponent(btnCompute)
 				.addComponent(lblTemp)));
@@ -87,7 +87,7 @@ public class MainWindow extends JFrame {
 				.addGroup(
 						layout.createParallelGroup(
 								GroupLayout.Alignment.BASELINE)
-								.addComponent(lblName).addComponent(txtName))
+								.addComponent(lblName).addComponent(txtLocation))
 				.addGroup(
 						layout.createParallelGroup(GroupLayout.Alignment.BASELINE))
 				.addGroup(
