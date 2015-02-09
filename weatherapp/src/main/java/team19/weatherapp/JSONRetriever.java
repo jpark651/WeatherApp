@@ -6,14 +6,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+
 import org.json.JSONObject;
 
-//Parse Current Weather Data
-public class CurrentWeatherData {
-	
-	
-	//parseData Method
-	public static String parseData(String location) {
+public class JSONRetriever {
+
+	public static JSONObject retrieveJSON(String location){
 		
 		//Initialize Empty String
 		String str = "";
@@ -51,31 +49,25 @@ public class CurrentWeatherData {
 		//If retrieved data is invalid, throw an error
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
-			return "ERROR_3";
+			return new JSONObject("{\"ERROR\": \"3\"}");
 		} catch (IOException e) {
 			e.printStackTrace();
-			return "ERROR_4";
+			return new JSONObject("{\"ERROR\": \"4\"}");
 		}
 
 		//If the city could not be found, throw an error
 		if (str.contains("Error")) {
-			return "ERROR_1";
+			return new JSONObject("{\"ERROR\": \"1\"}");
 		} else if (str.equals("")) {
-			return "ERROR_2";
+			return new JSONObject("{\"ERROR\": \"2\"}");
 			
 		//If all data is valid, return the string
 		} else {
-			return str;
+			return new JSONObject(str);
 		}
-
-	}
-
-	
-	//getTemp Class
-	public static String getTemp(JSONObject j) {
 		
-		//Convert Kelvin to Celcius and return data
-		return (int)j.getDouble("temp") - 272 + "";
-	}
+		
 
+	}
+	
 }
