@@ -52,23 +52,15 @@ public class MainWindow extends JFrame {
 			public void actionPerformed(ActionEvent event) {
 				
 				//Parse Data
-				String dataStr = CurrentWeatherData.parseData(txtName.getText());
+				City myCity = new City(txtName.getText());
 				
 				//If Error, Respond Accordingly
-				if(dataStr.contains("ERROR")){
-					if(dataStr.equals("ERROR_1")){
-						lblTemp.setText("City Not Found");
-					} else {
-						lblTemp.setText(dataStr);
-					}
+				if(myCity.validate!=true){
+					lblTemp.setText("City Not Found");
 					
 				//If Valid, Display Data on Screen
 				} else {
-					
-					//Create JSON Objects from string (There are multiple JSON objects within the string)
-					JSONObject jData = new JSONObject(dataStr);
-					JSONObject jMain = jData.getJSONObject("main");
-					lblTemp.setText("It is " + CurrentWeatherData.getTemp(jMain) + " degrees in " + txtName.getText());
+					lblTemp.setText("It is " + myCity.currentWeather.temperature + " degrees in " + txtName.getText());
 				}
 			}
 

@@ -49,17 +49,17 @@ public class JSONRetriever {
 		//If retrieved data is invalid, throw an error
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
-			return new JSONObject("{\"ERROR\": \"3\"}");
+			return new JSONObject("{\"Error\": \"3\"}");
 		} catch (IOException e) {
 			e.printStackTrace();
-			return new JSONObject("{\"ERROR\": \"4\"}");
+			return new JSONObject("{\"Error\": \"4\"}");
 		}
 
 		//If the city could not be found, throw an error
 		if (str.contains("Error")) {
-			return new JSONObject("{\"ERROR\": \"1\"}");
+			return new JSONObject("{\"Error\": \"1\"}");
 		} else if (str.equals("")) {
-			return new JSONObject("{\"ERROR\": \"2\"}");
+			return new JSONObject("{\"Error\": \"2\"}");
 			
 		//If all data is valid, return the string
 		} else {

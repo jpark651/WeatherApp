@@ -5,7 +5,7 @@ import javax.swing.SwingUtilities;
 //Initialize App
 public class App {
 	
-	//Maion Method
+	//Main Method
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
