@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 public class JSONRetriever {
 
-	public static JSONObject retrieveJSON(String location){
+	public static JSONObject retrieveCurrent(String location){
 		
 		//Initialize Empty String
 		String str = "";
