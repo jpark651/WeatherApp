@@ -11,6 +11,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.GroupLayout;
 import org.json.JSONObject;
+import javax.swing.ImageIcon;
+import javax.swing.GroupLayout.Alignment;
 
 
 //MainWindow Class
@@ -32,7 +34,7 @@ public class MainWindow extends JFrame {
 	
 	//Initialize UI
 	private void initUI() {
-		this.add(this.createForm(), BorderLayout.CENTER);
+		getContentPane().add(this.createForm(), BorderLayout.CENTER);
 	}
 
 	
@@ -45,7 +47,16 @@ public class MainWindow extends JFrame {
 		txtLocation = new JTextField();
 		txtLocation.setPreferredSize(new Dimension(75, 25));
 		lblTemp = new JLabel();
-		btnCompute = new JButton("Look Up Temperature");
+		btnCompute = new JButton("");
+		btnCompute.setBorderPainted(false);
+		btnCompute.setFocusPainted(false);
+		btnCompute.setContentAreaFilled(false);
+		btnCompute.setIcon(new ImageIcon("C:\\git\\team19\\weatherapp\\src\\resources\\getWeather.png"));
+		btnCompute.setRolloverIcon(new ImageIcon("C:\\git\\team19\\weatherapp\\src\\resources\\getWeatherRoll.png"));
+		btnCompute.setPressedIcon(new ImageIcon("C:\\git\\team19\\weatherapp\\src\\resources\\getWeatherPress.png"));
+		
+		
+
 		
 		//ActionListener for the JButton
 		btnCompute.addActionListener(new ActionListener() {
@@ -66,35 +77,44 @@ public class MainWindow extends JFrame {
 
 		});
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		//Layout Design
 		GroupLayout layout = new GroupLayout(panel);
+		layout.setHorizontalGroup(
+			layout.createParallelGroup(Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup()
+					.addComponent(lblName)
+					.addComponent(txtLocation, 328, 328, 328))
+				.addGroup(layout.createSequentialGroup()
+					.addGap(487)
+					.addComponent(lblTemp))
+				.addComponent(btnCompute, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE)
+		);
+		layout.setVerticalGroup(
+			layout.createParallelGroup(Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup()
+					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblName)
+						.addComponent(txtLocation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnCompute)
+						.addComponent(lblTemp)))
+		);
 		layout.setAutoCreateGaps(true);
 		layout.setAutoCreateContainerGaps(true);
-		
-		//Horizontal Group
-		layout.setHorizontalGroup(layout
-		.createParallelGroup(GroupLayout.Alignment.LEADING)
-			.addGroup(layout.createSequentialGroup()
-				.addComponent(lblName)
-				.addComponent(txtLocation))
-				.addGroup(layout.createSequentialGroup()
-				.addComponent(btnCompute)
-				.addComponent(lblTemp)));
-		
-		//Vertical Group
-		layout.setVerticalGroup(layout
-				.createSequentialGroup()
-				.addGroup(
-						layout.createParallelGroup(
-								GroupLayout.Alignment.BASELINE)
-								.addComponent(lblName).addComponent(txtLocation))
-				.addGroup(
-						layout.createParallelGroup(GroupLayout.Alignment.BASELINE))
-				.addGroup(
-						layout.createParallelGroup(
-								GroupLayout.Alignment.BASELINE)
-								.addComponent(btnCompute)
-								.addComponent(lblTemp)));
 		
 		//Set layout and return panel
 		panel.setLayout(layout);
