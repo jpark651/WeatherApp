@@ -34,6 +34,14 @@ String skyCondition;
 	this.jClouds = j.getJSONObject("clouds");
 	
 	this.temperature = getTemperature(jMain);
+	this.minTemp = getMinTemp(jMain);
+	this.maxTemp = getMaxTemp(jMain);
+	this.sunrise = getSunrise(jSys);
+	this.sunset = getSunset(jSys);
+	this.windSpeed = getWindSpeed(jWind);
+	this.windDirection = getWindDirection(jWind);
+	this.airPressure = getAirPressure(jMain);
+	this.skyCondition = getSkyCondition(jWeather);
 	
 	}
 	
@@ -42,4 +50,35 @@ String skyCondition;
 		return j.getDouble("temp") + "";
 	}
 	
+	public String getMinTemp(JSONObject j){
+		return "";
+	}
+	
+	public String getMaxTemp(JSONObject j){
+		return "";
+	}
+	
+	public String getSunrise(JSONObject j){
+		return "";
+	}
+	
+	public String getSunset(JSONObject j){
+		return "";
+	}
+	
+	public String getWindSpeed(JSONObject j){
+		return "";
+	}
+	
+	public String getWindDirection(JSONObject j){
+		return "";
+	}
+	
+	public String getAirPressure(JSONObject j){
+		return "";
+	}
+	
+	public String getSkyCondition(JSONObject j){
+		return "";
+	}
 }

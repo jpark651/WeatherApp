@@ -37,7 +37,16 @@ public class MainPanel extends JPanel{
 
 	// Panel Objects
 	static JTextField txtLocation;
-	private static JLabel lblTemp;
+	private static JLabel lblCity;
+	private static JLabel lblTemperature;
+	private static JLabel lblMinTemp;
+	private static JLabel lblMaxTemp;
+	private static JLabel lblSunrise;
+	private static JLabel lblSunset;
+	private static JLabel lblWindSpeed;
+	private static JLabel lblWindDirection;
+	private static JLabel lblAirPressure;
+	private static JLabel lblSkyCondition;
 	private JButton btnCompute;
 	final BufferedImage image;
 	
@@ -55,11 +64,50 @@ public class MainPanel extends JPanel{
 		};
 		txtLocation.setOpaque(false);
 		txtLocation.setPreferredSize(new Dimension(75, 25));
-		Font font = new Font("SansSerif", Font.BOLD, 18);
-		txtLocation.setFont(font);
+		Font font1 = new Font("SansSerif", Font.BOLD, 18);
+		txtLocation.setFont(font1);
 		
 		
-		lblTemp = new JLabel();
+		lblCity = new JLabel();
+		lblTemperature = new JLabel();
+		lblMinTemp = new JLabel();
+		lblMaxTemp = new JLabel();
+		lblSunrise = new JLabel();
+		lblSunset = new JLabel();
+		lblWindSpeed = new JLabel();
+		lblWindDirection = new JLabel();
+		lblAirPressure = new JLabel();
+		lblSkyCondition = new JLabel();
+		
+		Font font2 = new Font("SansSerif", Font.BOLD, 16);
+		Font font3 = new Font("SansSerif", Font.BOLD, 30);
+		
+		
+		lblCity.setFont(font3);
+		lblTemperature.setFont(font2);
+		lblMinTemp.setFont(font2);
+		lblMaxTemp.setFont(font2);
+		lblSunrise.setFont(font2);
+		lblSunset.setFont(font2);
+		lblWindSpeed.setFont(font2);
+		lblWindDirection.setFont(font2);
+		lblAirPressure.setFont(font2);
+		lblSkyCondition.setFont(font2);
+		
+		lblCity.setForeground(Color.white);
+		lblTemperature.setForeground(Color.white);
+		lblMinTemp.setForeground(Color.white);
+		lblMaxTemp.setForeground(Color.white);
+		lblSunrise.setForeground(Color.white);
+		lblSunset.setForeground(Color.white);
+		lblWindSpeed.setForeground(Color.white);
+		lblWindDirection.setForeground(Color.white);
+		lblAirPressure.setForeground(Color.white);
+		lblSkyCondition.setForeground(Color.white);
+		
+		
+		
+		
 		
 		if(cityName.length() > 0){
 			txtLocation.setText(cityName);
@@ -96,7 +144,16 @@ public class MainPanel extends JPanel{
 							.addGap(4)
 							.addComponent(txtLocation, 328, 328, 328)
 							.addPreferredGap(ComponentPlacement.RELATED, 81, Short.MAX_VALUE))
-						.addComponent(lblTemp, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblCity, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblTemperature, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblMinTemp, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblMaxTemp, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblSunrise, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblSunset, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblWindSpeed, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblWindDirection, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblAirPressure, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblSkyCondition, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		layout.setVerticalGroup(
@@ -106,8 +163,17 @@ public class MainPanel extends JPanel{
 						.addGroup(layout.createSequentialGroup()
 							.addGap(30)
 							.addComponent(txtLocation, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
-							.addComponent(lblTemp))
+							.addGap(50)
+							.addComponent(lblCity)
+							.addComponent(lblTemperature)
+							.addComponent(lblMinTemp)
+							.addComponent(lblMaxTemp)
+							.addComponent(lblSunrise)
+							.addComponent(lblSunset)
+							.addComponent(lblWindSpeed)
+							.addComponent(lblWindDirection)
+							.addComponent(lblAirPressure)
+							.addComponent(lblSkyCondition))
 						.addGroup(layout.createSequentialGroup()
 							.addGap(59)
 							))
@@ -127,13 +193,38 @@ public class MainPanel extends JPanel{
 
 		// If Error, Respond Accordingly
 		if (myCity.validate != true) {
-			lblTemp.setText("City Not Found");
+			lblCity.setText("City Not Found");
+			lblTemperature.setText("");
+			lblMinTemp.setText("");
+			lblMaxTemp.setText("");
+			lblSunrise.setText("");
+			lblSunset.setText("");
+			lblWindSpeed.setText("");
+			lblWindDirection.setText("");
+			lblAirPressure.setText("");
+			lblSkyCondition.setText("");
 
 			// If Valid, Display Data on Screen
 		} else {
-			lblTemp.setText("It is "
-					+ myCity.currentWeather.temperature
-					+ " degrees in " + txtLocation.getText());
+			lblCity.setText(txtLocation.getText());
+			lblTemperature.setText("Current Temperature: "
+					+ myCity.currentWeather.temperature);
+			lblMinTemp.setText("Minimum Temperature: "
+					+ myCity.currentWeather.minTemp);
+			lblMaxTemp.setText("Maximum Temperature: "
+					+ myCity.currentWeather.maxTemp);
+			lblSunrise.setText("Sunrise Today: "
+					+ myCity.currentWeather.sunrise);
+			lblSunset.setText("Sunset Today: "
+					+ myCity.currentWeather.sunset);
+			lblWindSpeed.setText("Wind Speed: "
+					+ myCity.currentWeather.windSpeed);
+			lblWindDirection.setText("Wind Direction: "
+					+ myCity.currentWeather.windDirection);
+			lblAirPressure.setText("Air Pressure: "
+					+ myCity.currentWeather.airPressure);
+			lblSkyCondition.setText("Sky Condition: "
+					+ myCity.currentWeather.skyCondition);
 		}
 	}
 	
