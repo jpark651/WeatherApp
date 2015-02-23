@@ -15,7 +15,7 @@ public class Utilities {
 		else if (unit == 'F')
 			return (int) Math.round((temp - 273.15)*1.8 + 32);
 		else
-			return -10000000;
+			return -1000000;
 	}
 	
 	public static double convertSpeed(double speed){
