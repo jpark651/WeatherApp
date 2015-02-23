@@ -37,7 +37,7 @@ public class MainFrame extends JFrame {
 
 	//MainWindow Constructor
 	public MainFrame() throws IOException {
-		
+		/*
 		try
 	      {
 			mp = new MainPanel(Serialize.restore());
@@ -50,7 +50,9 @@ public class MainFrame extends JFrame {
 	         System.out.println("MainPanel Not Found");
 	         c.printStackTrace();
 	 		 mp = new MainPanel("");
-	      }
+	      }*/
+		
+		mp = new MainPanel("");
 		
 		getContentPane().add(mp, BorderLayout.CENTER);
 		
