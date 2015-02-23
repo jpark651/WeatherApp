@@ -54,7 +54,7 @@ public class MainPanel extends JPanel{
 
 	// JPanel Form
 	public MainPanel(String cityName) throws IOException{
-		image = ImageIO.read(new File(".\\src\\resources\\gui.png"));
+		image = ImageIO.read(new File("./src/resources/gui.png"));
 
 		// Initialize Panel Objects
 		txtLocation =  new JTextField() {
