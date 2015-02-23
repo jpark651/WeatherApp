@@ -14,7 +14,7 @@ public class City {
 	// City Constructor - Retrieves weather data
 	public City(String name) {
 
-		JSONObject j = JSONRetriever.retrieveJSON(name);
+		JSONObject j = JSONRetriever.retrieveCurrent(name);
 
 		if (!j.has("Error")) {
 			this.validate = true;
