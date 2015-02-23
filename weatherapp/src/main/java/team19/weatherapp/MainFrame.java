@@ -38,6 +38,7 @@ public class MainFrame extends JFrame {
 
 	//MainWindow Constructor
 	public MainFrame() throws IOException {
+		
 		/*
 		try
 	      {
