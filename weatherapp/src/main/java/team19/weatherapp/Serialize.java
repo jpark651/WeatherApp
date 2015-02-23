@@ -16,12 +16,12 @@ public class Serialize {
 		try
         {
            FileOutputStream fileOut =
-           new FileOutputStream("snap.ser");
+           new FileOutputStream("snapshot.ser");
            ObjectOutputStream out = new ObjectOutputStream(fileOut);
            out.writeObject(snap);
            out.close();
            fileOut.close();
-           System.out.printf("Serialized data is saved in snap.ser");
+           System.out.println("Serialized data is saved in snapshot.ser");
         }catch(IOException i)
         {
             i.printStackTrace();
@@ -29,14 +29,13 @@ public class Serialize {
 	}
 	
 	public static String restore() throws IOException, ClassNotFoundException{
-        System.out.printf("Loading Data from snap.ser");
+        System.out.println("Loading Data from snapshot.ser");
 		String snap;
-		FileInputStream fileIn = new FileInputStream("snap.ser");
+		FileInputStream fileIn = new FileInputStream("snapshot.ser");
         ObjectInputStream in = new ObjectInputStream(fileIn);
         snap = (String) in.readObject();
         in.close();
         fileIn.close();
-        System.out.printf("Data Retrieved");
         return snap;
 	}
 	

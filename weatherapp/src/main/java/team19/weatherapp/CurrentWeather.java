@@ -47,7 +47,7 @@ String skyCondition;
 	
 	//Temperature getter
 	public String getTemperature(JSONObject j){
-		return j.getDouble("temp") + "";
+		return ((int)(j.getDouble("temp")*100)/(double)100)-272.15 + "";
 	}
 	
 	public String getMinTemp(JSONObject j){

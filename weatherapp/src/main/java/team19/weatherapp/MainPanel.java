@@ -119,11 +119,11 @@ public class MainPanel extends JPanel{
 		btnCompute.setBorderPainted(false);
 		btnCompute.setFocusPainted(false);
 		btnCompute.setContentAreaFilled(false);
-		btnCompute.setIcon(new ImageIcon(".\\src\\resources\\getWeather.png"));
+		btnCompute.setIcon(new ImageIcon("./src/resources/getWeather.png"));
 		btnCompute.setRolloverIcon(new ImageIcon(
-				".\\src\\resources\\getWeatherRoll.png"));
+				"./src/resources/getWeatherRoll.png"));
 		btnCompute.setPressedIcon(new ImageIcon(
-				".\\src\\resources\\getWeatherPress.png"));*/
+				"./src/resources/getWeatherPress.png"));*/
 
 		// ActionListener for the JButton
 		txtLocation.addActionListener(new ActionListener() {

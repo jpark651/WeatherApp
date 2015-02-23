@@ -39,7 +39,7 @@ public class JSONRetriever {
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 					(conn.getInputStream())));
 			String output;
-			System.out.println("Output from Server .... \n");
+			System.out.println("\nOutput from Server .... ");
 			while ((output = br.readLine()) != null) {
 				System.out.println(output);
 				str += output;

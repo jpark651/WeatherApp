@@ -39,21 +39,20 @@ public class MainFrame extends JFrame {
 	//MainWindow Constructor
 	public MainFrame() throws IOException {
 		
-		/*
+		
 		try
 	      {
 			mp = new MainPanel(Serialize.restore());
+	        System.out.println("Previous Save Found");
 	      }catch(IOException i)
 	      {
-	         i.printStackTrace();
 	 		mp = new MainPanel("");
+	 		System.out.println("Previous Save Not Found");
 	      }catch(ClassNotFoundException c)
 	      {
-	         System.out.println("MainPanel Not Found");
-	         c.printStackTrace();
-	 		 mp = new MainPanel("");
-	      }*/
-		mp = new MainPanel("");
+	 		mp = new MainPanel("");
+	 		System.out.println("Previous Save Not Found");
+	      }
 		
 		getContentPane().add(mp, BorderLayout.CENTER);
 		
@@ -73,7 +72,7 @@ public class MainFrame extends JFrame {
 		 
 		        if (result == JOptionPane.YES_OPTION){
 		        	Serialize.saveOnExit(mp.txtLocation.getText());
-		        	System.out.println(mp.txtLocation.getText());
+		        	System.out.println("Saved: " + mp.txtLocation.getText());
 		            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		        }
 		    }
