@@ -43,6 +43,7 @@ public class MainPanel extends JPanel{
 	private static JLabel lblAirPressure;
 	private static JLabel lblSkyCondition;
 	private static JLabel skyIcon;
+	private static JLabel lblUpdateTime;
 	private JButton btnCompute;
 	final BufferedImage image;
 	
@@ -75,6 +76,7 @@ public class MainPanel extends JPanel{
 		lblWindDirection = new JLabel();
 		lblAirPressure = new JLabel();
 		lblSkyCondition = new JLabel();
+		lblUpdateTime = new JLabel();
 		
 		Font font2 = new Font("SansSerif", Font.BOLD, 16);
 		Font font3 = new Font("SansSerif", Font.BOLD, 30);
@@ -89,6 +91,7 @@ public class MainPanel extends JPanel{
 		lblWindDirection.setFont(font2);
 		lblAirPressure.setFont(font2);
 		lblSkyCondition.setFont(font2);
+		lblUpdateTime.setFont(font2);
 		
 		lblCity.setForeground(Color.white);
 		lblTemperature.setForeground(Color.white);
@@ -100,7 +103,7 @@ public class MainPanel extends JPanel{
 		lblWindDirection.setForeground(Color.white);
 		lblAirPressure.setForeground(Color.white);
 		lblSkyCondition.setForeground(Color.white);
-		
+		lblUpdateTime.setForeground(Color.white);
 		
 		if(cityName.length() > 0){
 			txtLocation.setText(cityName);
@@ -138,6 +141,7 @@ public class MainPanel extends JPanel{
 							.addComponent(txtLocation, 328, 328, 328)
 							.addPreferredGap(ComponentPlacement.RELATED, 81, Short.MAX_VALUE))
 						.addComponent(lblCity, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGap(50)
 						.addComponent(skyIcon, 138, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblTemperature, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblMinTemp, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -147,7 +151,8 @@ public class MainPanel extends JPanel{
 						.addComponent(lblWindSpeed, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblWindDirection, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblAirPressure, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblSkyCondition, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblSkyCondition, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblUpdateTime, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		layout.setVerticalGroup(
@@ -169,6 +174,8 @@ public class MainPanel extends JPanel{
 							.addComponent(lblWindDirection)
 							.addComponent(lblAirPressure)
 							.addComponent(lblSkyCondition))
+							.addGap(300)
+							.addComponent(lblUpdateTime)
 						.addGroup(layout.createSequentialGroup()
 							.addGap(59)
 							))
@@ -198,10 +205,11 @@ public class MainPanel extends JPanel{
 			lblWindDirection.setText("");
 			lblAirPressure.setText("");
 			lblSkyCondition.setText("");
-
+			lblUpdateTime.setText("");
+			
 			// If Valid, Display Data on Screen
 		} else {
-			lblCity.setText(txtLocation.getText());
+			lblCity.setText(myCity.currentWeather.fullCityName);
 			skyIcon.setIcon(myCity.currentWeather.skyIcon);
 			lblTemperature.setText("Current Temperature: "
 					+ myCity.currentWeather.temperature);
@@ -221,6 +229,8 @@ public class MainPanel extends JPanel{
 					+ myCity.currentWeather.airPressure);
 			lblSkyCondition.setText("Sky Condition: "
 					+ myCity.currentWeather.skyCondition);
+			lblUpdateTime.setText("Last Updated: " 
+					+ myCity.currentWeather.timeUpdated);
 		}
 	}
 	

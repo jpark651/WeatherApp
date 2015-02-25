@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.text.SimpleDateFormat;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -25,6 +26,7 @@ public class CurrentWeather {
 	private JSONArray jWeatherArray;
 
 	//Current Weather attributes
+	String fullCityName;
 	String temperature;
 	String minTemp, maxTemp;
 	String sunrise, sunset;
@@ -32,6 +34,7 @@ public class CurrentWeather {
 	String airPressure;
 	String skyCondition;
 	ImageIcon skyIcon;
+	String timeUpdated;
 
 	//Current Weather Constructor - sets all variable values
 	public CurrentWeather(JSONObject j){
@@ -43,6 +46,7 @@ public class CurrentWeather {
 		this.jWind = j.getJSONObject("wind");
 		this.jClouds = j.getJSONObject("clouds");
 
+		this.fullCityName = getFullCityName(j);
 		this.temperature = getTemperature(jMain);
 		this.minTemp = getMinTemp(jMain);
 		this.maxTemp = getMaxTemp(jMain);
@@ -58,10 +62,16 @@ public class CurrentWeather {
 		catch(IOException e){
 			System.out.println("Error: Can't obtain sky icon");
 		}
+		this.timeUpdated = getTimeUpdated(j);
 
 	}
 
 	//Temperature getter
+	public String getFullCityName(JSONObject j){
+		String fullCityName = j.getString("name") + ", " + jSys.getString("country");
+		return fullCityName;
+	}
+	
 	public String getTemperature(JSONObject j){
 		return (int) Math.round(((j.getDouble("temp")*100)/(double)100)-272.15) + "";
 	}
@@ -76,14 +86,14 @@ public class CurrentWeather {
 
 	public String getSunrise(JSONObject j){
 		long sunriseDate = j.getLong("sunrise");
-		String date = new java.text.SimpleDateFormat("MM/dd/yyyy hh:mm a").format(new Date(sunriseDate*1000));
+		String date = new SimpleDateFormat("MM/dd/yyyy hh:mm a z").format(new Date(sunriseDate*1000));
 		
 		return date;
 	}
 
 	public String getSunset(JSONObject j){
 		long sunsetDate = j.getLong("sunset");
-		String date = new java.text.SimpleDateFormat("MM/dd/yyyy hh:mm a").format(new Date(sunsetDate*1000));
+		String date = new SimpleDateFormat("MM/dd/yyyy hh:mm a z").format(new Date(sunsetDate*1000));
 	    
 		return date;
 	}
@@ -101,7 +111,7 @@ public class CurrentWeather {
 	}
 
 	public String getSkyCondition(JSONObject j){
-		return j.getString("main");
+		return j.getString("description");
 	}
 	
 	private ImageIcon getSkyIcon(JSONObject j) throws IOException{
@@ -109,5 +119,12 @@ public class CurrentWeather {
 		BufferedImage img = ImageIO.read(new File(iconPic));
 		ImageIcon icon = new ImageIcon(img);
 		return icon;
+	}
+	
+	private String getTimeUpdated(JSONObject j){
+		long timeUpdated = j.getLong("dt");
+		String time = new SimpleDateFormat("MM/dd/yyyy hh:mm a z").format(new Date(timeUpdated*1000));
+	    
+		return time;
 	}
 }
