@@ -74,11 +74,11 @@ public class CurrentWeather {
 	}
 
 	public String getWindSpeed(JSONObject j){
-		return jWind.getDouble("speed") + " m/s";
+		return j.getDouble("speed") + " m/s";
 	}
 
 	public String getWindDirection(JSONObject j){
-		return jWind.getDouble("deg") + "";
+		return j.getDouble("deg") + "";
 	}
 
 	public String getAirPressure(JSONObject j){
@@ -86,6 +86,10 @@ public class CurrentWeather {
 	}
 
 	public String getSkyCondition(JSONObject j){
-		return jWeather.getString("main");
+		return j.getString("main");
+	}
+	
+	private String getSkyIconID(JSONObject j){
+		return j.getString("id");
 	}
 }
