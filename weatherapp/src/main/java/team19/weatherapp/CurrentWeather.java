@@ -2,7 +2,15 @@ package team19.weatherapp;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 //Current Weather Class
 public class CurrentWeather {
@@ -23,6 +31,7 @@ public class CurrentWeather {
 	String windSpeed, windDirection;
 	String airPressure;
 	String skyCondition;
+	ImageIcon skyIcon;
 
 	//Current Weather Constructor - sets all variable values
 	public CurrentWeather(JSONObject j){
@@ -43,6 +52,12 @@ public class CurrentWeather {
 		this.windDirection = getWindDirection(jWind);
 		this.airPressure = getAirPressure(jMain);
 		this.skyCondition = getSkyCondition(jWeather);
+		try{
+			this.skyIcon = getSkyIcon(jWeather);
+		}
+		catch(IOException e){
+			System.out.println("Error: Can't obtain sky icon");
+		}
 
 	}
 
@@ -89,7 +104,10 @@ public class CurrentWeather {
 		return j.getString("main");
 	}
 	
-	private String getSkyIconID(JSONObject j){
-		return j.getString("id");
+	private ImageIcon getSkyIcon(JSONObject j) throws IOException{
+		String iconPic = "./src/resources/" + j.getString("icon") + ".png";
+		BufferedImage img = ImageIO.read(new File(iconPic));
+		ImageIcon icon = new ImageIcon(img);
+		return icon;
 	}
 }

@@ -23,8 +23,6 @@ public class App {
 				window.setSize(465, 815);
 				window.setVisible(true);
 				window.setLocationRelativeTo(null);
-
-				
 				
 			}
 		});

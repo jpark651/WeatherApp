@@ -30,11 +30,6 @@ import javax.swing.border.Border;
 //MainWindow Class
 public class MainPanel extends JPanel{
 	
-	
-	
-	
-
-
 	// Panel Objects
 	static JTextField txtLocation;
 	private static JLabel lblCity;
@@ -47,14 +42,17 @@ public class MainPanel extends JPanel{
 	private static JLabel lblWindDirection;
 	private static JLabel lblAirPressure;
 	private static JLabel lblSkyCondition;
+	private static JLabel skyIcon;
 	private JButton btnCompute;
 	final BufferedImage image;
 	
-
-
 	// JPanel Form
 	public MainPanel(String cityName) throws IOException{
 		image = ImageIO.read(new File("./src/resources/gui.png"));
+		
+		BufferedImage defaultIconImg = ImageIO.read(new File("./src/resources/error.png"));
+		ImageIcon defaultIcon = new ImageIcon(defaultIconImg);
+		skyIcon = new JLabel(defaultIcon);
 
 		// Initialize Panel Objects
 		txtLocation =  new JTextField() {
@@ -66,7 +64,6 @@ public class MainPanel extends JPanel{
 		txtLocation.setPreferredSize(new Dimension(75, 25));
 		Font font1 = new Font("SansSerif", Font.BOLD, 18);
 		txtLocation.setFont(font1);
-		
 		
 		lblCity = new JLabel();
 		lblTemperature = new JLabel();
@@ -81,7 +78,6 @@ public class MainPanel extends JPanel{
 		
 		Font font2 = new Font("SansSerif", Font.BOLD, 16);
 		Font font3 = new Font("SansSerif", Font.BOLD, 30);
-		
 		
 		lblCity.setFont(font3);
 		lblTemperature.setFont(font2);
@@ -104,9 +100,6 @@ public class MainPanel extends JPanel{
 		lblWindDirection.setForeground(Color.white);
 		lblAirPressure.setForeground(Color.white);
 		lblSkyCondition.setForeground(Color.white);
-		
-		
-		
 		
 		
 		if(cityName.length() > 0){
@@ -145,6 +138,7 @@ public class MainPanel extends JPanel{
 							.addComponent(txtLocation, 328, 328, 328)
 							.addPreferredGap(ComponentPlacement.RELATED, 81, Short.MAX_VALUE))
 						.addComponent(lblCity, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(skyIcon, 138, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblTemperature, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblMinTemp, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblMaxTemp, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -165,6 +159,7 @@ public class MainPanel extends JPanel{
 							.addComponent(txtLocation, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
 							.addGap(50)
 							.addComponent(lblCity)
+							.addComponent(skyIcon)
 							.addComponent(lblTemperature)
 							.addComponent(lblMinTemp)
 							.addComponent(lblMaxTemp)
@@ -207,6 +202,7 @@ public class MainPanel extends JPanel{
 			// If Valid, Display Data on Screen
 		} else {
 			lblCity.setText(txtLocation.getText());
+			skyIcon.setIcon(myCity.currentWeather.skyIcon);
 			lblTemperature.setText("Current Temperature: "
 					+ myCity.currentWeather.temperature);
 			lblMinTemp.setText("Minimum Temperature: "
@@ -227,8 +223,6 @@ public class MainPanel extends JPanel{
 					+ myCity.currentWeather.skyCondition);
 		}
 	}
-	
-	
 	
 	@Override
     protected void paintComponent(Graphics g) {
