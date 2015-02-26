@@ -1,16 +1,18 @@
 package team19.weatherapp;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
+//test1234
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
+import java.sql.Date;
+import java.text.DecimalFormat; //decimal format
 import java.text.SimpleDateFormat;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 //Current Weather Class
 public class CurrentWeather {
@@ -74,29 +76,27 @@ public class CurrentWeather {
 	}
 	
 	public String getTemperature(JSONObject j){
-		return (int) Math.round(((j.getDouble("temp")*100)/(double)100)-272.15) + "";
+		return roundTwoDecimals(j.getDouble("temp") - 272.15) + "";
 	}
 
 	public String getMinTemp(JSONObject j){
-		return (int) Math.round(((j.getDouble("temp_min")*100)/(double)100)-272.15) + "";
+
+		return roundTwoDecimals(j.getDouble("temp_min") - 272.15) + "";
 	}
 
 	public String getMaxTemp(JSONObject j){
-		return (int) Math.round(((j.getDouble("temp_max")*100)/(double)100)-272.15) + "";
+
+		return roundTwoDecimals(j.getDouble("temp_max") - 272.15) + "";
 	}
 
 	public String getSunrise(JSONObject j){
-		long sunriseDate = j.getLong("sunrise");
-		String date = new SimpleDateFormat("MM/dd/yyyy hh:mm a z").format(new Date(sunriseDate*1000));
-		
-		return date;
+
+		return timeFormat(j.getLong("sunrise")) + "";
 	}
 
 	public String getSunset(JSONObject j){
-		long sunsetDate = j.getLong("sunset");
-		String date = new SimpleDateFormat("MM/dd/yyyy hh:mm a z").format(new Date(sunsetDate*1000));
-	    
-		return date;
+
+		return timeFormat(j.getLong("sunset")) + "";
 	}
 
 	public String getWindSpeed(JSONObject j){
@@ -104,8 +104,8 @@ public class CurrentWeather {
 	}
 
 	public String getWindDirection(JSONObject j){
-		double deg = j.getDouble("deg");
-		return deg + " " + windDirection(deg);
+				return windDirectionForDegrees(j.getInt("deg")) + " (" + j.getInt("deg") + ")"; 
+
 	}
 
 	public String getAirPressure(JSONObject j){
@@ -125,6 +125,12 @@ public class CurrentWeather {
 		BufferedImage img = ImageIO.read(new File(iconPic));
 		ImageIcon icon = new ImageIcon(img);
 		return icon;
+	}
+	
+	String timeFormat(long seconds){
+		
+		String time = new java.text.SimpleDateFormat("HH:mm").format(new java.util.Date (seconds*1000));
+		return time;
 	}
 	
 	public String getTimeUpdated(JSONObject j){
@@ -152,4 +158,20 @@ public class CurrentWeather {
 		else
 			return "NW";
 	}
+	
+	String windDirectionForDegrees(int degrees){	
+		String directionArray[] = {"North","North East","East","South East","South","South West","West","North West"};		
+		int i = (int)((degrees + 22.5)/45);		
+	    return directionArray[i % 8];
+		
+	}
+	
+	/*
+	 * method to convert stuff into decimal 
+	 */
+	double roundTwoDecimals(double d) { 
+	      DecimalFormat twoDForm = new DecimalFormat("#.##"); 
+	      return Double.valueOf(twoDForm.format(d));
+	}  
 }
+
