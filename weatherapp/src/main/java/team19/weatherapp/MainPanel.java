@@ -41,6 +41,7 @@ public class MainPanel extends JPanel{
 	private static JLabel lblWindSpeed;
 	private static JLabel lblWindDirection;
 	private static JLabel lblAirPressure;
+	private static JLabel lblHumidity;
 	private static JLabel lblSkyCondition;
 	private static JLabel skyIcon;
 	private static JLabel lblUpdateTime;
@@ -75,6 +76,7 @@ public class MainPanel extends JPanel{
 		lblWindSpeed = new JLabel();
 		lblWindDirection = new JLabel();
 		lblAirPressure = new JLabel();
+		lblHumidity = new JLabel();
 		lblSkyCondition = new JLabel();
 		lblUpdateTime = new JLabel();
 		
@@ -90,6 +92,7 @@ public class MainPanel extends JPanel{
 		lblWindSpeed.setFont(font2);
 		lblWindDirection.setFont(font2);
 		lblAirPressure.setFont(font2);
+		lblHumidity.setFont(font2);
 		lblSkyCondition.setFont(font2);
 		lblUpdateTime.setFont(font2);
 		
@@ -102,6 +105,7 @@ public class MainPanel extends JPanel{
 		lblWindSpeed.setForeground(Color.white);
 		lblWindDirection.setForeground(Color.white);
 		lblAirPressure.setForeground(Color.white);
+		lblHumidity.setForeground(Color.white);
 		lblSkyCondition.setForeground(Color.white);
 		lblUpdateTime.setForeground(Color.white);
 		
@@ -151,6 +155,7 @@ public class MainPanel extends JPanel{
 						.addComponent(lblWindSpeed, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblWindDirection, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblAirPressure, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblHumidity, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblSkyCondition, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblUpdateTime, 50, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
@@ -173,6 +178,7 @@ public class MainPanel extends JPanel{
 							.addComponent(lblWindSpeed)
 							.addComponent(lblWindDirection)
 							.addComponent(lblAirPressure)
+							.addComponent(lblHumidity)
 							.addComponent(lblSkyCondition))
 							.addGap(300)
 							.addComponent(lblUpdateTime)
@@ -204,6 +210,7 @@ public class MainPanel extends JPanel{
 			lblWindSpeed.setText("");
 			lblWindDirection.setText("");
 			lblAirPressure.setText("");
+			lblHumidity.setText("");
 			lblSkyCondition.setText("");
 			lblUpdateTime.setText("");
 			
@@ -227,6 +234,8 @@ public class MainPanel extends JPanel{
 					+ myCity.currentWeather.windDirection);
 			lblAirPressure.setText("Air Pressure: "
 					+ myCity.currentWeather.airPressure);
+			lblHumidity.setText("Humidity: "
+					+ myCity.currentWeather.humidity);
 			lblSkyCondition.setText("Sky Condition: "
 					+ myCity.currentWeather.skyCondition);
 			lblUpdateTime.setText("Last Updated: " 

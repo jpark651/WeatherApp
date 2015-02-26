@@ -32,6 +32,7 @@ public class CurrentWeather {
 	String sunrise, sunset;
 	String windSpeed, windDirection;
 	String airPressure;
+	String humidity;
 	String skyCondition;
 	ImageIcon skyIcon;
 	String timeUpdated;
@@ -55,6 +56,7 @@ public class CurrentWeather {
 		this.windSpeed = getWindSpeed(jWind);
 		this.windDirection = getWindDirection(jWind);
 		this.airPressure = getAirPressure(jMain);
+		this.humidity = getHumidity(jMain);
 		this.skyCondition = getSkyCondition(jWeather);
 		try{
 			this.skyIcon = getSkyIcon(jWeather);
@@ -103,28 +105,52 @@ public class CurrentWeather {
 	}
 
 	public String getWindDirection(JSONObject j){
-		return j.getDouble("deg") + "";
+		double deg = j.getDouble("deg");
+		return deg + " " + windDirection(deg);
 	}
 
 	public String getAirPressure(JSONObject j){
-		return j.getDouble("pressure")+ " kPa";
+		return j.getDouble("pressure") + " kPa";
 	}
-
+	
+	public String getHumidity(JSONObject j){
+		return j.getLong("humidity") + "%";
+	}
+	
 	public String getSkyCondition(JSONObject j){
 		return j.getString("description");
 	}
 	
-	private ImageIcon getSkyIcon(JSONObject j) throws IOException{
+	public ImageIcon getSkyIcon(JSONObject j) throws IOException{
 		String iconPic = "./src/resources/" + j.getString("icon") + ".png";
 		BufferedImage img = ImageIO.read(new File(iconPic));
 		ImageIcon icon = new ImageIcon(img);
 		return icon;
 	}
 	
-	private String getTimeUpdated(JSONObject j){
+	public String getTimeUpdated(JSONObject j){
 		long timeUpdated = j.getLong("dt");
 		String time = new SimpleDateFormat("MM/dd/yyyy hh:mm a z").format(new Date(timeUpdated*1000));
 	    
 		return time;
+	}
+	
+	private static String windDirection(double deg){
+		if(deg>=337.5 && deg < 22.5)
+			return "N";
+		else if(deg>=22.5 && deg < 67.5)
+			return "NE";
+		else if(deg>=67.5 && deg < 112.5)
+			return "E";
+		else if(deg>=112.5 && deg < 157.5)
+			return "SE";
+		else if(deg>=157.5 && deg < 202.5)
+			return "S";
+		else if(deg>=202.5 && deg < 247.5)
+			return "SW";
+		else if(deg>=247.5 && deg < 292.5)
+			return "W";
+		else
+			return "NW";
 	}
 }
