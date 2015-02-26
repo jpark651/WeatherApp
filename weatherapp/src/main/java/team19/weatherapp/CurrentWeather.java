@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 //Current Weather Class
 public class CurrentWeather {
