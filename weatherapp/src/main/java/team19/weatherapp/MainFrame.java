@@ -56,6 +56,8 @@ public class MainFrame extends JFrame {
 		
 		getContentPane().add(mp, BorderLayout.CENTER);
 		
+		this.setTitle("WeatherApp");
+		
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		 
 		this.addWindowListener( new WindowAdapter()

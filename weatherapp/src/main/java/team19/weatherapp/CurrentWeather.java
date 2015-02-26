@@ -110,7 +110,7 @@ public class CurrentWeather {
 	}
 
 	public String getAirPressure(JSONObject j){
-		return j.getDouble("pressure") + " kPa";
+		return j.getDouble("pressure") + " hPa";
 	}
 	
 	public String getHumidity(JSONObject j){
