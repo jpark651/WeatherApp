@@ -104,7 +104,7 @@ public class CurrentWeather {
 	}
 
 	public String getWindDirection(JSONObject j){
-				return windDirectionForDegrees(j.getInt("deg")) + " (" + j.getInt("deg") + ")"; 
+		return windDirectionForDegrees(j.getInt("deg")) + " (" + j.getInt("deg") + ")"; 
 
 	}
 
@@ -129,7 +129,7 @@ public class CurrentWeather {
 	
 	String timeFormat(long seconds){
 		
-		String time = new java.text.SimpleDateFormat("HH:mm").format(new java.util.Date (seconds*1000));
+		String time = new java.text.SimpleDateFormat("HH:mm a z").format(new java.util.Date (seconds*1000));
 		return time;
 	}
 	
@@ -139,26 +139,7 @@ public class CurrentWeather {
 	    
 		return time;
 	}
-	
-	private static String windDirection(double deg){
-		if(deg>=337.5 && deg < 22.5)
-			return "N";
-		else if(deg>=22.5 && deg < 67.5)
-			return "NE";
-		else if(deg>=67.5 && deg < 112.5)
-			return "E";
-		else if(deg>=112.5 && deg < 157.5)
-			return "SE";
-		else if(deg>=157.5 && deg < 202.5)
-			return "S";
-		else if(deg>=202.5 && deg < 247.5)
-			return "SW";
-		else if(deg>=247.5 && deg < 292.5)
-			return "W";
-		else
-			return "NW";
-	}
-	
+
 	String windDirectionForDegrees(int degrees){	
 		String directionArray[] = {"North","North East","East","South East","South","South West","West","North West"};		
 		int i = (int)((degrees + 22.5)/45);		
