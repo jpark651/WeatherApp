@@ -39,15 +39,12 @@ public class App {
 			public void run() {
 				
 				//Initialize MainWindow object
-				MainFrame window = null;
-				try {
-					window = new MainFrame();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				TestPanel window = null;
+				window = new TestPanel();
+				
 				
 				//Set window preferences
-				window.setSize(465, 815);
+				window.setSize(750, 550);
 				window.setVisible(true);
 				window.setLocationRelativeTo(null);
 				
