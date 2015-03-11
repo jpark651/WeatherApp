@@ -25,20 +25,21 @@ import javax.swing.JMenuItem;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.ImageIcon;
 import javax.swing.JRadioButtonMenuItem;
+
 import java.awt.Font;
+
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.factories.FormFactory;
+
+import java.awt.EventQueue;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 public class TestPanel extends JFrame {
 	private JTextField textField;
+
 	public TestPanel() {
 		
 		JMenuBar menu = new JMenuBar();
@@ -296,11 +297,18 @@ public class TestPanel extends JFrame {
 		JPanel pnlShortTerm = new JPanel();
 		tabbedPane.addTab("Short-Term", null, pnlShortTerm, null);
 		GridBagLayout gbl_pnlShortTerm = new GridBagLayout();
-		gbl_pnlShortTerm.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_pnlShortTerm.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_pnlShortTerm.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_pnlShortTerm.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_pnlShortTerm.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_pnlShortTerm.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		pnlShortTerm.setLayout(gbl_pnlShortTerm);
+		
+		Component verticalStrut = Box.createVerticalStrut(20);
+		GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
+		gbc_verticalStrut.insets = new Insets(0, 0, 5, 5);
+		gbc_verticalStrut.gridx = 2;
+		gbc_verticalStrut.gridy = 0;
+		pnlShortTerm.add(verticalStrut, gbc_verticalStrut);
 		
 		JLabel lblSTCityName = new JLabel("City Name, Country");
 		lblSTCityName.setFont(new Font("Helvetica Neue", Font.BOLD, 25));
@@ -308,15 +316,22 @@ public class TestPanel extends JFrame {
 		gbc_lblSTCityName.anchor = GridBagConstraints.WEST;
 		gbc_lblSTCityName.gridwidth = 6;
 		gbc_lblSTCityName.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSTCityName.gridx = 1;
+		gbc_lblSTCityName.gridx = 2;
 		gbc_lblSTCityName.gridy = 1;
 		pnlShortTerm.add(lblSTCityName, gbc_lblSTCityName);
+		
+		Component horizontalStrut_4 = Box.createHorizontalStrut(20);
+		GridBagConstraints gbc_horizontalStrut_4 = new GridBagConstraints();
+		gbc_horizontalStrut_4.insets = new Insets(0, 0, 5, 5);
+		gbc_horizontalStrut_4.gridx = 0;
+		gbc_horizontalStrut_4.gridy = 2;
+		pnlShortTerm.add(horizontalStrut_4, gbc_horizontalStrut_4);
 		
 		JLabel lblFirsthour = new JLabel("FirstHour");
 		GridBagConstraints gbc_lblFirsthour = new GridBagConstraints();
 		gbc_lblFirsthour.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFirsthour.anchor = GridBagConstraints.WEST;
-		gbc_lblFirsthour.gridx = 1;
+		gbc_lblFirsthour.gridx = 2;
 		gbc_lblFirsthour.gridy = 2;
 		pnlShortTerm.add(lblFirsthour, gbc_lblFirsthour);
 		
@@ -324,14 +339,14 @@ public class TestPanel extends JFrame {
 		GridBagConstraints gbc_lblFifthhour = new GridBagConstraints();
 		gbc_lblFifthhour.anchor = GridBagConstraints.WEST;
 		gbc_lblFifthhour.insets = new Insets(0, 0, 5, 5);
-		gbc_lblFifthhour.gridx = 6;
+		gbc_lblFifthhour.gridx = 7;
 		gbc_lblFifthhour.gridy = 2;
 		pnlShortTerm.add(lblFifthhour, gbc_lblFifthhour);
 		
 		JLabel lbl1stHrSkyIcon = new JLabel("SKY ICON");
 		GridBagConstraints gbc_lbl1stHrSkyIcon = new GridBagConstraints();
 		gbc_lbl1stHrSkyIcon.insets = new Insets(0, 0, 5, 5);
-		gbc_lbl1stHrSkyIcon.gridx = 1;
+		gbc_lbl1stHrSkyIcon.gridx = 2;
 		gbc_lbl1stHrSkyIcon.gridy = 3;
 		pnlShortTerm.add(lbl1stHrSkyIcon, gbc_lbl1stHrSkyIcon);
 		
@@ -339,14 +354,35 @@ public class TestPanel extends JFrame {
 		lbl1stHrTemp.setFont(new Font("Helvetica Neue", Font.PLAIN, 30));
 		GridBagConstraints gbc_lbl1stHrTemp = new GridBagConstraints();
 		gbc_lbl1stHrTemp.insets = new Insets(0, 0, 5, 5);
-		gbc_lbl1stHrTemp.gridx = 2;
+		gbc_lbl1stHrTemp.gridx = 3;
 		gbc_lbl1stHrTemp.gridy = 3;
 		pnlShortTerm.add(lbl1stHrTemp, gbc_lbl1stHrTemp);
+		
+		Component horizontalStrut_7 = Box.createHorizontalStrut(20);
+		GridBagConstraints gbc_horizontalStrut_7 = new GridBagConstraints();
+		gbc_horizontalStrut_7.insets = new Insets(0, 0, 5, 5);
+		gbc_horizontalStrut_7.gridx = 4;
+		gbc_horizontalStrut_7.gridy = 3;
+		pnlShortTerm.add(horizontalStrut_7, gbc_horizontalStrut_7);
+		
+		Component horizontalStrut_5 = Box.createHorizontalStrut(20);
+		GridBagConstraints gbc_horizontalStrut_5 = new GridBagConstraints();
+		gbc_horizontalStrut_5.insets = new Insets(0, 0, 5, 5);
+		gbc_horizontalStrut_5.gridx = 5;
+		gbc_horizontalStrut_5.gridy = 3;
+		pnlShortTerm.add(horizontalStrut_5, gbc_horizontalStrut_5);
+		
+		Component horizontalStrut_6 = Box.createHorizontalStrut(20);
+		GridBagConstraints gbc_horizontalStrut_6 = new GridBagConstraints();
+		gbc_horizontalStrut_6.insets = new Insets(0, 0, 5, 5);
+		gbc_horizontalStrut_6.gridx = 6;
+		gbc_horizontalStrut_6.gridy = 3;
+		pnlShortTerm.add(horizontalStrut_6, gbc_horizontalStrut_6);
 		
 		JLabel lbl5thHrSkyIcon = new JLabel("SKY ICON");
 		GridBagConstraints gbc_lbl5thHrSkyIcon = new GridBagConstraints();
 		gbc_lbl5thHrSkyIcon.insets = new Insets(0, 0, 5, 5);
-		gbc_lbl5thHrSkyIcon.gridx = 6;
+		gbc_lbl5thHrSkyIcon.gridx = 7;
 		gbc_lbl5thHrSkyIcon.gridy = 3;
 		pnlShortTerm.add(lbl5thHrSkyIcon, gbc_lbl5thHrSkyIcon);
 		
@@ -354,7 +390,7 @@ public class TestPanel extends JFrame {
 		lbl5thHrTemp.setFont(new Font("Helvetica Neue", Font.PLAIN, 30));
 		GridBagConstraints gbc_lbl5thHrTemp = new GridBagConstraints();
 		gbc_lbl5thHrTemp.insets = new Insets(0, 0, 5, 0);
-		gbc_lbl5thHrTemp.gridx = 7;
+		gbc_lbl5thHrTemp.gridx = 8;
 		gbc_lbl5thHrTemp.gridy = 3;
 		pnlShortTerm.add(lbl5thHrTemp, gbc_lbl5thHrTemp);
 		
@@ -362,7 +398,7 @@ public class TestPanel extends JFrame {
 		GridBagConstraints gbc_lblSecondhour = new GridBagConstraints();
 		gbc_lblSecondhour.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSecondhour.anchor = GridBagConstraints.WEST;
-		gbc_lblSecondhour.gridx = 1;
+		gbc_lblSecondhour.gridx = 2;
 		gbc_lblSecondhour.gridy = 4;
 		pnlShortTerm.add(lblSecondhour, gbc_lblSecondhour);
 		
@@ -370,14 +406,14 @@ public class TestPanel extends JFrame {
 		GridBagConstraints gbc_lblSixthhour = new GridBagConstraints();
 		gbc_lblSixthhour.anchor = GridBagConstraints.WEST;
 		gbc_lblSixthhour.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSixthhour.gridx = 6;
+		gbc_lblSixthhour.gridx = 7;
 		gbc_lblSixthhour.gridy = 4;
 		pnlShortTerm.add(lblSixthhour, gbc_lblSixthhour);
 		
 		JLabel lbl2ndHrSkyIcon = new JLabel("SKY ICON");
 		GridBagConstraints gbc_lbl2ndHrSkyIcon = new GridBagConstraints();
 		gbc_lbl2ndHrSkyIcon.insets = new Insets(0, 0, 5, 5);
-		gbc_lbl2ndHrSkyIcon.gridx = 1;
+		gbc_lbl2ndHrSkyIcon.gridx = 2;
 		gbc_lbl2ndHrSkyIcon.gridy = 5;
 		pnlShortTerm.add(lbl2ndHrSkyIcon, gbc_lbl2ndHrSkyIcon);
 		
@@ -385,14 +421,14 @@ public class TestPanel extends JFrame {
 		lbl2ndHrTemp.setFont(new Font("Helvetica Neue", Font.PLAIN, 30));
 		GridBagConstraints gbc_lbl2ndHrTemp = new GridBagConstraints();
 		gbc_lbl2ndHrTemp.insets = new Insets(0, 0, 5, 5);
-		gbc_lbl2ndHrTemp.gridx = 2;
+		gbc_lbl2ndHrTemp.gridx = 3;
 		gbc_lbl2ndHrTemp.gridy = 5;
 		pnlShortTerm.add(lbl2ndHrTemp, gbc_lbl2ndHrTemp);
 		
 		JLabel lbl6thHrSkyIcon = new JLabel("SKY ICON");
 		GridBagConstraints gbc_lbl6thHrSkyIcon = new GridBagConstraints();
 		gbc_lbl6thHrSkyIcon.insets = new Insets(0, 0, 5, 5);
-		gbc_lbl6thHrSkyIcon.gridx = 6;
+		gbc_lbl6thHrSkyIcon.gridx = 7;
 		gbc_lbl6thHrSkyIcon.gridy = 5;
 		pnlShortTerm.add(lbl6thHrSkyIcon, gbc_lbl6thHrSkyIcon);
 		
@@ -400,7 +436,7 @@ public class TestPanel extends JFrame {
 		lbl6thHrTemp.setFont(new Font("Helvetica Neue", Font.PLAIN, 30));
 		GridBagConstraints gbc_lbl6thHrTemp = new GridBagConstraints();
 		gbc_lbl6thHrTemp.insets = new Insets(0, 0, 5, 0);
-		gbc_lbl6thHrTemp.gridx = 7;
+		gbc_lbl6thHrTemp.gridx = 8;
 		gbc_lbl6thHrTemp.gridy = 5;
 		pnlShortTerm.add(lbl6thHrTemp, gbc_lbl6thHrTemp);
 		
@@ -408,7 +444,7 @@ public class TestPanel extends JFrame {
 		GridBagConstraints gbc_lblThirdhour = new GridBagConstraints();
 		gbc_lblThirdhour.insets = new Insets(0, 0, 5, 5);
 		gbc_lblThirdhour.anchor = GridBagConstraints.WEST;
-		gbc_lblThirdhour.gridx = 1;
+		gbc_lblThirdhour.gridx = 2;
 		gbc_lblThirdhour.gridy = 6;
 		pnlShortTerm.add(lblThirdhour, gbc_lblThirdhour);
 		
@@ -416,14 +452,14 @@ public class TestPanel extends JFrame {
 		GridBagConstraints gbc_lblSeventhhour = new GridBagConstraints();
 		gbc_lblSeventhhour.anchor = GridBagConstraints.WEST;
 		gbc_lblSeventhhour.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSeventhhour.gridx = 6;
+		gbc_lblSeventhhour.gridx = 7;
 		gbc_lblSeventhhour.gridy = 6;
 		pnlShortTerm.add(lblSeventhhour, gbc_lblSeventhhour);
 		
 		JLabel lbl3rdHrSkyIcon = new JLabel("SKY ICON");
 		GridBagConstraints gbc_lbl3rdHrSkyIcon = new GridBagConstraints();
 		gbc_lbl3rdHrSkyIcon.insets = new Insets(0, 0, 5, 5);
-		gbc_lbl3rdHrSkyIcon.gridx = 1;
+		gbc_lbl3rdHrSkyIcon.gridx = 2;
 		gbc_lbl3rdHrSkyIcon.gridy = 7;
 		pnlShortTerm.add(lbl3rdHrSkyIcon, gbc_lbl3rdHrSkyIcon);
 		
@@ -431,14 +467,14 @@ public class TestPanel extends JFrame {
 		lbl3rdHrTemp.setFont(new Font("Helvetica Neue", Font.PLAIN, 30));
 		GridBagConstraints gbc_lbl3rdHrTemp = new GridBagConstraints();
 		gbc_lbl3rdHrTemp.insets = new Insets(0, 0, 5, 5);
-		gbc_lbl3rdHrTemp.gridx = 2;
+		gbc_lbl3rdHrTemp.gridx = 3;
 		gbc_lbl3rdHrTemp.gridy = 7;
 		pnlShortTerm.add(lbl3rdHrTemp, gbc_lbl3rdHrTemp);
 		
 		JLabel lbl7thHrSkyIcon = new JLabel("SKY ICON");
 		GridBagConstraints gbc_lbl7thHrSkyIcon = new GridBagConstraints();
 		gbc_lbl7thHrSkyIcon.insets = new Insets(0, 0, 5, 5);
-		gbc_lbl7thHrSkyIcon.gridx = 6;
+		gbc_lbl7thHrSkyIcon.gridx = 7;
 		gbc_lbl7thHrSkyIcon.gridy = 7;
 		pnlShortTerm.add(lbl7thHrSkyIcon, gbc_lbl7thHrSkyIcon);
 		
@@ -446,7 +482,7 @@ public class TestPanel extends JFrame {
 		lbl7thHrTemp.setFont(new Font("Helvetica Neue", Font.PLAIN, 30));
 		GridBagConstraints gbc_lbl7thHrTemp = new GridBagConstraints();
 		gbc_lbl7thHrTemp.insets = new Insets(0, 0, 5, 0);
-		gbc_lbl7thHrTemp.gridx = 7;
+		gbc_lbl7thHrTemp.gridx = 8;
 		gbc_lbl7thHrTemp.gridy = 7;
 		pnlShortTerm.add(lbl7thHrTemp, gbc_lbl7thHrTemp);
 		
@@ -454,7 +490,7 @@ public class TestPanel extends JFrame {
 		GridBagConstraints gbc_lblFourthhour = new GridBagConstraints();
 		gbc_lblFourthhour.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFourthhour.anchor = GridBagConstraints.WEST;
-		gbc_lblFourthhour.gridx = 1;
+		gbc_lblFourthhour.gridx = 2;
 		gbc_lblFourthhour.gridy = 8;
 		pnlShortTerm.add(lblFourthhour, gbc_lblFourthhour);
 		
@@ -462,14 +498,14 @@ public class TestPanel extends JFrame {
 		GridBagConstraints gbc_lblEighthhour = new GridBagConstraints();
 		gbc_lblEighthhour.anchor = GridBagConstraints.WEST;
 		gbc_lblEighthhour.insets = new Insets(0, 0, 5, 5);
-		gbc_lblEighthhour.gridx = 6;
+		gbc_lblEighthhour.gridx = 7;
 		gbc_lblEighthhour.gridy = 8;
 		pnlShortTerm.add(lblEighthhour, gbc_lblEighthhour);
 		
 		JLabel lbl4thHrSkyIcon = new JLabel("SKY ICON");
 		GridBagConstraints gbc_lbl4thHrSkyIcon = new GridBagConstraints();
 		gbc_lbl4thHrSkyIcon.insets = new Insets(0, 0, 0, 5);
-		gbc_lbl4thHrSkyIcon.gridx = 1;
+		gbc_lbl4thHrSkyIcon.gridx = 2;
 		gbc_lbl4thHrSkyIcon.gridy = 9;
 		pnlShortTerm.add(lbl4thHrSkyIcon, gbc_lbl4thHrSkyIcon);
 		
@@ -477,21 +513,21 @@ public class TestPanel extends JFrame {
 		lbl4thHrTemp.setFont(new Font("Helvetica Neue", Font.PLAIN, 30));
 		GridBagConstraints gbc_lbl4thHrTemp = new GridBagConstraints();
 		gbc_lbl4thHrTemp.insets = new Insets(0, 0, 0, 5);
-		gbc_lbl4thHrTemp.gridx = 2;
+		gbc_lbl4thHrTemp.gridx = 3;
 		gbc_lbl4thHrTemp.gridy = 9;
 		pnlShortTerm.add(lbl4thHrTemp, gbc_lbl4thHrTemp);
 		
 		JLabel lbl8thHrSkyIcon = new JLabel("SKY ICON");
 		GridBagConstraints gbc_lbl8thHrSkyIcon = new GridBagConstraints();
 		gbc_lbl8thHrSkyIcon.insets = new Insets(0, 0, 0, 5);
-		gbc_lbl8thHrSkyIcon.gridx = 6;
+		gbc_lbl8thHrSkyIcon.gridx = 7;
 		gbc_lbl8thHrSkyIcon.gridy = 9;
 		pnlShortTerm.add(lbl8thHrSkyIcon, gbc_lbl8thHrSkyIcon);
 		
 		JLabel lbl8thHrTemp = new JLabel("XX C");
 		lbl8thHrTemp.setFont(new Font("Helvetica Neue", Font.PLAIN, 30));
 		GridBagConstraints gbc_lbl8thHrTemp = new GridBagConstraints();
-		gbc_lbl8thHrTemp.gridx = 7;
+		gbc_lbl8thHrTemp.gridx = 8;
 		gbc_lbl8thHrTemp.gridy = 9;
 		pnlShortTerm.add(lbl8thHrTemp, gbc_lbl8thHrTemp);
 		
@@ -504,6 +540,20 @@ public class TestPanel extends JFrame {
 		gbl_pnlLongTerm.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		pnlLongTerm.setLayout(gbl_pnlLongTerm);
 		
+		Component verticalStrut_1 = Box.createVerticalStrut(20);
+		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();
+		gbc_verticalStrut_1.insets = new Insets(0, 0, 5, 5);
+		gbc_verticalStrut_1.gridx = 1;
+		gbc_verticalStrut_1.gridy = 0;
+		pnlLongTerm.add(verticalStrut_1, gbc_verticalStrut_1);
+		
+		Component horizontalStrut_8 = Box.createHorizontalStrut(20);
+		GridBagConstraints gbc_horizontalStrut_8 = new GridBagConstraints();
+		gbc_horizontalStrut_8.insets = new Insets(0, 0, 5, 5);
+		gbc_horizontalStrut_8.gridx = 0;
+		gbc_horizontalStrut_8.gridy = 1;
+		pnlLongTerm.add(horizontalStrut_8, gbc_horizontalStrut_8);
+		
 		JLabel lblLTCityName = new JLabel("City Name, Country");
 		lblLTCityName.setFont(new Font("Helvetica Neue", Font.BOLD, 25));
 		GridBagConstraints gbc_lblLTCityName = new GridBagConstraints();
@@ -514,12 +564,33 @@ public class TestPanel extends JFrame {
 		gbc_lblLTCityName.gridy = 1;
 		pnlLongTerm.add(lblLTCityName, gbc_lblLTCityName);
 		
+		Component verticalStrut_2 = Box.createVerticalStrut(20);
+		GridBagConstraints gbc_verticalStrut_2 = new GridBagConstraints();
+		gbc_verticalStrut_2.insets = new Insets(0, 0, 5, 5);
+		gbc_verticalStrut_2.gridx = 1;
+		gbc_verticalStrut_2.gridy = 2;
+		pnlLongTerm.add(verticalStrut_2, gbc_verticalStrut_2);
+		
+		Component verticalStrut_3 = Box.createVerticalStrut(20);
+		GridBagConstraints gbc_verticalStrut_3 = new GridBagConstraints();
+		gbc_verticalStrut_3.insets = new Insets(0, 0, 5, 5);
+		gbc_verticalStrut_3.gridx = 1;
+		gbc_verticalStrut_3.gridy = 3;
+		pnlLongTerm.add(verticalStrut_3, gbc_verticalStrut_3);
+		
 		JLabel lblFirstday = new JLabel("FirstDay");
 		GridBagConstraints gbc_lblFirstday = new GridBagConstraints();
 		gbc_lblFirstday.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFirstday.gridx = 1;
 		gbc_lblFirstday.gridy = 4;
 		pnlLongTerm.add(lblFirstday, gbc_lblFirstday);
+		
+		Component horizontalStrut_9 = Box.createHorizontalStrut(20);
+		GridBagConstraints gbc_horizontalStrut_9 = new GridBagConstraints();
+		gbc_horizontalStrut_9.insets = new Insets(0, 0, 5, 5);
+		gbc_horizontalStrut_9.gridx = 2;
+		gbc_horizontalStrut_9.gridy = 4;
+		pnlLongTerm.add(horizontalStrut_9, gbc_horizontalStrut_9);
 		
 		JLabel lblSecondday = new JLabel("SecondDay");
 		GridBagConstraints gbc_lblSecondday = new GridBagConstraints();
@@ -528,12 +599,26 @@ public class TestPanel extends JFrame {
 		gbc_lblSecondday.gridy = 4;
 		pnlLongTerm.add(lblSecondday, gbc_lblSecondday);
 		
+		Component horizontalStrut_10 = Box.createHorizontalStrut(20);
+		GridBagConstraints gbc_horizontalStrut_10 = new GridBagConstraints();
+		gbc_horizontalStrut_10.insets = new Insets(0, 0, 5, 5);
+		gbc_horizontalStrut_10.gridx = 4;
+		gbc_horizontalStrut_10.gridy = 4;
+		pnlLongTerm.add(horizontalStrut_10, gbc_horizontalStrut_10);
+		
 		JLabel lblThirdday = new JLabel("ThirdDay");
 		GridBagConstraints gbc_lblThirdday = new GridBagConstraints();
 		gbc_lblThirdday.insets = new Insets(0, 0, 5, 5);
 		gbc_lblThirdday.gridx = 5;
 		gbc_lblThirdday.gridy = 4;
 		pnlLongTerm.add(lblThirdday, gbc_lblThirdday);
+		
+		Component horizontalStrut_11 = Box.createHorizontalStrut(20);
+		GridBagConstraints gbc_horizontalStrut_11 = new GridBagConstraints();
+		gbc_horizontalStrut_11.insets = new Insets(0, 0, 5, 5);
+		gbc_horizontalStrut_11.gridx = 6;
+		gbc_horizontalStrut_11.gridy = 4;
+		pnlLongTerm.add(horizontalStrut_11, gbc_horizontalStrut_11);
 		
 		JLabel lblFourthday = new JLabel("FourthDay");
 		GridBagConstraints gbc_lblFourthday = new GridBagConstraints();
@@ -542,12 +627,26 @@ public class TestPanel extends JFrame {
 		gbc_lblFourthday.gridy = 4;
 		pnlLongTerm.add(lblFourthday, gbc_lblFourthday);
 		
+		Component horizontalStrut_12 = Box.createHorizontalStrut(20);
+		GridBagConstraints gbc_horizontalStrut_12 = new GridBagConstraints();
+		gbc_horizontalStrut_12.insets = new Insets(0, 0, 5, 5);
+		gbc_horizontalStrut_12.gridx = 8;
+		gbc_horizontalStrut_12.gridy = 4;
+		pnlLongTerm.add(horizontalStrut_12, gbc_horizontalStrut_12);
+		
 		JLabel lblFifthday = new JLabel("FifthDay");
 		GridBagConstraints gbc_lblFifthday = new GridBagConstraints();
 		gbc_lblFifthday.insets = new Insets(0, 0, 5, 5);
 		gbc_lblFifthday.gridx = 9;
 		gbc_lblFifthday.gridy = 4;
 		pnlLongTerm.add(lblFifthday, gbc_lblFifthday);
+		
+		Component verticalStrut_4 = Box.createVerticalStrut(20);
+		GridBagConstraints gbc_verticalStrut_4 = new GridBagConstraints();
+		gbc_verticalStrut_4.insets = new Insets(0, 0, 5, 5);
+		gbc_verticalStrut_4.gridx = 1;
+		gbc_verticalStrut_4.gridy = 5;
+		pnlLongTerm.add(verticalStrut_4, gbc_verticalStrut_4);
 		
 		JLabel lbl1stDaySkyIcon = new JLabel("SKY ICON");
 		GridBagConstraints gbc_lbl1stDaySkyIcon = new GridBagConstraints();
@@ -623,6 +722,13 @@ public class TestPanel extends JFrame {
 		gbc_lbl5thDayTemp.gridx = 9;
 		gbc_lbl5thDayTemp.gridy = 7;
 		pnlLongTerm.add(lbl5thDayTemp, gbc_lbl5thDayTemp);
+		
+		Component verticalStrut_5 = Box.createVerticalStrut(20);
+		GridBagConstraints gbc_verticalStrut_5 = new GridBagConstraints();
+		gbc_verticalStrut_5.insets = new Insets(0, 0, 5, 5);
+		gbc_verticalStrut_5.gridx = 1;
+		gbc_verticalStrut_5.gridy = 8;
+		pnlLongTerm.add(verticalStrut_5, gbc_verticalStrut_5);
 		
 		JLabel lbl1stDayMin = new JLabel("Min: XX C");
 		GridBagConstraints gbc_lbl1stDayMin = new GridBagConstraints();
@@ -721,9 +827,13 @@ public class TestPanel extends JFrame {
 					.addContainerGap(288, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
+		
+		setSize(750,550);
+		setTitle("WeatherApp");
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		
-		
+	}
 
 }	
 
