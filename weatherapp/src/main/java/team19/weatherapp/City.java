@@ -41,14 +41,16 @@ public class City {
 
 		//Parses the JSON Data for the specified city
 		JSONObject j = JSONRetriever.retrieveCurrent(name);
+	    JSONObject js = JSONRetriever.retrieveShort(name);
+	    JSONObject jl = JSONRetriever.retrieveLong(name);
 
 		//If the city exists, validate it and save the data values
 		//If the city does not exist, mark as invalid
 		if (!j.has("Error")) {
 			this.validate = true;
 			this.currentWeather = new CurrentWeather(j,tempUnits,windUnits);
-			this.shortTermForecast = new ShortTermForecast(j);
-			this.longTermForecast = new LongTermForecast(j);
+			this.shortTermForecast = new ShortTermForecast(js,tempUnits);
+			this.longTermForecast = new LongTermForecast(jl,tempUnits);
 		} else {
 			this.validate = false;
 		}
