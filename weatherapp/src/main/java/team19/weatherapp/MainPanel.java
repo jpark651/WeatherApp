@@ -89,7 +89,7 @@ public class MainPanel extends JPanel {
 		}else{
 			this.tempUnits = 'C';
 		}
-		if (tUnits.length() > 0) {
+		if (wUnits.length() > 0) {
 			this.windUnits = wUnits.charAt(0);
 		}else{
 			this.windUnits = 'K';
@@ -125,10 +125,10 @@ public class MainPanel extends JPanel {
 			public void actionPerformed(ActionEvent event) {
 				if(windUnits=='M'){
 					windUnits = 'K';
-					btnWindUnits.setText("Change to KPH");
+					btnWindUnits.setText("Change to MPH");
 				}else{
 					windUnits = 'M';
-					btnWindUnits.setText("Change to MPH");
+					btnWindUnits.setText("Change to KPH");
 				}
 				screenUpdate();
 			}});
@@ -219,9 +219,17 @@ public class MainPanel extends JPanel {
 	private void initializePanelObjects(String cityName) {
 		
 		btnTempUnits = new JButton();
-		btnTempUnits.setText("Change to Farenheit");
+		if(tempUnits=='F'){
+		    btnTempUnits.setText("Change to Celcius");
+        }else{
+            btnTempUnits.setText("Change to Farenheit");
+        }
 		btnWindUnits = new JButton();
-		btnWindUnits.setText("Change to MPH");
+		if(windUnits=='M'){
+		    btnWindUnits.setText("Change to KPH");
+        }else{
+            btnWindUnits.setText("Change to MPH");
+        }
 		btnRefresh = new JButton();
 		btnRefresh.setText("Refresh");
 		
