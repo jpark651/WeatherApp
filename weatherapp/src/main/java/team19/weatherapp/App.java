@@ -1,6 +1,8 @@
 package team19.weatherapp;
 
 import java.io.IOException;
+import java.util.Arrays;
+
 import javax.swing.SwingUtilities;
 
 /**
@@ -37,10 +39,31 @@ public class App {
 	public static void main(String[] args) throws IOException {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				
-				//Initialize MainWindow object
-				TestPanel window = null;
-				window = new TestPanel();
+				TestPanel window = null;	
+				//Attempt to load previous user data
+				try
+			      {
+					String[] str =  Serialize.restore();
+					System.out.println("Loaded: " + Arrays.toString(str));
+					/* If previous save is valid, load the JPanel with
+					 * the specified information. If not, create a new
+					 * JPanel
+					 */
+					if (str.length == 3){
+						window = new TestPanel(str[0],str[1],str[2]);
+					}else{
+						window = new TestPanel("","","");
+				 		System.out.println("Previous Save Invalid");
+					}
+			      }catch(IOException i)
+			      {
+			 		window = new TestPanel("","","");
+			 		System.out.println("Previous Save Not Found");
+			      }catch(ClassNotFoundException c)
+			      {
+			 		window = new TestPanel("","","");
+			 		System.out.println("Previous Save Not Found");
+			      }
 				
 				
 				//Set window preferences

@@ -6,6 +6,7 @@ import javax.swing.JTabbedPane;
 
 import java.awt.BorderLayout;
 
+import javax.swing.AbstractButton;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -24,6 +25,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButtonMenuItem;
 
 import java.awt.Font;
@@ -33,14 +35,60 @@ import javax.swing.SwingConstants;
 import javax.swing.JTable;
 
 import java.awt.EventQueue;
+import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 
-public class TestPanel extends JFrame {
-	private JTextField textField;
+public class TestPanel extends JFrame{
+	
+	static JTextField txtLocation;
+	
+	private static ArrayList<JLabel> daily = new ArrayList<JLabel>();
+	private static JLabel lblTemperature = new JLabel();
+	private static JLabel lblMinTemp;
+	private static JLabel lblMaxTemp;
+	private static JLabel lblSunrise;
+	private static JLabel lblSunset;
+	private static JLabel lblWindSpeed;
+	private static JLabel lblWindDirection;
+	private static JLabel lblAirPressure;
+	private static JLabel lblHumidity;
+	private static JLabel lblSkyCondition;
+	private static JLabel lblSkyIcon;
+	private static JLabel lblUpdateTime;
+	private static JLabel lblRefreshTime;
+	private static JButton btnTempUnits;
+	private static JButton btnWindUnits;
+	private static JButton btnRefresh;
+	private static JLabel lblCity = new JLabel();
+	private static String lastRefresh;
+	static char tempUnits;
+	static char windUnits;
 
-	public TestPanel() {
+	public TestPanel(String cityName, String tUnits, String wUnits) {
+		
+		
+		
+		if (tUnits.length() > 0) {
+			this.tempUnits = tUnits.charAt(0);
+		}else{
+			this.tempUnits = 'C';
+		}
+		if (tUnits.length() > 0) {
+			this.windUnits = wUnits.charAt(0);
+		}else{
+			this.windUnits = 'K';
+		}
 		
 		JMenuBar menu = new JMenuBar();
 		
@@ -166,13 +214,13 @@ public class TestPanel extends JFrame {
 		JPanel pnlCurrentWeather = new JPanel();
 		tabbedPane.addTab("Current", null, pnlCurrentWeather, null);
 		
-		JLabel lblSkyicon = new JLabel("*** SKY ICON ***");
+		JLabel lblSkyIcon = new JLabel("*** SKY ICON ***");
 		
-		JLabel lblTemp = new JLabel("XX C");
-		lblTemp.setFont(new Font("Helvetica Neue", Font.BOLD, 50));
+		JLabel lblTemperature = new JLabel("XX C");
+		lblTemperature.setFont(new Font("Helvetica Neue", Font.BOLD, 50));
 		
-		JLabel lblCityname = new JLabel("CITY NAME, COUNTRY");
-		lblCityname.setFont(new Font("Helvetica Neue", Font.BOLD, 25));
+		final JLabel lblCity = new JLabel("CITY NAME, COUNTRY");
+		lblCity.setFont(new Font("Helvetica Neue", Font.BOLD, 25));
 		
 		JLabel lblExpectedmin = new JLabel("ExpectedMin:");
 		
@@ -244,26 +292,26 @@ public class TestPanel extends JFrame {
 									.addGroup(gl_pnlCurrentWeather.createParallelGroup(Alignment.LEADING)
 										.addComponent(lblSkycondition)
 										.addGroup(gl_pnlCurrentWeather.createSequentialGroup()
-											.addComponent(lblSkyicon, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+											.addComponent(lblSkyIcon, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
 											.addGap(18)
-											.addComponent(lblTemp))))))
+											.addComponent(lblTemperature))))))
 						.addGroup(gl_pnlCurrentWeather.createSequentialGroup()
 							.addGap(14)
-							.addComponent(lblCityname)))
+							.addComponent(lblCity)))
 					.addContainerGap(74, Short.MAX_VALUE))
 		);
 		gl_pnlCurrentWeather.setVerticalGroup(
 			gl_pnlCurrentWeather.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_pnlCurrentWeather.createSequentialGroup()
 					.addGap(21)
-					.addComponent(lblCityname)
+					.addComponent(lblCity)
 					.addGroup(gl_pnlCurrentWeather.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_pnlCurrentWeather.createSequentialGroup()
 							.addGap(18)
-							.addComponent(lblSkyicon, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE))
+							.addComponent(lblSkyIcon, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_pnlCurrentWeather.createSequentialGroup()
 							.addGap(45)
-							.addComponent(lblTemp)))
+							.addComponent(lblTemperature)))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(lblSkycondition)
 					.addGap(21)
@@ -805,8 +853,8 @@ public class TestPanel extends JFrame {
 		
 		JButton btnNewButton = new JButton("New button");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		txtLocation = new JTextField();
+		txtLocation.setColumns(10);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -814,25 +862,112 @@ public class TestPanel extends JFrame {
 					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnNewButton)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtLocation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(29, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(txtLocation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(29)
 					.addComponent(btnNewButton)
 					.addContainerGap(288, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
+
+		txtLocation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				screenUpdate();
+			
+
+			}});
 		
 		setSize(750,550);
 		setTitle("WeatherApp");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+        
+		
+		/* The windowListener saves the user data before the user closes
+		 * the application.
+		 */
+		this.addWindowListener( new WindowAdapter()
+		{
+		    public void windowClosing(WindowEvent e)
+		    {
+		        JFrame frame = (JFrame)e.getSource();
+		 
+		        int result = JOptionPane.showConfirmDialog(
+		            frame,
+		            "Are you sure you want to exit the application?",
+		            "Exit Application",
+		            JOptionPane.YES_NO_OPTION);
+		 
+		        if (result == JOptionPane.YES_OPTION){
+		        	if(txtLocation.getText().length() > 0){
+		        		
+		        		/* Write the save data here, delimited by underscore characters
+		        		 * 
+		        		 * Format is as follows:
+		        		 * 
+		        		 * A[0] Most Recent Location Search
+		        		 * A[1] Temperature Units
+		        		 * A[2] Speed Units
+		        		 */
+		        		String saveFile = (txtLocation.getText() + "_" + tempUnits + "_" + windUnits);
+		        		Serialize.saveOnExit(saveFile);
+		        		System.out.println("Saved: " + Arrays.toString(saveFile.split("_")));
+		        	}
+		            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		        }
+		    }
+		});
+		
+		
 
+		
+	}
+
+	//////////////////////////////////////////////////////////////////
+	//HELPER METHODS//////////////
+	
+	/**
+	 * Screenupdate is a helper class to MainPanel
+	 * It updates the labels on the screen when the
+	 * user requests a refresh, or when they search
+	 * for a new city location.
+	 */
+	
+	
+	private static void screenUpdate() {
+
+		lblCity.setText("Testing");
+		
+	}
+
+	/**
+	 * initializeDaily is a helper class to MainPanel
+	 * When the MainPanel constructor is first used,
+	 * initializeDaily sets up the "daily" list with
+	 * the relevant labels. This allows us to easily
+	 * update all of the labels at once by iterating
+	 * over the "daily" list object.
+	 */
+	private void initializeDaily() {
+		daily.add(lblTemperature);
+		daily.add(lblMinTemp);
+		daily.add(lblMaxTemp);
+		daily.add(lblSunrise);
+		daily.add(lblSunset);
+		daily.add(lblWindSpeed);
+		daily.add(lblWindDirection);
+		daily.add(lblAirPressure);
+		daily.add(lblHumidity);
+		daily.add(lblSkyCondition);
+		daily.add(lblUpdateTime);
+		daily.add(lblRefreshTime);
 	}
 
 }	
