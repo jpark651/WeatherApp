@@ -67,7 +67,6 @@ public class App {
 				
 				
 				//Set window preferences
-				window.setSize(750, 550);
 				window.setVisible(true);
 				window.setLocationRelativeTo(null);
 				
