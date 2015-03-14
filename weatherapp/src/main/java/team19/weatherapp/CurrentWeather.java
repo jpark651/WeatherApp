@@ -190,7 +190,8 @@ public class CurrentWeather {
 	 * @return		Returns the windspeed of the city in String Format
 	 */
 	public String getWindSpeed(JSONObject j){
-		return Utilities.convertSpeed(windUnits,j.getDouble("speed")) + "";
+	    
+	    return roundTwoDecimals(Utilities.convertSpeed(windUnits,j.getDouble("speed"))) + "";
 	}
 
 	/**
