@@ -1,21 +1,16 @@
 package team19.weatherapp;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.sql.Date;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONObject;
-import org.json.JSONArray;
 
 /**
  * The LongTermForecast class holds all of the long term weather data
@@ -32,9 +27,6 @@ import org.json.JSONArray;
  *
  */
 public class LongTermForecast {
-	
-	private JSONArray jListArray;
-	private char tempUnits;
 	
 	public String days[];
 	public String temperatures[];
