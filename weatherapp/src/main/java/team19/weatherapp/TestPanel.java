@@ -62,6 +62,7 @@ public class TestPanel extends JFrame{
 	/**
 	 * JLabels needed for the local weather view
 	 */
+	
 	private static JPanel pnlLocalWeather;
 	private static ArrayList<JLabel> local;
 	private static JLabel lblLocalTemperature;
@@ -585,24 +586,61 @@ public class TestPanel extends JFrame{
 		
 		txtLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				screenUpdate();
+				UpdateLocal();
 			}});
 		
 	}
 	/**
-	 * Screenupdate is a helper class to MainPanel
+	 * UpdateLocal is a helper class to MainPanel
 	 * It updates the labels on the screen when the
 	 * user requests a refresh, or when they search
 	 * for a new city location.
 	 */
 	
 	
-	private static void screenUpdate() {
+	private static void UpdateLocal() {
 
-		lblCity.setText("Testing");
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a z");
+		Calendar cal = Calendar.getInstance();
+		lastRefresh = dateFormat.format(cal.getTime());
+		
+		City myCity = new City(txtLocation.getText(),tempUnits, windUnits);
+
+		if (myCity.validate != true) {
+			lblCity.setText("City Not Found");
+
+		} else {
+			lblCity.setText(myCity.currentWeather.fullCityName);
+			lblLocalSkyIcon.setIcon(myCity.currentWeather.skyIcon);
+			lblLocalTemperature.setText("Current Temperature: "
+					+ myCity.currentWeather.temperature + " " + tempUnits);
+			lblLocalMinTemp.setText("Minimum Temperature: "
+					+ myCity.currentWeather.minTemp + " " + tempUnits);
+			lblLocalMaxTemp.setText("Maximum Temperature: "
+					+ myCity.currentWeather.maxTemp + " " + tempUnits);
+			lblLocalSunrise.setText("Sunrise Today: "
+					+ myCity.currentWeather.sunrise);
+			lblLocalSunset.setText("Sunset Today: " + myCity.currentWeather.sunset);
+			lblLocalWindSpeed.setText("Wind Speed: "
+					+ myCity.currentWeather.windSpeed + " " + windUnits + "PH");
+			lblLocalWindDirection.setText("Wind Direction: "
+					+ myCity.currentWeather.windDirection);
+			lblLocalAirPressure.setText("Air Pressure: "
+					+ myCity.currentWeather.airPressure);
+			lblLocalHumidity.setText("Humidity: " + myCity.currentWeather.humidity);
+			lblLocalSkyCondition.setText("Sky Condition: "
+					+ myCity.currentWeather.skyCondition);
+			lblRefreshTime.setText("Last Refreshed:   "
+					+ lastRefresh);
+		}
 		
 	}
 
+	
+	
+	
+	
+	
 	private static void insertJLabelIntoGrid(String panel, JLabel label, int gridwidth, 
 			int inset1, int inset2, int inset3, int inset4, int gridx, 
 			int gridy, boolean anchor){
