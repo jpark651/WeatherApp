@@ -612,24 +612,17 @@ public class TestPanel extends JFrame{
 		} else {
 			lblCity.setText(myCity.currentWeather.fullCityName);
 			lblLocalSkyIcon.setIcon(myCity.currentWeather.skyIcon);
-			lblLocalTemperature.setText("Current Temperature: "
-					+ myCity.currentWeather.temperature + " " + tempUnits);
-			lblLocalMinTemp.setText("Minimum Temperature: "
-					+ myCity.currentWeather.minTemp + " " + tempUnits);
-			lblLocalMaxTemp.setText("Maximum Temperature: "
-					+ myCity.currentWeather.maxTemp + " " + tempUnits);
-			lblLocalSunrise.setText("Sunrise Today: "
-					+ myCity.currentWeather.sunrise);
-			lblLocalSunset.setText("Sunset Today: " + myCity.currentWeather.sunset);
-			lblLocalWindSpeed.setText("Wind Speed: "
-					+ myCity.currentWeather.windSpeed + " " + windUnits + "PH");
-			lblLocalWindDirection.setText("Wind Direction: "
-					+ myCity.currentWeather.windDirection);
-			lblLocalAirPressure.setText("Air Pressure: "
-					+ myCity.currentWeather.airPressure);
-			lblLocalHumidity.setText("Humidity: " + myCity.currentWeather.humidity);
-			lblLocalSkyCondition.setText("Sky Condition: "
-					+ myCity.currentWeather.skyCondition);
+			lblLocalSkyIcon.setText("");
+			lblLocalTemperature.setText(myCity.currentWeather.temperature + " " + tempUnits);
+			lblLocalMinTemp.setText(myCity.currentWeather.minTemp + " " + tempUnits);
+			lblLocalMaxTemp.setText(myCity.currentWeather.maxTemp + " " + tempUnits);
+			lblLocalSunrise.setText(myCity.currentWeather.sunrise);
+			lblLocalSunset.setText(myCity.currentWeather.sunset);
+			lblLocalWindSpeed.setText(myCity.currentWeather.windSpeed + " " + windUnits + "PH");
+			lblLocalWindDirection.setText(myCity.currentWeather.windDirection);
+			lblLocalAirPressure.setText(myCity.currentWeather.airPressure);
+			lblLocalHumidity.setText(myCity.currentWeather.humidity);
+			lblLocalSkyCondition.setText(myCity.currentWeather.skyCondition);
 			lblRefreshTime.setText("Last Refreshed:   "
 					+ lastRefresh);
 		}
