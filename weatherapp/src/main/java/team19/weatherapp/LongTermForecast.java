@@ -182,7 +182,7 @@ public class LongTermForecast {
      * @throws IOException      If the image cannot be found, throws an error
      */
     public ImageIcon getSkyIcon(JSONObject j) throws IOException{
-        BufferedImage img = Utilities.getImage(j.getString("icon") + ".png");
+        BufferedImage img = Utilities.getImage(j.getString("icon") + "-small.png");
         ImageIcon icon = new ImageIcon(img);
         return icon;
     }

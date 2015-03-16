@@ -191,6 +191,8 @@ public class TestPanel extends JFrame{
 	private static JCheckBoxMenuItem showSkyCondMenuBtn;
 	
 	
+	private static City city;
+	
 	static char tempUnits;
 	static char windUnits;
 
@@ -247,20 +249,17 @@ public class TestPanel extends JFrame{
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         
-        
         /*
          * This sets current information from previous save
          */
-        
 		if (cityName.length() > 0) {
 			txtLocation.setText(cityName);
+			city = new City(cityName, tempUnits, windUnits);
 			UpdateLocal();
 			UpdateShortTerm();
 			UpdateLongTerm();
 			txtLocation.setText("");
 		}
-        
-        
 		
 		/* The windowListener saves the user data before the user closes
 		 * the application.
@@ -601,9 +600,7 @@ public class TestPanel extends JFrame{
 		
 		txtLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				UpdateLocal();
-				UpdateShortTerm();
-				UpdateLongTerm();
+				updateScreen();
 			}});
 		
 	}
@@ -614,76 +611,75 @@ public class TestPanel extends JFrame{
 	 * for a new city location.
 	 */
 	
-	
-	private static void UpdateLocal() {
-
+	private static void updateScreen(){
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a z");
 		Calendar cal = Calendar.getInstance();
 		lastRefresh = dateFormat.format(cal.getTime());
 		
-		City myCity = new City(txtLocation.getText(),tempUnits, windUnits);
-
-		if (myCity.validate != true) {
+		city = new City(txtLocation.getText(), tempUnits, windUnits);
+		
+		UpdateLocal();
+		UpdateShortTerm();
+		UpdateLongTerm();
+	}
+	
+	private static void UpdateLocal() {
+		
+		if (city.validate != true) {
 			lblCity.setText("City Not Found");
 
 		} else {
-			lblCity.setText(myCity.currentWeather.fullCityName);
-			lblLocalSkyIcon.setIcon(myCity.currentWeather.skyIcon);
+			lblCity.setText(city.currentWeather.fullCityName);
+			lblLocalSkyIcon.setIcon(city.currentWeather.skyIcon);
 			lblLocalSkyIcon.setText("");
-			lblLocalTemperature.setText(myCity.currentWeather.temperature + " " + tempUnits);
-			lblLocalMinTemp.setText(myCity.currentWeather.minTemp + " " + tempUnits);
-			lblLocalMaxTemp.setText(myCity.currentWeather.maxTemp + " " + tempUnits);
-			lblLocalSunrise.setText(myCity.currentWeather.sunrise);
-			lblLocalSunset.setText(myCity.currentWeather.sunset);
-			lblLocalWindSpeed.setText(myCity.currentWeather.windSpeed + " " + windUnits + "PH");
-			lblLocalWindDirection.setText(myCity.currentWeather.windDirection);
-			lblLocalAirPressure.setText(myCity.currentWeather.airPressure);
-			lblLocalHumidity.setText(myCity.currentWeather.humidity);
-			lblLocalSkyCondition.setText(myCity.currentWeather.skyCondition);
-			lblRefreshTime.setText("Last Refreshed:   "
-					+ lastRefresh);
+			lblLocalTemperature.setText(city.currentWeather.temperature + " " + tempUnits);
+			lblLocalMinTemp.setText(city.currentWeather.minTemp + " " + tempUnits);
+			lblLocalMaxTemp.setText(city.currentWeather.maxTemp + " " + tempUnits);
+			lblLocalSunrise.setText(city.currentWeather.sunrise);
+			lblLocalSunset.setText(city.currentWeather.sunset);
+			lblLocalWindSpeed.setText(city.currentWeather.windSpeed + " " + windUnits + "PH");
+			lblLocalWindDirection.setText(city.currentWeather.windDirection);
+			lblLocalAirPressure.setText(city.currentWeather.airPressure);
+			lblLocalHumidity.setText(city.currentWeather.humidity);
+			lblLocalSkyCondition.setText(city.currentWeather.skyCondition);
+			lblRefreshTime.setText("Last Refreshed:   " + lastRefresh);
 		}
 		
 	}
 	
 	private static void UpdateShortTerm() {
 
-		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a z");
-		Calendar cal = Calendar.getInstance();
-		lastRefresh = dateFormat.format(cal.getTime());
-		
-		City myCity = new City(txtLocation.getText(),tempUnits, windUnits);
 
-		if (myCity.validate != true) {
+		if (city.validate != true) {
 			lblCity.setText("City Not Found");
 
 		} else {
-			lblSTCity.setText(myCity.shortTermForecast.fullCityName);
+			lblSTCity.setText(city.shortTermForecast.fullCityName);
 
-			lbl1stHrTemp.setText(myCity.shortTermForecast.temperatureList.get(0));
-			lbl2ndHrTemp.setText(myCity.shortTermForecast.temperatureList.get(1));
-			lbl3rdHrTemp.setText(myCity.shortTermForecast.temperatureList.get(2));
-			lbl4thHrTemp.setText(myCity.shortTermForecast.temperatureList.get(3));
-			lbl5thHrTemp.setText(myCity.shortTermForecast.temperatureList.get(4));
-			lbl6thHrTemp.setText(myCity.shortTermForecast.temperatureList.get(5));
-			lbl7thHrTemp.setText(myCity.shortTermForecast.temperatureList.get(6));
-			lbl8thHrTemp.setText(myCity.shortTermForecast.temperatureList.get(7));
-			lbl1stHrSkyIcon.setIcon(myCity.shortTermForecast.skyIconList.get(0));
-			lbl2ndHrSkyIcon.setIcon(myCity.shortTermForecast.skyIconList.get(1));
-			lbl3rdHrSkyIcon.setIcon(myCity.shortTermForecast.skyIconList.get(2));
-			lbl4thHrSkyIcon.setIcon(myCity.shortTermForecast.skyIconList.get(3));
-			lbl5thHrSkyIcon.setIcon(myCity.shortTermForecast.skyIconList.get(4));
-			lbl6thHrSkyIcon.setIcon(myCity.shortTermForecast.skyIconList.get(5));
-			lbl7thHrSkyIcon.setIcon(myCity.shortTermForecast.skyIconList.get(6));
-			lbl8thHrSkyIcon.setIcon(myCity.shortTermForecast.skyIconList.get(7));
-			lbl1stHrSkyCondition.setText(myCity.shortTermForecast.skyConditionList.get(0));
-			lbl2ndHrSkyCondition.setText(myCity.shortTermForecast.skyConditionList.get(1));
-			lbl3rdHrSkyCondition.setText(myCity.shortTermForecast.skyConditionList.get(2));
-			lbl4thHrSkyCondition.setText(myCity.shortTermForecast.skyConditionList.get(3));
-			lbl5thHrSkyCondition.setText(myCity.shortTermForecast.skyConditionList.get(4));
-			lbl6thHrSkyCondition.setText(myCity.shortTermForecast.skyConditionList.get(5));
-			lbl7thHrSkyCondition.setText(myCity.shortTermForecast.skyConditionList.get(6));
-			lbl8thHrSkyCondition.setText(myCity.shortTermForecast.skyConditionList.get(7));
+			lbl1stHrTemp.setText(city.shortTermForecast.temperatureList.get(0)+tempUnits);
+			lbl2ndHrTemp.setText(city.shortTermForecast.temperatureList.get(1)+tempUnits);
+			lbl3rdHrTemp.setText(city.shortTermForecast.temperatureList.get(2)+tempUnits);
+			lbl4thHrTemp.setText(city.shortTermForecast.temperatureList.get(3)+tempUnits);
+			lbl5thHrTemp.setText(city.shortTermForecast.temperatureList.get(4)+tempUnits);
+			lbl6thHrTemp.setText(city.shortTermForecast.temperatureList.get(5)+tempUnits);
+			lbl7thHrTemp.setText(city.shortTermForecast.temperatureList.get(6)+tempUnits);
+			lbl8thHrTemp.setText(city.shortTermForecast.temperatureList.get(7)+tempUnits);
+			lbl1stHrSkyIcon.setIcon(city.shortTermForecast.skyIconList.get(0));
+			lbl2ndHrSkyIcon.setIcon(city.shortTermForecast.skyIconList.get(1));
+			lbl3rdHrSkyIcon.setIcon(city.shortTermForecast.skyIconList.get(2));
+			lbl4thHrSkyIcon.setIcon(city.shortTermForecast.skyIconList.get(3));
+			lbl5thHrSkyIcon.setIcon(city.shortTermForecast.skyIconList.get(4));
+			lbl6thHrSkyIcon.setIcon(city.shortTermForecast.skyIconList.get(5));
+			lbl7thHrSkyIcon.setIcon(city.shortTermForecast.skyIconList.get(6));
+			lbl8thHrSkyIcon.setIcon(city.shortTermForecast.skyIconList.get(7));
+			lbl1stHrSkyCondition.setText(city.shortTermForecast.skyConditionList.get(0));
+			lbl2ndHrSkyCondition.setText(city.shortTermForecast.skyConditionList.get(1));
+			lbl3rdHrSkyCondition.setText(city.shortTermForecast.skyConditionList.get(2));
+			lbl4thHrSkyCondition.setText(city.shortTermForecast.skyConditionList.get(3));
+			lbl5thHrSkyCondition.setText(city.shortTermForecast.skyConditionList.get(4));
+			lbl6thHrSkyCondition.setText(city.shortTermForecast.skyConditionList.get(5));
+			lbl7thHrSkyCondition.setText(city.shortTermForecast.skyConditionList.get(6));
+			lbl8thHrSkyCondition.setText(city.shortTermForecast.skyConditionList.get(7));
 		}
 		
 	}
@@ -691,43 +687,37 @@ public class TestPanel extends JFrame{
 	
 	private static void UpdateLongTerm() {
 
-		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a z");
-		Calendar cal = Calendar.getInstance();
-		lastRefresh = dateFormat.format(cal.getTime());
-		
-		City myCity = new City(txtLocation.getText(),tempUnits, windUnits);
-
-		if (myCity.validate != true) {
+		if (city.validate != true) {
 			lblCity.setText("City Not Found");
 
 		} else {
-			lblLTCity.setText(myCity.shortTermForecast.fullCityName);
+			lblLTCity.setText(city.shortTermForecast.fullCityName);
 
-			lbl1stDayTemp.setText(myCity.longTermForecast.temperatureList.get(0));
-			lbl2ndDayTemp.setText(myCity.longTermForecast.temperatureList.get(1));
-			lbl3rdDayTemp.setText(myCity.longTermForecast.temperatureList.get(2));
-			lbl4thDayTemp.setText(myCity.longTermForecast.temperatureList.get(3));
-			lbl5thDayTemp.setText(myCity.longTermForecast.temperatureList.get(4));
-			lbl1stDayMinTemp.setText(myCity.longTermForecast.minTempList.get(0));
-			lbl2ndDayMinTemp.setText(myCity.longTermForecast.minTempList.get(1));
-			lbl3rdDayMinTemp.setText(myCity.longTermForecast.minTempList.get(2));
-			lbl4thDayMinTemp.setText(myCity.longTermForecast.minTempList.get(3));
-			lbl5thDayMinTemp.setText(myCity.longTermForecast.minTempList.get(4));
-			lbl1stDayMaxTemp.setText(myCity.longTermForecast.maxTempList.get(0));
-			lbl2ndDayMaxTemp.setText(myCity.longTermForecast.maxTempList.get(1));
-			lbl3rdDayMaxTemp.setText(myCity.longTermForecast.maxTempList.get(2));
-			lbl4thDayMaxTemp.setText(myCity.longTermForecast.maxTempList.get(3));
-			lbl5thDayMaxTemp.setText(myCity.longTermForecast.maxTempList.get(4));
-			lbl1stDaySkyIcon.setIcon(myCity.longTermForecast.skyIconList.get(0));
-			lbl2ndDaySkyIcon.setIcon(myCity.longTermForecast.skyIconList.get(1));
-			lbl3rdDaySkyIcon.setIcon(myCity.longTermForecast.skyIconList.get(2));
-			lbl4thDaySkyIcon.setIcon(myCity.longTermForecast.skyIconList.get(3));
-			lbl5thDaySkyIcon.setIcon(myCity.longTermForecast.skyIconList.get(4));
-			lbl1stDaySkyCondition.setText(myCity.longTermForecast.skyConditionList.get(0));
-			lbl2ndDaySkyCondition.setText(myCity.longTermForecast.skyConditionList.get(1));
-			lbl3rdDaySkyCondition.setText(myCity.longTermForecast.skyConditionList.get(2));
-			lbl4thDaySkyCondition.setText(myCity.longTermForecast.skyConditionList.get(3));
-			lbl5thDaySkyCondition.setText(myCity.longTermForecast.skyConditionList.get(4));
+			lbl1stDayTemp.setText(city.longTermForecast.temperatureList.get(0)+tempUnits);
+			lbl2ndDayTemp.setText(city.longTermForecast.temperatureList.get(1)+tempUnits);
+			lbl3rdDayTemp.setText(city.longTermForecast.temperatureList.get(2)+tempUnits);
+			lbl4thDayTemp.setText(city.longTermForecast.temperatureList.get(3)+tempUnits);
+			lbl5thDayTemp.setText(city.longTermForecast.temperatureList.get(4)+tempUnits);
+			lbl1stDayMinTemp.setText(city.longTermForecast.minTempList.get(0)+tempUnits);
+			lbl2ndDayMinTemp.setText(city.longTermForecast.minTempList.get(1)+tempUnits);
+			lbl3rdDayMinTemp.setText(city.longTermForecast.minTempList.get(2)+tempUnits);
+			lbl4thDayMinTemp.setText(city.longTermForecast.minTempList.get(3)+tempUnits);
+			lbl5thDayMinTemp.setText(city.longTermForecast.minTempList.get(4)+tempUnits);
+			lbl1stDayMaxTemp.setText(city.longTermForecast.maxTempList.get(0)+tempUnits);
+			lbl2ndDayMaxTemp.setText(city.longTermForecast.maxTempList.get(1)+tempUnits);
+			lbl3rdDayMaxTemp.setText(city.longTermForecast.maxTempList.get(2)+tempUnits);
+			lbl4thDayMaxTemp.setText(city.longTermForecast.maxTempList.get(3)+tempUnits);
+			lbl5thDayMaxTemp.setText(city.longTermForecast.maxTempList.get(4)+tempUnits);
+			lbl1stDaySkyIcon.setIcon(city.longTermForecast.skyIconList.get(0));
+			lbl2ndDaySkyIcon.setIcon(city.longTermForecast.skyIconList.get(1));
+			lbl3rdDaySkyIcon.setIcon(city.longTermForecast.skyIconList.get(2));
+			lbl4thDaySkyIcon.setIcon(city.longTermForecast.skyIconList.get(3));
+			lbl5thDaySkyIcon.setIcon(city.longTermForecast.skyIconList.get(4));
+			lbl1stDaySkyCondition.setText(city.longTermForecast.skyConditionList.get(0));
+			lbl2ndDaySkyCondition.setText(city.longTermForecast.skyConditionList.get(1));
+			lbl3rdDaySkyCondition.setText(city.longTermForecast.skyConditionList.get(2));
+			lbl4thDaySkyCondition.setText(city.longTermForecast.skyConditionList.get(3));
+			lbl5thDaySkyCondition.setText(city.longTermForecast.skyConditionList.get(4));
 		}
 		
 	}
@@ -816,14 +806,14 @@ public class TestPanel extends JFrame{
 		shortTerm.add(lbl6thHrTemp = new JLabel("## C"));
 		shortTerm.add(lbl7thHrTemp = new JLabel("## C"));
 		shortTerm.add(lbl8thHrTemp = new JLabel("## C"));
-		shortTerm.add(lbl1stHrSkyIcon = new JLabel("SKY ICON"));
-		shortTerm.add(lbl2ndHrSkyIcon = new JLabel("SKY ICON"));
-		shortTerm.add(lbl3rdHrSkyIcon = new JLabel("SKY ICON"));
-		shortTerm.add(lbl4thHrSkyIcon = new JLabel("SKY ICON"));
-		shortTerm.add(lbl5thHrSkyIcon = new JLabel("SKY ICON"));
-		shortTerm.add(lbl6thHrSkyIcon = new JLabel("SKY ICON"));
-		shortTerm.add(lbl7thHrSkyIcon = new JLabel("SKY ICON"));
-		shortTerm.add(lbl8thHrSkyIcon = new JLabel("SKY ICON"));
+		shortTerm.add(lbl1stHrSkyIcon = new JLabel());
+		shortTerm.add(lbl2ndHrSkyIcon = new JLabel());
+		shortTerm.add(lbl3rdHrSkyIcon = new JLabel());
+		shortTerm.add(lbl4thHrSkyIcon = new JLabel());
+		shortTerm.add(lbl5thHrSkyIcon = new JLabel());
+		shortTerm.add(lbl6thHrSkyIcon = new JLabel());
+		shortTerm.add(lbl7thHrSkyIcon = new JLabel());
+		shortTerm.add(lbl8thHrSkyIcon = new JLabel());
 		shortTerm.add(lbl1stHrSkyCondition = new JLabel("Sky Condition"));
 		shortTerm.add(lbl2ndHrSkyCondition = new JLabel("Sky Condition"));
 		shortTerm.add(lbl3rdHrSkyCondition = new JLabel("Sky Condition"));
@@ -860,11 +850,11 @@ public class TestPanel extends JFrame{
 		longTerm.add(lbl3rdDayMaxTemp = new JLabel("Max: ## C"));
 		longTerm.add(lbl4thDayMaxTemp = new JLabel("Max: ## C"));
 		longTerm.add(lbl5thDayMaxTemp = new JLabel("Max: ## C"));
-		longTerm.add(lbl1stDaySkyIcon = new JLabel("SKY ICON"));
-		longTerm.add(lbl2ndDaySkyIcon = new JLabel("SKY ICON"));
-		longTerm.add(lbl3rdDaySkyIcon = new JLabel("SKY ICON"));
-		longTerm.add(lbl4thDaySkyIcon = new JLabel("SKY ICON"));
-		longTerm.add(lbl5thDaySkyIcon = new JLabel("SKY ICON"));
+		longTerm.add(lbl1stDaySkyIcon = new JLabel());
+		longTerm.add(lbl2ndDaySkyIcon = new JLabel());
+		longTerm.add(lbl3rdDaySkyIcon = new JLabel());
+		longTerm.add(lbl4thDaySkyIcon = new JLabel());
+		longTerm.add(lbl5thDaySkyIcon = new JLabel());
 		longTerm.add(lbl1stDaySkyCondition = new JLabel("sky condition"));
 		longTerm.add(lbl2ndDaySkyCondition = new JLabel("sky condition"));
 		longTerm.add(lbl3rdDaySkyCondition = new JLabel("sky condion"));

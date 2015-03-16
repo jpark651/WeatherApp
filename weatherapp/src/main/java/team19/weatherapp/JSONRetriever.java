@@ -258,7 +258,7 @@ public class JSONRetriever {
             BufferedReader br = new BufferedReader(new InputStreamReader(
                     (conn.getInputStream())));
             String output;
-            System.out.println("Output from Server:");
+            System.out.println("ST: Output from Server:");
             while ((output = br.readLine()) != null) {
                 System.out.println(output+"\n");
                 str += output;
@@ -308,7 +308,6 @@ public class JSONRetriever {
      *                      for the specified location
      */
     public static JSONObject retrieveLong(String location){
-        
         //Initialize Empty String
         String str = "";
 
@@ -317,7 +316,7 @@ public class JSONRetriever {
             
             //Get name parameter and combine this to form the URL
             String urlstring = "http://api.openweathermap.org/data/2.5/forecast/daily?q=";
-            String fullurl = urlstring + location;
+            String fullurl = urlstring + location + "&cnt=5";
             URL url = new URL(fullurl);
             
             //Send GET request to retrieve JSON data
@@ -335,7 +334,7 @@ public class JSONRetriever {
             BufferedReader br = new BufferedReader(new InputStreamReader(
                     (conn.getInputStream())));
             String output;
-            System.out.println("Output from Server:");
+            System.out.println("LT: Output from Server:");
             while ((output = br.readLine()) != null) {
                 System.out.println(output+"\n");
                 str += output;
