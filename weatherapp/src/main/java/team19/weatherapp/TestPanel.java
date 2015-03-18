@@ -80,7 +80,7 @@ public class TestPanel extends JFrame{
 	 * JLabels needed for the short-term forecast view
 	 */
 	private static JPanel pnlShortTerm;
-	private static ArrayList<JLabel> shortTerm;
+	private static ArrayList<JLabel> shortTermHours;
 	private static JLabel lbl1stHr;
 	private static JLabel lbl2ndHr;
 	private static JLabel lbl3rdHr;
@@ -117,7 +117,7 @@ public class TestPanel extends JFrame{
 	 * JLabels needed for the long-term forecast view
 	 */
 	private static JPanel pnlLongTerm;
-	private static ArrayList<JLabel> longTerm;
+	private static ArrayList<JLabel> longTermHours;
 	private static JLabel lbl1stDay;
 	private static JLabel lbl2ndDay;
 	private static JLabel lbl3rdDay;
@@ -244,7 +244,7 @@ public class TestPanel extends JFrame{
 		
 		initMenuPanel();
 		
-		setSize(775,525);
+		setSize(750,675);
 		setTitle("WeatherApp");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -397,6 +397,35 @@ public class TestPanel extends JFrame{
 		toolbar.add(btnTempUnits);
 		toolbar.add(btnWindUnits);
 		toolbar.add(btnRefresh);
+		
+		btnTempUnits.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				if(tempUnits=='C'){
+					tempUnits = 'F';
+					btnTempUnits.setText("Change to Celcius");
+				}else{
+					tempUnits = 'C';
+					btnTempUnits.setText("Change to Farenheit");
+				}
+				updateScreen();
+			}});
+		
+		btnWindUnits.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				if(windUnits=='M'){
+					windUnits = 'K';
+					btnWindUnits.setText("Change to MPH");
+				}else{
+					windUnits = 'M';
+					btnWindUnits.setText("Change to KPH");
+				}
+				updateScreen();
+			}});
+		
+		btnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				updateScreen();
+			}});
 	}
 	
 	private static void initMainPanels(){
@@ -525,12 +554,12 @@ public class TestPanel extends JFrame{
 		insertStrut("LT", 'V', 20, 0, 0, 5, 5, 1, 0);
 		insertStrut("LT", 'V', 20, 0, 0, 5, 5, 1, 2);
 		insertStrut("LT", 'V', 20, 0, 0, 5, 5, 1, 4);
-		insertStrut("LT", 'V', 20, 0, 0, 5, 5, 1 ,8);
-		insertStrut("LT", 'H', 20, 0 ,0 ,5, 5, 0 ,1);
-		insertStrut("LT", 'H', 20, 0 ,0 ,5, 5, 2 ,4);
-		insertStrut("LT", 'H', 20, 0 ,0 ,5, 5, 4 ,4);
-		insertStrut("LT", 'H', 20, 0 ,0 ,5, 5, 6 ,4);
-		insertStrut("LT", 'H', 20, 0 ,0 ,5, 5, 8 ,4);
+		insertStrut("LT", 'V', 20, 0, 0, 5, 5, 1, 8);
+		insertStrut("LT", 'H', 20, 0 ,0 ,5, 5, 0, 1);
+		insertStrut("LT", 'H', 20, 0 ,0 ,5, 5, 2, 4);
+		insertStrut("LT", 'H', 20, 0 ,0 ,5, 5, 4, 4);
+		insertStrut("LT", 'H', 20, 0 ,0 ,5, 5, 6, 4);
+		insertStrut("LT", 'H', 20, 0 ,0 ,5, 5, 8, 4);
 		
 		insertJLabelIntoGrid("LT", lbl1stDay, 0, 0, 0, 5, 5, 1, 3, false);
 		insertJLabelIntoGrid("LT", lbl1stDaySkyIcon, 0, 0, 0, 5, 5, 1, 5, false);
@@ -631,7 +660,6 @@ public class TestPanel extends JFrame{
 		} else {
 			lblCity.setText(city.currentWeather.fullCityName);
 			lblLocalSkyIcon.setIcon(city.currentWeather.skyIcon);
-			lblLocalSkyIcon.setText("");
 			lblLocalTemperature.setText(city.currentWeather.temperature + " " + tempUnits);
 			lblLocalMinTemp.setText(city.currentWeather.minTemp + " " + tempUnits);
 			lblLocalMaxTemp.setText(city.currentWeather.maxTemp + " " + tempUnits);
@@ -655,7 +683,14 @@ public class TestPanel extends JFrame{
 
 		} else {
 			lblSTCity.setText(city.shortTermForecast.fullCityName);
-
+			lbl1stHr.setText(city.shortTermForecast.timeList.get(0));
+			lbl2ndHr.setText(city.shortTermForecast.timeList.get(1));
+			lbl3rdHr.setText(city.shortTermForecast.timeList.get(2));
+			lbl4thHr.setText(city.shortTermForecast.timeList.get(3));
+			lbl5thHr.setText(city.shortTermForecast.timeList.get(4));
+			lbl6thHr.setText(city.shortTermForecast.timeList.get(5));
+			lbl7thHr.setText(city.shortTermForecast.timeList.get(6));
+			lbl8thHr.setText(city.shortTermForecast.timeList.get(7));
 			lbl1stHrTemp.setText(city.shortTermForecast.temperatureList.get(0)+tempUnits);
 			lbl2ndHrTemp.setText(city.shortTermForecast.temperatureList.get(1)+tempUnits);
 			lbl3rdHrTemp.setText(city.shortTermForecast.temperatureList.get(2)+tempUnits);
@@ -692,22 +727,26 @@ public class TestPanel extends JFrame{
 
 		} else {
 			lblLTCity.setText(city.shortTermForecast.fullCityName);
-
+			lbl1stDay.setText(city.longTermForecast.dateList.get(0));
+			lbl2ndDay.setText(city.longTermForecast.dateList.get(1));
+			lbl3rdDay.setText(city.longTermForecast.dateList.get(2));
+			lbl4thDay.setText(city.longTermForecast.dateList.get(3));
+			lbl5thDay.setText(city.longTermForecast.dateList.get(4));
 			lbl1stDayTemp.setText(city.longTermForecast.temperatureList.get(0)+tempUnits);
 			lbl2ndDayTemp.setText(city.longTermForecast.temperatureList.get(1)+tempUnits);
 			lbl3rdDayTemp.setText(city.longTermForecast.temperatureList.get(2)+tempUnits);
 			lbl4thDayTemp.setText(city.longTermForecast.temperatureList.get(3)+tempUnits);
 			lbl5thDayTemp.setText(city.longTermForecast.temperatureList.get(4)+tempUnits);
-			lbl1stDayMinTemp.setText(city.longTermForecast.minTempList.get(0)+tempUnits);
-			lbl2ndDayMinTemp.setText(city.longTermForecast.minTempList.get(1)+tempUnits);
-			lbl3rdDayMinTemp.setText(city.longTermForecast.minTempList.get(2)+tempUnits);
-			lbl4thDayMinTemp.setText(city.longTermForecast.minTempList.get(3)+tempUnits);
-			lbl5thDayMinTemp.setText(city.longTermForecast.minTempList.get(4)+tempUnits);
-			lbl1stDayMaxTemp.setText(city.longTermForecast.maxTempList.get(0)+tempUnits);
-			lbl2ndDayMaxTemp.setText(city.longTermForecast.maxTempList.get(1)+tempUnits);
-			lbl3rdDayMaxTemp.setText(city.longTermForecast.maxTempList.get(2)+tempUnits);
-			lbl4thDayMaxTemp.setText(city.longTermForecast.maxTempList.get(3)+tempUnits);
-			lbl5thDayMaxTemp.setText(city.longTermForecast.maxTempList.get(4)+tempUnits);
+			lbl1stDayMinTemp.setText("Min: " + city.longTermForecast.minTempList.get(0)+tempUnits);
+			lbl2ndDayMinTemp.setText("Min: " + city.longTermForecast.minTempList.get(1)+tempUnits);
+			lbl3rdDayMinTemp.setText("Min: " + city.longTermForecast.minTempList.get(2)+tempUnits);
+			lbl4thDayMinTemp.setText("Min: " + city.longTermForecast.minTempList.get(3)+tempUnits);
+			lbl5thDayMinTemp.setText("Min: " + city.longTermForecast.minTempList.get(4)+tempUnits);
+			lbl1stDayMaxTemp.setText("Max: " + city.longTermForecast.maxTempList.get(0)+tempUnits);
+			lbl2ndDayMaxTemp.setText("Max: " + city.longTermForecast.maxTempList.get(1)+tempUnits);
+			lbl3rdDayMaxTemp.setText("Max: " + city.longTermForecast.maxTempList.get(2)+tempUnits);
+			lbl4thDayMaxTemp.setText("Max: " + city.longTermForecast.maxTempList.get(3)+tempUnits);
+			lbl5thDayMaxTemp.setText("Max: " + city.longTermForecast.maxTempList.get(4)+tempUnits);
 			lbl1stDaySkyIcon.setIcon(city.longTermForecast.skyIconList.get(0));
 			lbl2ndDaySkyIcon.setIcon(city.longTermForecast.skyIconList.get(1));
 			lbl3rdDaySkyIcon.setIcon(city.longTermForecast.skyIconList.get(2));
@@ -771,17 +810,17 @@ public class TestPanel extends JFrame{
 	 */
 	private static void initializeLocal() {
 		local = new ArrayList<JLabel>();
-		local.add(lblLocalTemperature = new JLabel("## C"));
-		local.add(lblLocalMinTemp = new JLabel("## C"));
-		local.add(lblLocalMaxTemp = new JLabel("## C"));
-		local.add(lblLocalSunrise = new JLabel("MM/DD/YY hh:mm a"));
-		local.add(lblLocalSunset = new JLabel("MM/DD/YY hh:mm a"));
-		local.add(lblLocalWindSpeed = new JLabel("##.# km/h"));
-		local.add(lblLocalWindDirection = new JLabel("### X"));
-		local.add(lblLocalAirPressure = new JLabel("###.# hPa"));
-		local.add(lblLocalHumidity = new JLabel("##%"));
-		local.add(lblLocalSkyCondition = new JLabel("--sky condition--"));
-		local.add(lblLocalSkyIcon = new JLabel("-- SKY ICON --"));
+		local.add(lblLocalTemperature = new JLabel());
+		local.add(lblLocalMinTemp = new JLabel());
+		local.add(lblLocalMaxTemp = new JLabel());
+		local.add(lblLocalSunrise = new JLabel());
+		local.add(lblLocalSunset = new JLabel());
+		local.add(lblLocalWindSpeed = new JLabel());
+		local.add(lblLocalWindDirection = new JLabel());
+		local.add(lblLocalAirPressure = new JLabel());
+		local.add(lblLocalHumidity = new JLabel());
+		local.add(lblLocalSkyCondition = new JLabel());
+		local.add(lblLocalSkyIcon = new JLabel());
 	}
 	
 	/**
@@ -789,39 +828,42 @@ public class TestPanel extends JFrame{
 	 * to the ShortTerm JLabel ArrayList
 	 */
 	private static void initializeShortTerm(){
-		shortTerm = new ArrayList<JLabel>();
-		shortTerm.add(lbl1stHr = new JLabel("First Hour"));
-		shortTerm.add(lbl2ndHr = new JLabel("Second Hour"));
-		shortTerm.add(lbl3rdHr = new JLabel("Third Hour"));
-		shortTerm.add(lbl4thHr = new JLabel("Fourth Hour"));
-		shortTerm.add(lbl5thHr = new JLabel("Fifth Hour"));
-		shortTerm.add(lbl6thHr = new JLabel("Sixth Hour"));
-		shortTerm.add(lbl7thHr = new JLabel("Seventh Hour"));
-		shortTerm.add(lbl8thHr = new JLabel("Eighth Hour"));
-		shortTerm.add(lbl1stHrTemp = new JLabel("## C"));
-		shortTerm.add(lbl2ndHrTemp = new JLabel("## C"));
-		shortTerm.add(lbl3rdHrTemp = new JLabel("## C"));
-		shortTerm.add(lbl4thHrTemp = new JLabel("## C"));
-		shortTerm.add(lbl5thHrTemp = new JLabel("## C"));
-		shortTerm.add(lbl6thHrTemp = new JLabel("## C"));
-		shortTerm.add(lbl7thHrTemp = new JLabel("## C"));
-		shortTerm.add(lbl8thHrTemp = new JLabel("## C"));
-		shortTerm.add(lbl1stHrSkyIcon = new JLabel());
-		shortTerm.add(lbl2ndHrSkyIcon = new JLabel());
-		shortTerm.add(lbl3rdHrSkyIcon = new JLabel());
-		shortTerm.add(lbl4thHrSkyIcon = new JLabel());
-		shortTerm.add(lbl5thHrSkyIcon = new JLabel());
-		shortTerm.add(lbl6thHrSkyIcon = new JLabel());
-		shortTerm.add(lbl7thHrSkyIcon = new JLabel());
-		shortTerm.add(lbl8thHrSkyIcon = new JLabel());
-		shortTerm.add(lbl1stHrSkyCondition = new JLabel("Sky Condition"));
-		shortTerm.add(lbl2ndHrSkyCondition = new JLabel("Sky Condition"));
-		shortTerm.add(lbl3rdHrSkyCondition = new JLabel("Sky Condition"));
-		shortTerm.add(lbl4thHrSkyCondition = new JLabel("Sky Condition"));
-		shortTerm.add(lbl5thHrSkyCondition = new JLabel("Sky Condition"));
-		shortTerm.add(lbl6thHrSkyCondition = new JLabel("Sky Condition"));
-		shortTerm.add(lbl7thHrSkyCondition = new JLabel("Sky Condition"));
-		shortTerm.add(lbl8thHrSkyCondition = new JLabel("Sky Condition"));
+		shortTermHours = new ArrayList<JLabel>();
+		shortTermHours.add(lbl1stHr = new JLabel());
+		shortTermHours.add(lbl2ndHr = new JLabel());
+		shortTermHours.add(lbl3rdHr = new JLabel());
+		shortTermHours.add(lbl4thHr = new JLabel());
+		shortTermHours.add(lbl5thHr = new JLabel());
+		shortTermHours.add(lbl6thHr = new JLabel());
+		shortTermHours.add(lbl7thHr = new JLabel());
+		shortTermHours.add(lbl8thHr = new JLabel());
+		for(JLabel l : shortTermHours){
+			l.setFont(new Font("Helvetica Neue", Font.BOLD, 15));
+		}
+		lbl1stHrTemp = new JLabel();
+		lbl2ndHrTemp = new JLabel();
+		lbl3rdHrTemp = new JLabel();
+		lbl4thHrTemp = new JLabel();
+		lbl5thHrTemp = new JLabel();
+		lbl6thHrTemp = new JLabel();
+		lbl7thHrTemp = new JLabel();
+		lbl8thHrTemp = new JLabel();
+		lbl1stHrSkyIcon = new JLabel();
+		lbl2ndHrSkyIcon = new JLabel();
+		lbl3rdHrSkyIcon = new JLabel();
+		lbl4thHrSkyIcon = new JLabel();
+		lbl5thHrSkyIcon = new JLabel();
+		lbl6thHrSkyIcon = new JLabel();
+		lbl7thHrSkyIcon = new JLabel();
+		lbl8thHrSkyIcon = new JLabel();
+		lbl1stHrSkyCondition = new JLabel();
+		lbl2ndHrSkyCondition = new JLabel();
+		lbl3rdHrSkyCondition = new JLabel();
+		lbl4thHrSkyCondition = new JLabel();
+		lbl5thHrSkyCondition = new JLabel();
+		lbl6thHrSkyCondition = new JLabel();
+		lbl7thHrSkyCondition = new JLabel();
+		lbl8thHrSkyCondition = new JLabel();
 	}
 	
 	/**
@@ -829,37 +871,40 @@ public class TestPanel extends JFrame{
 	 * to the ShortTerm JLabel ArrayList
 	 */
 	private static void initializeLongTerm(){
-		longTerm = new ArrayList<JLabel>();
-		longTerm.add(lbl1stDay = new JLabel("First Day"));
-		longTerm.add(lbl2ndDay = new JLabel("Second Day"));
-		longTerm.add(lbl3rdDay = new JLabel("Third Day"));
-		longTerm.add(lbl4thDay = new JLabel("Fourth Day"));
-		longTerm.add(lbl5thDay = new JLabel("Fifth Day"));
-		longTerm.add(lbl1stDayTemp = new JLabel("## C"));
-		longTerm.add(lbl2ndDayTemp = new JLabel("## C"));
-		longTerm.add(lbl3rdDayTemp = new JLabel("## C"));
-		longTerm.add(lbl4thDayTemp = new JLabel("## C"));
-		longTerm.add(lbl5thDayTemp = new JLabel("## C"));
-		longTerm.add(lbl1stDayMinTemp = new JLabel("Min: ## C"));
-		longTerm.add(lbl2ndDayMinTemp = new JLabel("Min: ## C"));
-		longTerm.add(lbl3rdDayMinTemp = new JLabel("Min: ## C"));
-		longTerm.add(lbl4thDayMinTemp = new JLabel("Min: ## C"));
-		longTerm.add(lbl5thDayMinTemp = new JLabel("Min: ## C"));
-		longTerm.add(lbl1stDayMaxTemp = new JLabel("Max: ## C"));
-		longTerm.add(lbl2ndDayMaxTemp = new JLabel("Max: ## C"));
-		longTerm.add(lbl3rdDayMaxTemp = new JLabel("Max: ## C"));
-		longTerm.add(lbl4thDayMaxTemp = new JLabel("Max: ## C"));
-		longTerm.add(lbl5thDayMaxTemp = new JLabel("Max: ## C"));
-		longTerm.add(lbl1stDaySkyIcon = new JLabel());
-		longTerm.add(lbl2ndDaySkyIcon = new JLabel());
-		longTerm.add(lbl3rdDaySkyIcon = new JLabel());
-		longTerm.add(lbl4thDaySkyIcon = new JLabel());
-		longTerm.add(lbl5thDaySkyIcon = new JLabel());
-		longTerm.add(lbl1stDaySkyCondition = new JLabel("sky condition"));
-		longTerm.add(lbl2ndDaySkyCondition = new JLabel("sky condition"));
-		longTerm.add(lbl3rdDaySkyCondition = new JLabel("sky condion"));
-		longTerm.add(lbl4thDaySkyCondition = new JLabel("sky condition"));
-		longTerm.add(lbl5thDaySkyCondition = new JLabel("sky condition"));
+		longTermHours = new ArrayList<JLabel>();
+		longTermHours.add(lbl1stDay = new JLabel());
+		longTermHours.add(lbl2ndDay = new JLabel());
+		longTermHours.add(lbl3rdDay = new JLabel());
+		longTermHours.add(lbl4thDay = new JLabel());
+		longTermHours.add(lbl5thDay = new JLabel());
+		for(JLabel l : longTermHours){
+			l.setFont(new Font("Helvetica Neue", Font.BOLD, 15));
+		}
+		lbl1stDayTemp = new JLabel();
+		lbl2ndDayTemp = new JLabel();
+		lbl3rdDayTemp = new JLabel();
+		lbl4thDayTemp = new JLabel();
+		lbl5thDayTemp = new JLabel();
+		lbl1stDayMinTemp = new JLabel();
+		lbl2ndDayMinTemp = new JLabel();
+		lbl3rdDayMinTemp = new JLabel();
+		lbl4thDayMinTemp = new JLabel();
+		lbl5thDayMinTemp = new JLabel();
+		lbl1stDayMaxTemp = new JLabel();
+		lbl2ndDayMaxTemp = new JLabel();
+		lbl3rdDayMaxTemp = new JLabel();
+		lbl4thDayMaxTemp = new JLabel();
+		lbl5thDayMaxTemp = new JLabel();
+		lbl1stDaySkyIcon = new JLabel();
+		lbl2ndDaySkyIcon = new JLabel();
+		lbl3rdDaySkyIcon = new JLabel();
+		lbl4thDaySkyIcon = new JLabel();
+		lbl5thDaySkyIcon = new JLabel();
+		lbl1stDaySkyCondition = new JLabel();
+		lbl2ndDaySkyCondition = new JLabel();
+		lbl3rdDaySkyCondition = new JLabel();
+		lbl4thDaySkyCondition = new JLabel();
+		lbl5thDaySkyCondition = new JLabel();
 	}
 }	
 
