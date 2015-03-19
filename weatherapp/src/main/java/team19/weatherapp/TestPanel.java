@@ -244,10 +244,9 @@ public class TestPanel extends JFrame{
 		
 		initMenuPanel();
 		
-		setSize(750,675);
+		setSize(775,675);
 		setTitle("WeatherApp");
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
         
         /*
          * This sets current information from previous save
@@ -309,10 +308,20 @@ public class TestPanel extends JFrame{
 		menubar.add(fileMenu);
 		menubar.add(preferencesMenu);
 		
-		JMenuItem exitMenuBtn = new JMenuItem("Exit");
-		fileMenu.add(exitMenuBtn);
 		refreshMenuBtn = new JMenuItem("Refresh");
 		fileMenu.add(refreshMenuBtn);
+		JMenuItem exitMenuBtn = new JMenuItem("Exit");
+		fileMenu.add(exitMenuBtn);
+		
+		refreshMenuBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				updateScreen();
+			}});
+		
+		exitMenuBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				System.exit(0);
+			}});
 		
 		JMenu tempUnitsMenu = new JMenu("Temperature Units");
 		tempUnitMenuBtns = new ButtonGroup();
@@ -402,10 +411,8 @@ public class TestPanel extends JFrame{
 			public void actionPerformed(ActionEvent event) {
 				if(tempUnits=='C'){
 					tempUnits = 'F';
-					btnTempUnits.setText("Change to Celcius");
 				}else{
 					tempUnits = 'C';
-					btnTempUnits.setText("Change to Farenheit");
 				}
 				updateScreen();
 			}});
@@ -414,10 +421,8 @@ public class TestPanel extends JFrame{
 			public void actionPerformed(ActionEvent event) {
 				if(windUnits=='M'){
 					windUnits = 'K';
-					btnWindUnits.setText("Change to MPH");
 				}else{
 					windUnits = 'M';
-					btnWindUnits.setText("Change to KPH");
 				}
 				updateScreen();
 			}});
@@ -907,5 +912,3 @@ public class TestPanel extends JFrame{
 		lbl5thDaySkyCondition = new JLabel();
 	}
 }	
-
-
