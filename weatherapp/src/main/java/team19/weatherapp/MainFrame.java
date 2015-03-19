@@ -1,5 +1,11 @@
 package team19.weatherapp;
 
+/*
+ * REST IN PEACE MAINFRAME 2015-2015
+ */
+
+
+
 import javax.swing.JFrame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -24,8 +30,8 @@ import javax.swing.JOptionPane;
 public class MainFrame extends JFrame {
 	
 	//Initialize null panel
-	MainPanel mp = null;
-	MainPanel n = null;
+	TestPanel mp = null;
+	TestPanel n = null;
 
 	/**
 	 * The MainFrame Constructor attempts to create a JPanel
@@ -53,18 +59,18 @@ public class MainFrame extends JFrame {
 			 * JPanel
 			 */
 			if (str.length == 3){
-				mp = new MainPanel(str[0],str[1],str[2]);
+				mp = new TestPanel(str[0],str[1],str[2]);
 			}else{
-				mp = new MainPanel("","","");
+				mp = new TestPanel("","","");
 		 		System.out.println("Previous Save Invalid");
 			}
 	      }catch(IOException i)
 	      {
-	 		mp = new MainPanel("","","");
+	 		mp = new TestPanel("","","");
 	 		System.out.println("Previous Save Not Found");
 	      }catch(ClassNotFoundException c)
 	      {
-	 		mp = new MainPanel("","","");
+	 		mp = new TestPanel("","","");
 	 		System.out.println("Previous Save Not Found");
 	      }
 		
