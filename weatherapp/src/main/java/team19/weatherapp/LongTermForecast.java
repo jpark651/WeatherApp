@@ -1,21 +1,16 @@
 package team19.weatherapp;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.sql.Date;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONObject;
-import org.json.JSONArray;
 
 /**
  * The LongTermForecast class holds all of the long term weather data
@@ -32,9 +27,6 @@ import org.json.JSONArray;
  *
  */
 public class LongTermForecast {
-	
-	private JSONArray jListArray;
-	private char tempUnits;
 	
 	public String days[];
 	public String temperatures[];
@@ -190,7 +182,7 @@ public class LongTermForecast {
      * @throws IOException      If the image cannot be found, throws an error
      */
     public ImageIcon getSkyIcon(JSONObject j) throws IOException{
-        BufferedImage img = Utilities.getImage(j.getString("icon") + ".png");
+        BufferedImage img = Utilities.getImage(j.getString("icon") + "-small.png");
         ImageIcon icon = new ImageIcon(img);
         return icon;
     }
@@ -207,7 +199,7 @@ public class LongTermForecast {
      */
     public String getDate(JSONArray j, int index){
         long time = j.getJSONObject(index).getLong("dt");
-        String date = new SimpleDateFormat("MM/dd/yyyy").format(new Date(time*1000));
+        String date = new SimpleDateFormat("MMM dd").format(new Date(time*1000));
         
         return date;
     }

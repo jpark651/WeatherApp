@@ -41,8 +41,8 @@ public class City {
 
 		//Parses the JSON Data for the specified city
 		JSONObject j = JSONRetriever.retrieveCurrent(name);
-		JSONObject jShortTerm = JSONRetriever.retrieveShortTerm(name);
-		JSONObject jLongTerm = JSONRetriever.retrieveLongTerm(name);
+		//JSONObject jShortTerm = JSONRetriever.retrieveShortTerm(name);
+		//JSONObject jLongTerm = JSONRetriever.retrieveLongTerm(name);
 	    JSONObject js = JSONRetriever.retrieveShort(name);
 	    JSONObject jl = JSONRetriever.retrieveLong(name);
 
@@ -51,8 +51,8 @@ public class City {
 		if (!j.has("Error")) {
 			this.validate = true;
 			this.currentWeather = new CurrentWeather(j,tempUnits,windUnits);
-			this.shortTermForecast = new ShortTermForecast(jShortTerm,tempUnits);
-			this.longTermForecast = new LongTermForecast(jLongTerm,tempUnits);
+			//this.shortTermForecast = new ShortTermForecast(jShortTerm,tempUnits);
+			//this.longTermForecast = new LongTermForecast(jLongTerm,tempUnits);
 			this.shortTermForecast = new ShortTermForecast(js,tempUnits);
 			this.longTermForecast = new LongTermForecast(jl,tempUnits);
 		} else {
