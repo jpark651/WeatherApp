@@ -41,27 +41,27 @@ public class LocationSearchTree {
 		return;
 	}
 	
-	public int [] findCityList (String target, Location temp, int [] idList) {
+	public String [] findCityList (String target, Location temp, String [] cityList) {
 		int compare;
 		int i = 0;
 		if (temp.getName().startsWith(target)) {
 			while (i < 10) {
-				if (idList[i] == 0) {
-					idList[i] = temp.getId();
+				if (cityList[i] == null) {
+					cityList[i] = temp.getName();
 					i = 10;
-					System.out.println(temp.getName());
+					//System.out.println(temp.getName());
 				}
 				i++;
 			}
 		}
 		compare = target.compareTo(temp.getName());
 		if (compare < 0 && (temp.getLeft() != null)) {
-			findCityList(target, temp.getLeft(), idList);
+			findCityList(target, temp.getLeft(), cityList);
 		}
 		if ((temp.getRight() != null) && (compare > -1 || temp.getName().startsWith(target))) {
-			findCityList(target, temp.getRight(), idList);
+			findCityList(target, temp.getRight(), cityList);
 		}
-		return idList;
+		return cityList;
 	}
 	
 	

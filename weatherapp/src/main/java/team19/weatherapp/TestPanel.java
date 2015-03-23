@@ -723,10 +723,10 @@ public class TestPanel extends JFrame{
 	
 	private static void initMainPanels(){
 		GridBagLayout gbl= new GridBagLayout();
-		gbl.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, Double.MIN_VALUE};
 		
 		pnlLocalWeather = new JPanel();
 		mainPanel.addTab("Current", null, pnlLocalWeather, null);
@@ -850,7 +850,7 @@ public class TestPanel extends JFrame{
 	}
 	
 	private static void initLongTermPanel(){
-		insertJLabelIntoGrid("LT", lblLTCity, 6, 0, 0, 5, 5, 1, 1, true);
+		insertJLabelIntoGrid("LT", lblLTCity, 10, 0, 0, 5, 5, 1, 1, true);
 		insertStrut("LT", 'V', 20, 0, 0, 5, 5, 1, 0);
 		insertStrut("LT", 'V', 20, 0, 0, 5, 5, 1, 2);
 		insertStrut("LT", 'V', 20, 0, 0, 5, 5, 1, 4);
