@@ -39,28 +39,22 @@ public class Location {
 		StringTokenizer st;
 		int id;
 		String name, countryCode, temp;
-		st = new StringTokenizer(line);
+		char tokenSeparator = '~';
+		st = new StringTokenizer(line, tokenSeparator+"");
         id = Integer.parseInt(st.nextToken());
         name = st.nextToken();
-        temp = st.nextToken();
-        while (!((temp.charAt(0) > 47 && temp.charAt(0) < 58) || temp.charAt(0) == 45)) {
-     	   name = name.concat(" " + temp);
-     	   temp = st.nextToken();
-        }
-        st.nextToken();
         countryCode = st.nextToken();
         Location locObject = new Location(id, name, countryCode);
         return locObject;
         
 	}
 	
-	public static void buildTree (String cityListName) throws IOException, ClassNotFoundException{
+	public static void buildTree (String cityListName) throws IOException {
 		FileReader file = new FileReader(cityListName);
 		BufferedReader br = new BufferedReader(file);
 		Location temp, root;
 		int i = 0;
 		String line, tempName;
-		br.readLine();
 		line = br.readLine();
 		root = makeLocation(line);
 		LocationSearchTree tree = new LocationSearchTree(root);
@@ -71,14 +65,19 @@ public class Location {
         	//System.out.println(tempName);
         	tree.insert(temp);
         }  
-		System.out.println(i);
+		//System.out.println(i);
 		//tree.traverseTree(root);
-		int [] ids = new int[10];
-		tree.findCityList("Jasp", root, ids);
-		ids = new int[10];
-		tree.findCityList("Tor", root , ids);
-		ids = new int[10];
-		tree.findCityList("Ra", root, ids);
+		int j = 0;
+		String [] results = new String[10];
+		tree.findCityList("Res", root, results);
+		while (j < 10 && results[j] != null) {
+			System.out.println(results[j]);
+			j++;
+		}
+		//ids = new int[10];
+		//tree.findCityList("Tor", root , ids);
+		//ids = new int[10];
+		//tree.findCityList("Ra", root, ids);
 		br.close();
 		file.close();
 	}
