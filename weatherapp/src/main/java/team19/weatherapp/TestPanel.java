@@ -34,6 +34,8 @@ import java.awt.Font;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import java.awt.EventQueue;
 import java.awt.Graphics;
@@ -50,10 +52,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 public class TestPanel extends JFrame{
 	
 	static JTextField txtLocation;
+	private static CityButtonPanel pnlCityButtons;
 	
 	private static JSplitPane backPanel;
 	private static JPanel menuPanel;
@@ -62,6 +66,15 @@ public class TestPanel extends JFrame{
 	/**
 	 * JLabels needed for the local weather view
 	 */
+	
+	private static JLabel minTempTitle;
+	private static JLabel maxTempTitle;
+	private static JLabel sunrTitle;
+	private static JLabel sunsTitle;
+	private static JLabel airTitle;
+	private static JLabel humidTitle;
+	private static JLabel windSpdTitle;
+	private static JLabel windDirTitle;
 	
 	private static JPanel pnlLocalWeather;
 	private static ArrayList<JLabel> local;
@@ -196,42 +209,174 @@ public class TestPanel extends JFrame{
 	static char tempUnits;
 	static char windUnits;
 
-	public TestPanel(String cityName, String tUnits, String wUnits) {
+	public TestPanel(String[] inputStr) {
+
+			showTempMenuBtn = new JCheckBoxMenuItem("Temperature");
+			showMinTempMenuBtn = new JCheckBoxMenuItem("Min. Temperature");
+			showMaxTempMenuBtn = new JCheckBoxMenuItem("Max. Temperature");
+			showSunriseMenuBtn = new JCheckBoxMenuItem("Sunrise");
+			showSunsetMenuBtn = new JCheckBoxMenuItem("Sunset");
+			showAirPMenuBtn = new JCheckBoxMenuItem("Air Pressure");
+			showHumidityMenuBtn = new JCheckBoxMenuItem("Humidity");
+			showWindSpdMenuBtn = new JCheckBoxMenuItem("Wind Speed");
+			showWindDirMenuBtn = new JCheckBoxMenuItem("Wind Direction");
+			showSkyCondMenuBtn = new JCheckBoxMenuItem("Sky Condition");
+		 
+			pnlCityButtons = new CityButtonPanel();
+
+			String cityName = inputStr[0];
+			String tUnits = inputStr[1];
+			String wUnits = inputStr[2];
+			
+			
+			lblCity = new JLabel("City Name, Country");
+			lblSTCity = new JLabel("City Name, Country");
+			lblLTCity = new JLabel("City Name, Country");
+			lblCity.setFont(new Font("Helvetica Neue", Font.BOLD, 25));
+			lblSTCity.setFont(new Font("Helvetica Neue", Font.BOLD, 25));
+			lblLTCity.setFont(new Font("Helvetica Neue", Font.BOLD, 25));
+			
+			if (tUnits.length() > 0) {
+				this.tempUnits = tUnits.charAt(0);
+			}else{
+				this.tempUnits = 'C';
+			}
+			if (tUnits.length() > 0) {
+				this.windUnits = wUnits.charAt(0);
+			}else{
+				this.windUnits = 'K';
+			}
+			
+			initMenubar();
+			setJMenuBar(menubar);
 		
-		lblCity = new JLabel("City Name, Country");
-		lblSTCity = new JLabel("City Name, Country");
-		lblLTCity = new JLabel("City Name, Country");
-		lblCity.setFont(new Font("Helvetica Neue", Font.BOLD, 25));
-		lblSTCity.setFont(new Font("Helvetica Neue", Font.BOLD, 25));
-		lblLTCity.setFont(new Font("Helvetica Neue", Font.BOLD, 25));
+			initToolbar();
+			getContentPane().add(toolbar, BorderLayout.SOUTH);
+			
+			backPanel = new JSplitPane();
+			getContentPane().add(backPanel, BorderLayout.NORTH);
+			
+			mainPanel = new JTabbedPane(JTabbedPane.TOP);
+			backPanel.setRightComponent(mainPanel);
+			
+			initMainPanels();
+			
+			initializeLocal();
+			initLocalWeatherPanel();
+
+
 		
-		if (tUnits.length() > 0) {
-			this.tempUnits = tUnits.charAt(0);
-		}else{
-			this.tempUnits = 'C';
+		
+		
+		
+		showTempMenuBtn.setSelected(Boolean.parseBoolean(inputStr[3]));
+		showMinTempMenuBtn.setSelected(Boolean.parseBoolean(inputStr[4]));
+		showMaxTempMenuBtn.setSelected(Boolean.parseBoolean(inputStr[5]));
+		showSunriseMenuBtn.setSelected(Boolean.parseBoolean(inputStr[6]));
+		showSunsetMenuBtn.setSelected(Boolean.parseBoolean(inputStr[7]));
+		showAirPMenuBtn.setSelected(Boolean.parseBoolean(inputStr[8]));
+		showHumidityMenuBtn.setSelected(Boolean.parseBoolean(inputStr[9]));
+		showWindSpdMenuBtn.setSelected(Boolean.parseBoolean(inputStr[10]));
+		showWindDirMenuBtn.setSelected(Boolean.parseBoolean(inputStr[11]));
+		showSkyCondMenuBtn.setSelected(Boolean.parseBoolean(inputStr[12]));
+		for(int i=0;i < Integer.parseInt(inputStr[13]);i++){
+			CityButton newButton = new CityButton(inputStr[14+i]);
+			pnlCityButtons.addButton(newButton); 
 		}
-		if (tUnits.length() > 0) {
-			this.windUnits = wUnits.charAt(0);
-		}else{
-			this.windUnits = 'K';
-		}
 		
-		initMenubar();
-		setJMenuBar(menubar);
-	
-		initToolbar();
-		getContentPane().add(toolbar, BorderLayout.SOUTH);
+		        boolean selected = showTempMenuBtn.getModel().isSelected();
+		        if(selected){
+		        	lblLocalTemperature.setVisible(true);
+		        }else{
+		        	lblLocalTemperature.setVisible(false);
+		        }
+		        selected = showMinTempMenuBtn.getModel().isSelected();
+		        if(selected){
+		        	lblLocalMinTemp.setVisible(true);
+		        	minTempTitle.setVisible(true);
+		        }else{
+		        	lblLocalMinTemp.setVisible(false);
+		        	minTempTitle.setVisible(false);
+		        }		
+		        selected = showMaxTempMenuBtn.getModel().isSelected();
+		        if(selected){
+		        	lblLocalMaxTemp.setVisible(true);
+		        	maxTempTitle.setVisible(true);
+		        }else{
+		        	lblLocalMaxTemp.setVisible(false);
+		        	maxTempTitle.setVisible(false);
+		        }		
+		        selected = showSunriseMenuBtn.getModel().isSelected();
+		        if(selected){
+		        	lblLocalSunrise.setVisible(true);
+		        	sunrTitle.setVisible(true);
+		        }else{
+		        	lblLocalSunrise.setVisible(false);
+		        	sunrTitle.setVisible(false);
+		        }
+		        selected = showSunsetMenuBtn.getModel().isSelected();
+		        if(selected){
+		        	lblLocalSunset.setVisible(true);
+		        	sunsTitle.setVisible(true);
+		        }else{
+		        	lblLocalSunset.setVisible(false);
+		        	sunsTitle.setVisible(false);
+		        }
+		        selected = showAirPMenuBtn.getModel().isSelected();
+		        if(selected){
+		        	lblLocalAirPressure.setVisible(true);
+		        	airTitle.setVisible(true);
+		        }else{
+		        	lblLocalAirPressure.setVisible(false);
+		        	airTitle.setVisible(false);
+		        }
+		        selected = showHumidityMenuBtn.getModel().isSelected();
+		        if(selected){
+		        	lblLocalHumidity.setVisible(true);
+		        	humidTitle.setVisible(true);
+		        }else{
+		        	lblLocalHumidity.setVisible(false);
+		        	humidTitle.setVisible(false);
+		        }
+		        selected = showWindSpdMenuBtn.getModel().isSelected();
+		        if(selected){
+		        	lblLocalWindSpeed.setVisible(true);
+		        	windSpdTitle.setVisible(true);
+		        }else{
+		        	lblLocalWindSpeed.setVisible(false);
+		        	windSpdTitle.setVisible(false);
+		        }
+		        selected = showWindDirMenuBtn.getModel().isSelected();
+		        if(selected){
+		        	lblLocalWindDirection.setVisible(true);
+		        	windDirTitle.setVisible(true);
+		        }else{
+		        	lblLocalWindDirection.setVisible(false);
+		        	windDirTitle.setVisible(false);
+		        }
+		        selected = showSkyCondMenuBtn.getModel().isSelected();
+		        if(selected){
+		        	lblLocalSkyCondition.setVisible(true);
+		        	lblLocalSkyIcon.setVisible(true);        	
+		        }else{
+		        	lblLocalSkyCondition.setVisible(false);
+		        	lblLocalSkyIcon.setVisible(false);
+		        }
+		        menubar.revalidate();
+		        menubar.repaint();
 		
-		backPanel = new JSplitPane();
-		getContentPane().add(backPanel, BorderLayout.NORTH);
 		
-		mainPanel = new JTabbedPane(JTabbedPane.TOP);
-		backPanel.setRightComponent(mainPanel);
 		
-		initMainPanels();
 		
-		initializeLocal();
-		initLocalWeatherPanel();
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 		initializeShortTerm();
 		initShortTermPanel();
@@ -244,10 +389,9 @@ public class TestPanel extends JFrame{
 		
 		initMenuPanel();
 		
-		setSize(750,675);
+		setSize(775,675);
 		setTitle("WeatherApp");
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
         
         /*
          * This sets current information from previous save
@@ -277,7 +421,6 @@ public class TestPanel extends JFrame{
 		            JOptionPane.YES_NO_OPTION);
 		 
 		        if (result == JOptionPane.YES_OPTION){
-		        	if(txtLocation.getText().length() > 0){
 		        		
 		        		/* Write the save data here, delimited by underscore characters
 		        		 * 
@@ -287,10 +430,10 @@ public class TestPanel extends JFrame{
 		        		 * A[1] Temperature Units
 		        		 * A[2] Speed Units
 		        		 */
-		        		String saveFile = (txtLocation.getText() + "_" + tempUnits + "_" + windUnits);
+		        		String saveFile = (lblCity.getText() + "_" + tempUnits + "_" + windUnits + "_" + showTempMenuBtn.isSelected() + "_" + showMinTempMenuBtn.isSelected() + "_" + showMaxTempMenuBtn.isSelected() + "_" + showSunriseMenuBtn.isSelected() + "_" + showSunsetMenuBtn.isSelected() + "_" + showAirPMenuBtn.isSelected() + "_" + showHumidityMenuBtn.isSelected() + "_" + showWindSpdMenuBtn.isSelected() + "_" + showWindDirMenuBtn.isSelected() + "_" + showSkyCondMenuBtn.isSelected());
+		        		saveFile += pnlCityButtons.buttonList();
 		        		Serialize.saveOnExit(saveFile);
 		        		System.out.println("Saved: " + Arrays.toString(saveFile.split("_")));
-		        	}
 		            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		        }
 		    }
@@ -309,10 +452,20 @@ public class TestPanel extends JFrame{
 		menubar.add(fileMenu);
 		menubar.add(preferencesMenu);
 		
-		JMenuItem exitMenuBtn = new JMenuItem("Exit");
-		fileMenu.add(exitMenuBtn);
 		refreshMenuBtn = new JMenuItem("Refresh");
 		fileMenu.add(refreshMenuBtn);
+		JMenuItem exitMenuBtn = new JMenuItem("Exit");
+		fileMenu.add(exitMenuBtn);
+		
+		refreshMenuBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				updateScreen();
+			}});
+		
+		exitMenuBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				System.exit(0);
+			}});
 		
 		JMenu tempUnitsMenu = new JMenu("Temperature Units");
 		tempUnitMenuBtns = new ButtonGroup();
@@ -345,26 +498,7 @@ public class TestPanel extends JFrame{
 	private static void initViewMenu(){
 		viewMenu = new JMenu("View");
 		menubar.add(viewMenu);
-		showTempMenuBtn = new JCheckBoxMenuItem("Temperature");
-		showTempMenuBtn.setSelected(true);
-		showMinTempMenuBtn = new JCheckBoxMenuItem("Min. Temperature");
-		showMinTempMenuBtn.setSelected(true);
-		showMaxTempMenuBtn = new JCheckBoxMenuItem("Max. Temperature");
-		showMaxTempMenuBtn.setSelected(true);
-		showSunriseMenuBtn = new JCheckBoxMenuItem("Sunrise");
-		showSunriseMenuBtn.setSelected(true);
-		showSunsetMenuBtn = new JCheckBoxMenuItem("Sunset");
-		showSunsetMenuBtn.setSelected(true);
-		showAirPMenuBtn = new JCheckBoxMenuItem("Air Pressure");
-		showAirPMenuBtn.setSelected(true);
-		showHumidityMenuBtn = new JCheckBoxMenuItem("Humidity");
-		showHumidityMenuBtn.setSelected(true);
-		showWindSpdMenuBtn = new JCheckBoxMenuItem("Wind Speed");
-		showWindSpdMenuBtn.setSelected(true);
-		showWindDirMenuBtn = new JCheckBoxMenuItem("Wind Direction");
-		showWindDirMenuBtn.setSelected(true);
-		showSkyCondMenuBtn = new JCheckBoxMenuItem("Sky Condition");
-		showSkyCondMenuBtn.setSelected(true);
+		
 		viewMenu.add(showTempMenuBtn);
 		viewMenu.add(showMinTempMenuBtn);
 		viewMenu.add(showMaxTempMenuBtn);
@@ -375,6 +509,157 @@ public class TestPanel extends JFrame{
 		viewMenu.add(showWindSpdMenuBtn);
 		viewMenu.add(showWindDirMenuBtn);
 		viewMenu.add(showSkyCondMenuBtn);
+		
+		showTempMenuBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+		        AbstractButton abstractButton = (AbstractButton) event.getSource();
+		        boolean selected = abstractButton.getModel().isSelected();
+		        if(selected){
+		        	lblLocalTemperature.setVisible(true);
+		        }else{
+		        	lblLocalTemperature.setVisible(false);
+		        }
+		        menubar.revalidate();
+		        menubar.repaint();
+			}});
+		
+		showMinTempMenuBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+		        AbstractButton abstractButton = (AbstractButton) event.getSource();
+		        boolean selected = abstractButton.getModel().isSelected();
+		        if(selected){
+		        	lblLocalMinTemp.setVisible(true);
+		        	minTempTitle.setVisible(true);
+		        }else{
+		        	lblLocalMinTemp.setVisible(false);
+		        	minTempTitle.setVisible(false);
+		        }
+		        menubar.revalidate();
+		        menubar.repaint();
+			}});
+		
+		showMaxTempMenuBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+		        AbstractButton abstractButton = (AbstractButton) event.getSource();
+		        boolean selected = abstractButton.getModel().isSelected();
+		        if(selected){
+		        	lblLocalMaxTemp.setVisible(true);
+		        	maxTempTitle.setVisible(true);
+		        }else{
+		        	lblLocalMaxTemp.setVisible(false);
+		        	maxTempTitle.setVisible(false);
+		        }
+		        menubar.revalidate();
+		        menubar.repaint();
+			}});
+		
+		showSunriseMenuBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+		        AbstractButton abstractButton = (AbstractButton) event.getSource();
+		        boolean selected = abstractButton.getModel().isSelected();
+		        if(selected){
+		        	lblLocalSunrise.setVisible(true);
+		        	sunrTitle.setVisible(true);
+		        }else{
+		        	lblLocalSunrise.setVisible(false);
+		        	sunrTitle.setVisible(false);
+		        }
+		        menubar.revalidate();
+		        menubar.repaint();
+			}});
+		
+		showSunsetMenuBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+		        AbstractButton abstractButton = (AbstractButton) event.getSource();
+		        boolean selected = abstractButton.getModel().isSelected();
+		        if(selected){
+		        	lblLocalSunset.setVisible(true);
+		        	sunsTitle.setVisible(true);
+		        }else{
+		        	lblLocalSunset.setVisible(false);
+		        	sunsTitle.setVisible(false);
+		        }
+		        menubar.revalidate();
+		        menubar.repaint();
+			}});
+		
+		showAirPMenuBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+		        AbstractButton abstractButton = (AbstractButton) event.getSource();
+		        boolean selected = abstractButton.getModel().isSelected();
+		        if(selected){
+		        	lblLocalAirPressure.setVisible(true);
+		        	airTitle.setVisible(true);
+		        }else{
+		        	lblLocalAirPressure.setVisible(false);
+		        	airTitle.setVisible(false);
+		        }
+		        menubar.revalidate();
+		        menubar.repaint();
+			}});
+		
+		showHumidityMenuBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+		        AbstractButton abstractButton = (AbstractButton) event.getSource();
+		        boolean selected = abstractButton.getModel().isSelected();
+		        if(selected){
+		        	lblLocalHumidity.setVisible(true);
+		        	humidTitle.setVisible(true);
+		        }else{
+		        	lblLocalHumidity.setVisible(false);
+		        	humidTitle.setVisible(false);
+		        }
+		        menubar.revalidate();
+		        menubar.repaint();
+			}});
+		
+		showWindSpdMenuBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+		        AbstractButton abstractButton = (AbstractButton) event.getSource();
+		        boolean selected = abstractButton.getModel().isSelected();
+		        if(selected){
+		        	lblLocalWindSpeed.setVisible(true);
+		        	windSpdTitle.setVisible(true);
+		        }else{
+		        	lblLocalWindSpeed.setVisible(false);
+		        	windSpdTitle.setVisible(false);
+		        }
+		        menubar.revalidate();
+		        menubar.repaint();
+			}});
+		
+		showWindDirMenuBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+		        AbstractButton abstractButton = (AbstractButton) event.getSource();
+		        boolean selected = abstractButton.getModel().isSelected();
+		        if(selected){
+		        	lblLocalWindDirection.setVisible(true);
+		        	windDirTitle.setVisible(true);
+		        }else{
+		        	lblLocalWindDirection.setVisible(false);
+		        	windDirTitle.setVisible(false);
+		        }
+		        menubar.revalidate();
+		        menubar.repaint();
+			}});
+		
+		showSkyCondMenuBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+		        AbstractButton abstractButton = (AbstractButton) event.getSource();
+		        boolean selected = abstractButton.getModel().isSelected();
+		        if(selected){
+		        	lblLocalSkyCondition.setVisible(true);
+		        	lblLocalSkyIcon.setVisible(true);
+		        	
+		        }else{
+		        	lblLocalSkyCondition.setVisible(false);
+		        	lblLocalSkyIcon.setVisible(false);
+		        	
+		        }
+		        menubar.revalidate();
+		        menubar.repaint();
+			}});
+		
 	}
 	/**
 	 * initToolbar sets-up the toolbar for the GUI
@@ -402,10 +687,8 @@ public class TestPanel extends JFrame{
 			public void actionPerformed(ActionEvent event) {
 				if(tempUnits=='C'){
 					tempUnits = 'F';
-					btnTempUnits.setText("Change to Celcius");
 				}else{
 					tempUnits = 'C';
-					btnTempUnits.setText("Change to Farenheit");
 				}
 				updateScreen();
 			}});
@@ -414,10 +697,8 @@ public class TestPanel extends JFrame{
 			public void actionPerformed(ActionEvent event) {
 				if(windUnits=='M'){
 					windUnits = 'K';
-					btnWindUnits.setText("Change to MPH");
 				}else{
 					windUnits = 'M';
-					btnWindUnits.setText("Change to KPH");
 				}
 				updateScreen();
 			}});
@@ -426,14 +707,26 @@ public class TestPanel extends JFrame{
 			public void actionPerformed(ActionEvent event) {
 				updateScreen();
 			}});
+		
+		btnAddCity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				CityButton newButton = new CityButton(lblCity.getText());
+				pnlCityButtons.addButton(newButton); 
+			}});
+		
+		btnRemoveCity.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				CityButton oldButton = new CityButton(lblCity.getText());
+				pnlCityButtons.removeButton(oldButton); 
+			}});
 	}
 	
 	private static void initMainPanels(){
 		GridBagLayout gbl= new GridBagLayout();
-		gbl.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0, Double.MIN_VALUE};
 		
 		pnlLocalWeather = new JPanel();
 		mainPanel.addTab("Current", null, pnlLocalWeather, null);
@@ -446,20 +739,27 @@ public class TestPanel extends JFrame{
 		pnlLongTerm = new JPanel();
 		mainPanel.addTab("Long-Term", null, pnlLongTerm, null);
 		pnlLongTerm.setLayout(gbl);
+		
+		mainPanel.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				menubar.revalidate();
+				menubar.repaint();
+			}
+		    });
 	}
 	/**
 	 * initLocalWeatherPanel sets up the panel that will display
 	 * the local weather forecast data
 	 */
 	private static void initLocalWeatherPanel(){
-		JLabel minTempTitle = new JLabel("Expected Min.:");
-		JLabel maxTempTitle = new JLabel("Expected Max.:");
-		JLabel sunrTitle = new JLabel("Sunrise: ");
-		JLabel sunsTitle = new JLabel("Sunset: ");
-		JLabel airTitle = new JLabel("Air Pressure: ");
-		JLabel humidTitle = new JLabel("Humidity: ");
-		JLabel windSpdTitle = new JLabel("Wind Speed: ");
-		JLabel windDirTitle = new JLabel("Wind Direction: ");
+		minTempTitle = new JLabel("Expected Min.:");
+		maxTempTitle = new JLabel("Expected Max.:");
+		sunrTitle = new JLabel("Sunrise: ");
+		sunsTitle = new JLabel("Sunset: ");
+		airTitle = new JLabel("Air Pressure: ");
+		humidTitle = new JLabel("Humidity: ");
+		windSpdTitle = new JLabel("Wind Speed: ");
+		windDirTitle = new JLabel("Wind Direction: ");
 		
 		insertStrut("Local", 'V', 20, 0, 0, 5, 5, 1, 0);
 		insertStrut("Local", 'H', 20, 0, 0, 5, 5, 0, 1);
@@ -550,7 +850,7 @@ public class TestPanel extends JFrame{
 	}
 	
 	private static void initLongTermPanel(){
-		insertJLabelIntoGrid("LT", lblLTCity, 6, 0, 0, 5, 5, 1, 1, true);
+		insertJLabelIntoGrid("LT", lblLTCity, 10, 0, 0, 5, 5, 1, 1, true);
 		insertStrut("LT", 'V', 20, 0, 0, 5, 5, 1, 0);
 		insertStrut("LT", 'V', 20, 0, 0, 5, 5, 1, 2);
 		insertStrut("LT", 'V', 20, 0, 0, 5, 5, 1, 4);
@@ -614,7 +914,8 @@ public class TestPanel extends JFrame{
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(txtLocation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtLocation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(pnlCityButtons, 150, 150, 150))
 					.addContainerGap(29, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
@@ -623,6 +924,7 @@ public class TestPanel extends JFrame{
 					.addContainerGap()
 					.addComponent(txtLocation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(29)
+					.addComponent(pnlCityButtons, 500, 500, 500)
 					.addContainerGap(288, Short.MAX_VALUE))
 		);
 		menuPanel.setLayout(gl_panel);
@@ -644,9 +946,17 @@ public class TestPanel extends JFrame{
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a z");
 		Calendar cal = Calendar.getInstance();
 		lastRefresh = dateFormat.format(cal.getTime());
-		
 		city = new City(txtLocation.getText(), tempUnits, windUnits);
-		
+		UpdateLocal();
+		UpdateShortTerm();
+		UpdateLongTerm();
+	}
+	
+	public static void updateScreenWithCity(String c){
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a z");
+		Calendar cal = Calendar.getInstance();
+		lastRefresh = dateFormat.format(cal.getTime());
+		city = new City(c, tempUnits, windUnits);
 		UpdateLocal();
 		UpdateShortTerm();
 		UpdateLongTerm();
@@ -907,5 +1217,3 @@ public class TestPanel extends JFrame{
 		lbl5thDaySkyCondition = new JLabel();
 	}
 }	
-
-

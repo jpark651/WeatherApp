@@ -32,6 +32,7 @@ public class MainFrame extends JFrame {
 	//Initialize null panel
 	TestPanel mp = null;
 	TestPanel n = null;
+	String[] empty = {"","","","true","true","true","true","true","true","true","true","true","true","0"};
 
 	/**
 	 * The MainFrame Constructor attempts to create a JPanel
@@ -58,61 +59,22 @@ public class MainFrame extends JFrame {
 			 * the specified information. If not, create a new
 			 * JPanel
 			 */
-			if (str.length == 3){
-				mp = new TestPanel(str[0],str[1],str[2]);
+			if (str.length > 13){
+				mp = new TestPanel(str);
 			}else{
-				mp = new TestPanel("","","");
+				mp = new TestPanel(empty);
 		 		System.out.println("Previous Save Invalid");
 			}
 	      }catch(IOException i)
 	      {
-	 		mp = new TestPanel("","","");
+	 		mp = new TestPanel(empty);
 	 		System.out.println("Previous Save Not Found");
 	      }catch(ClassNotFoundException c)
 	      {
-	 		mp = new TestPanel("","","");
+	 		mp = new TestPanel(empty);
 	 		System.out.println("Previous Save Not Found");
 	      }
 		
-		//Set content pane and properties
-		getContentPane().add(mp, BorderLayout.CENTER);
-		this.setTitle("WeatherApp");
-		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		 
-		/* The windowListener saves the user data before the user closes
-		 * the application.
-		 */
-		this.addWindowListener( new WindowAdapter()
-		{
-		    public void windowClosing(WindowEvent e)
-		    {
-		        JFrame frame = (JFrame)e.getSource();
-		 
-		        int result = JOptionPane.showConfirmDialog(
-		            frame,
-		            "Are you sure you want to exit the application?",
-		            "Exit Application",
-		            JOptionPane.YES_NO_OPTION);
-		 
-		        if (result == JOptionPane.YES_OPTION){
-		        	if(mp.txtLocation.getText().length() > 0){
-		        		
-		        		/* Write the save data here, delimited by underscore characters
-		        		 * 
-		        		 * Format is as follows:
-		        		 * 
-		        		 * A[0] Most Recent Location Search
-		        		 * A[1] Temperature Units
-		        		 * A[2] Speed Units
-		        		 */
-		        		String saveFile = (mp.txtLocation.getText() + "_" + mp.tempUnits + "_" + mp.windUnits);
-		        		Serialize.saveOnExit(saveFile);
-		        		System.out.println("Saved: " + Arrays.toString(saveFile.split("_")));
-		        	}
-		            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		        }
-		    }
-		});
 	}
 	
 }
