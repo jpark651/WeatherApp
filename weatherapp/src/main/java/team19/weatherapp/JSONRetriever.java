@@ -53,7 +53,7 @@ public class JSONRetriever {
 			String urlstring = "http://api.openweathermap.org/data/2.5/weather?q=";
 			String fullurl = urlstring + location;
 			URL url = new URL(fullurl);
-			
+			System.out.println("TRYING TO CONNECT");
 			//Send GET request to retrieve JSON data
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
