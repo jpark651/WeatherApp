@@ -20,7 +20,7 @@ import javax.swing.SwingUtilities;
  * @version     %I%, %G%
  * 
  */
-public class App {
+public class CoreApp {
 	
 	static String[] empty = {"","","","true","true","true","true","true","true","true","true","true","true","0"};
 
@@ -41,36 +41,18 @@ public class App {
 	public static void main(String[] args) throws IOException {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				TestPanel frame = null;	
-				//Attempt to load previous user data
-				try
-			      {
-					String[] str =  Serialize.restore();
-					System.out.println("Loaded: " + Arrays.toString(str));
-					/* If previous save is valid, load the JPanel with
-					 * the specified information. If not, create a new
-					 * JPanel
-					 */
-					if (str.length > 13){
-						frame = new TestPanel(str);
-					}else{
-						frame = new TestPanel(empty);
-				 		System.out.println("Previous Save Invalid");
-					}
-			      }catch(IOException i)
-			      {
-			 		frame = new TestPanel(empty);
-			 		System.out.println("Previous Save Not Found");
-			      }catch(ClassNotFoundException c)
-			      {
-			 		frame = new TestPanel(empty);
-			 		System.out.println("Previous Save Not Found");
-			      }
+				CoreFrame frame = null;	
+				try {
+					frame = new CoreFrame();
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 				
-				
-				//Set window preferences
 				frame.setVisible(true);
 				frame.setLocationRelativeTo(null);
+				frame.setSize(500,800);
+				frame.setTitle("WeatherApp");
 			
 				
 				
