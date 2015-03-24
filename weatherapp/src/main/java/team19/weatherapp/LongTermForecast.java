@@ -199,7 +199,7 @@ public class LongTermForecast {
      */
     public String getDate(JSONArray j, int index){
         long time = j.getJSONObject(index).getLong("dt");
-        String date = new SimpleDateFormat("MMM dd").format(new Date(time*1000));
+        String date = new SimpleDateFormat("EE MMM dd").format(new Date(time*1000));
         
         return date;
     }
