@@ -1,5 +1,7 @@
 package team19.weatherapp;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -47,14 +49,15 @@ public class CoreApp {
 
 				} catch (IOException e) {
 					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 				
 				frame.setVisible(true);
 				frame.setLocationRelativeTo(null);
+				frame.setLocation(400,150);
 				frame.setSize(500,800);
 				frame.setTitle("WeatherApp");
-			
-				
 				
 			}
 		});
