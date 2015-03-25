@@ -5,6 +5,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.AbstractButton;
 import javax.swing.GroupLayout;
@@ -22,9 +23,9 @@ import javax.swing.Box;
 import javax.swing.JMenu;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JOptionPane;
-
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -89,6 +90,7 @@ public class TestPanel extends JFrame{
 
 	public TestPanel(String[] inputStr) {
 
+		this.setResizable(false);
 		pnlLongTerm = new LongTermPanel();
 		pnlShortTerm = new ShortTermPanel();
 		pnlLocal = new LocalWeatherPanel();
@@ -119,6 +121,7 @@ public class TestPanel extends JFrame{
 		getContentPane().add(toolbar, BorderLayout.SOUTH);
 
 		backPanel = new JSplitPane();
+		backPanel.setEnabled( false );
 		getContentPane().add(backPanel, BorderLayout.NORTH);
 
 		mainPanel = new JTabbedPane(JTabbedPane.TOP);
@@ -151,9 +154,14 @@ public class TestPanel extends JFrame{
 
 		initMenuPanel();
 
-		setSize(825,675);
-		setTitle("WeatherApp");
-		setLocationRelativeTo(null);
+		pnlLongTerm.setBackground(new Color(100,100,100));
+		pnlShortTerm.setBackground(new Color(100,100,100));
+		pnlLocal.setBackground(new Color(130,170,255));
+		menubar.setBackground(new Color(220,220,220));
+		toolbar.setBackground(new Color(220,220,220));
+		menuPanel.setBackground(new Color(220,220,220));
+		backPanel.setBackground(new Color(220,220,220));
+
 
 		/*
 		 * This sets current information from previous save
@@ -389,6 +397,7 @@ public class TestPanel extends JFrame{
 	 */
 	private static void initToolbar(){
 		toolbar = new JToolBar();
+		toolbar.setEnabled(false);
 		btnAddCity = new JButton("Add City");
 		btnRemoveCity = new JButton("Remove City");
 		btnTempUnits = new JButton("C/F");
@@ -435,12 +444,16 @@ public class TestPanel extends JFrame{
 			public void actionPerformed(ActionEvent event) {
 				CityButton newButton = new CityButton(pnlLocal.lblCity.getText());
 				pnlCityButtons.addButton(newButton); 
+				menubar.revalidate();
+				menubar.repaint();
 			}});
 
 		btnRemoveCity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				CityButton oldButton = new CityButton(pnlLocal.lblCity.getText());
 				pnlCityButtons.removeButton(oldButton); 
+				menubar.revalidate();
+				menubar.repaint();
 			}});
 	}
 
@@ -539,11 +552,12 @@ public class TestPanel extends JFrame{
 	}
 
 	//////////////////////////////////////////////////////////////////
+	
 	//HELPER METHODS//////////////
 
 	private static void initMenuPanel(){
 		txtLocation = new JTextField();
-		txtLocation.setColumns(10);
+		txtLocation.setColumns(13);
 		GroupLayout gl_panel = new GroupLayout(menuPanel);
 		gl_panel.setHorizontalGroup(
 				gl_panel.createParallelGroup(Alignment.LEADING)
@@ -552,7 +566,7 @@ public class TestPanel extends JFrame{
 						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 								.addComponent(txtLocation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(pnlCityButtons, 150, 150, 150))
-								.addContainerGap(29, Short.MAX_VALUE))
+								.addContainerGap(15, Short.MAX_VALUE))
 				);
 		gl_panel.setVerticalGroup(
 				gl_panel.createParallelGroup(Alignment.LEADING)
@@ -564,6 +578,7 @@ public class TestPanel extends JFrame{
 						.addContainerGap(50, Short.MAX_VALUE))
 				);
 		menuPanel.setLayout(gl_panel);
+		
 
 		txtLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -580,26 +595,60 @@ public class TestPanel extends JFrame{
 		pnlLocal.update(city, tempUnits, windUnits);
 		pnlShortTerm.update(city, tempUnits);
 		pnlLongTerm.update(city, tempUnits);
+		
+		int temp = (int)city.currentWeather.kelvin;
+		
+		temp = temp-273;
+		temp = 100 + temp*4;
+		if(temp > 255)
+			temp=255;
+		if(temp<0)
+			temp=0;
+		
+		int rval=128;
+		int gval=128;
+		int bval=128;
+		
+		if(temp > 100)
+			rval = 100+(temp/2);
+		
+		if(temp < 160)
+			bval = 100+((255-temp)/2);
+		
+		if(temp>50 && temp < 128)
+			gval = 80+(temp);
+		
+		if(temp>128 && temp < 210)
+			gval = 340-temp;
+		
+		
+		rval += 20;
+		gval += 20;
+		bval += 20;
+		
+		if(rval>255)
+			rval = 255;
+		if(gval>255)
+			gval = 255;
+		if(bval>255)
+			bval = 255;
+		
+		System.out.println(rval + " " + gval + " " + bval);
+		
+		pnlLongTerm.setBackground(new Color(rval,gval,bval));
+		pnlShortTerm.setBackground(new Color(rval,gval,bval));
+		pnlLocal.setBackground(new Color(rval,gval,bval));
 	}
 	
 	private static void newCityUpdateScreen(){
-		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a z");
-		Calendar cal = Calendar.getInstance();
-		lblRefreshTime.setText("Last refreshed:" + dateFormat.format(cal.getTime()));
 		city = new City(txtLocation.getText(), tempUnits, windUnits);
-		pnlLocal.update(city, tempUnits, windUnits);
-		pnlShortTerm.update(city, tempUnits);
-		pnlLongTerm.update(city, tempUnits);
+		updateScreen(city);
 	}
 
 	public static void updateScreenWithCity(String c){
-		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a z");
-		Calendar cal = Calendar.getInstance();
-		lblRefreshTime.setText("Last refreshed:" + dateFormat.format(cal.getTime()));
 		city = new City(c, tempUnits, windUnits);
-		pnlLocal.update(city, tempUnits, windUnits);
-		pnlShortTerm.update(city, tempUnits);
-		pnlLongTerm.update(city, tempUnits);
+		updateScreen(city);
+
 	}
 
 
