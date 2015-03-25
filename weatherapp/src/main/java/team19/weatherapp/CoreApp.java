@@ -24,8 +24,6 @@ import javax.swing.SwingUtilities;
  */
 public class CoreApp {
 	
-	static String[] empty = {"","","","true","true","true","true","true","true","true","true","true","true","0"};
-
 	/**
 	 * 
 	 * Main method is initialized at startup.

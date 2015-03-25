@@ -72,13 +72,13 @@ public class CoreFrame extends JFrame{
 		
 		JLabel lblBg = new JLabel();
 		final JLabel lblSearchBar = new JLabel();
-		JPanel pnlSidePanel = new JPanel();
-		JLabel lblDimmer = new JLabel();
+		final JPanel pnlSidePanel = new JPanel();
+		final JLabel lblDimmer = new JLabel();
 		JLabel lblCurrentBg = new JLabel();
 		ButtonGroup grpTabs = new ButtonGroup();
 		final JToggleButton btnCurrentTab = new JToggleButton();
-		JToggleButton btnShortTermTab = new JToggleButton();
-		JToggleButton btnLongTermTab = new JToggleButton();
+		final JToggleButton btnShortTermTab = new JToggleButton();
+		final JToggleButton btnLongTermTab = new JToggleButton();
 		final JButton btnSearchButton = new JButton();
 		final JButton btnExitButton = new JButton();
 		final JButton btnDrawerButton = new JButton();
@@ -120,17 +120,29 @@ public class CoreFrame extends JFrame{
 	                btnDrawerButton.setIcon(icnDrawerButton);
 	                btnDrawerButton.setRolloverIcon(icnDrawerButtonHover);
 	                btnDrawerButton.setPressedIcon(icnDrawerButtonPressed);
-		            btnCurrentTab.setEnabled(true);
+	                pnlSidePanel.setVisible(false);
+	                lblDimmer.setVisible(false);
+	                btnCurrentTab.setEnabled(true);
+		            btnShortTermTab.setEnabled(true);
+		            btnLongTermTab.setEnabled(true);
+		            btnSearchButton.setEnabled(true);
 	                drawerOpen = false;
 				}else{
 					btnDrawerButton.setIcon(icnDrawerButtonExit);
 		            btnDrawerButton.setRolloverIcon(icnDrawerButtonExitHover);
 		            btnDrawerButton.setPressedIcon(icnDrawerButtonExitPressed);
+		            pnlSidePanel.setVisible(true);
+	                lblDimmer.setVisible(true);
 		            btnCurrentTab.setEnabled(false);
+		            btnShortTermTab.setEnabled(false);
+		            btnLongTermTab.setEnabled(false);
+		            btnSearchButton.setEnabled(false);
 		            drawerOpen = true;
 	               }
-			}});	
-        btnCurrentTab.setEnabled(false);
+			}});
+		
+        pnlSidePanel.setVisible(false);
+        lblDimmer.setVisible(false);
 
 		
 		btnSearchButton.addActionListener(new ActionListener() {
@@ -185,14 +197,17 @@ public class CoreFrame extends JFrame{
 		btnCurrentTab.setPressedIcon(icnCurrentTabPressed);
 		btnCurrentTab.setSelectedIcon(icnCurrentTabPressed);
 		btnShortTermTab.setIcon(icnShortTermTab);
+		btnShortTermTab.setDisabledIcon(icnShortTermTab);
 		btnShortTermTab.setRolloverIcon(icnShortTermTabHover);
 		btnShortTermTab.setPressedIcon(icnShortTermTabPressed);
 		btnShortTermTab.setSelectedIcon(icnShortTermTabPressed);
 		btnLongTermTab.setIcon(icnLongTermTab);
+		btnLongTermTab.setDisabledIcon(icnLongTermTab);
 		btnLongTermTab.setRolloverIcon(icnLongTermTabHover);
 		btnLongTermTab.setPressedIcon(icnLongTermTabPressed);
 		btnLongTermTab.setSelectedIcon(icnLongTermTabPressed);
 		btnSearchButton.setIcon(icnSearchButton);
+		btnSearchButton.setDisabledIcon(icnSearchButton);
 		btnSearchButton.setRolloverIcon(icnSearchButtonHover);
 		btnSearchButton.setPressedIcon(icnSearchButtonPressed);
 		
@@ -228,12 +243,12 @@ public class CoreFrame extends JFrame{
 		btnShortTermTab.setBounds(163, 68, 174, 66);
 		btnLongTermTab.setBounds(337, 68, 158, 66);
 		btnDrawerButton.setBounds(17,20,30,28);
-		//pnlSidePanel.setBounds(5,67,380,728);
-		//lblDimmer.setBounds(0,0,500,800);
+		pnlSidePanel.setBounds(5,67,380,728);
+		lblDimmer.setBounds(5,67,490,728);
 		
 		corePanel.setComponentZOrder(btnDrawerButton,0);
-		//corePanel.setComponentZOrder(pnlSidePanel,1);
-		//corePanel.setComponentZOrder(lblDimmer,2);
+		corePanel.setComponentZOrder(pnlSidePanel,1);
+		corePanel.setComponentZOrder(lblDimmer,2);
 		corePanel.setComponentZOrder(btnExitButton,3);
 		corePanel.setComponentZOrder(coreMotionComponent,4);
 		corePanel.setComponentZOrder(btnCurrentTab,5);
