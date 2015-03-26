@@ -144,4 +144,5 @@ public class LocalWeatherPanel extends JPanel{
 		gbc.gridy = gridy;
 		this.add(strut, gbc);
 	}
+	
 }

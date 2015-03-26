@@ -1,5 +1,6 @@
 package team19.weatherapp;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
@@ -54,6 +55,60 @@ public class Utilities {
 			return (speed*1.61);
 		else
 			return -99999;
+	}
+	
+	public static int[] convertColor(double input){
+		int[] colarray = new int[3];
+		int rval=128;
+		int gval=128;
+		int bval=128;
+		
+		try{
+		int temp = (int)input;
+		
+		temp = temp-273;
+		temp = 100 + temp*4;
+		if(temp > 255)
+			temp=255;
+		if(temp<0)
+			temp=0;
+		
+		
+		
+		if(temp > 100)
+			rval = 100+(temp/2);
+		
+		if(temp < 160)
+			bval = 100+((255-temp)/2);
+		
+		if(temp>50 && temp < 128)
+			gval = 80+(temp);
+		
+		if(temp>=128 && temp < 210)
+			gval = 340-temp;
+		
+		rval += 20;
+		gval += 20;
+		bval += 20;
+		
+		if(rval>255)
+			rval = 255;
+		if(gval>255)
+			gval = 255;
+		if(bval>255)
+			bval = 255;
+		
+		}catch(Exception e){
+			rval=200;
+			gval=200;
+			bval=200;
+		}
+		
+		colarray[0]=rval;
+		colarray[1]=gval;
+		colarray[2]=bval;
+		
+		return colarray;
 	}
 	
 	/**

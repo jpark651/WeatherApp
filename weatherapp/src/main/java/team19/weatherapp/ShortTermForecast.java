@@ -2,6 +2,7 @@ package team19.weatherapp;
 
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -47,10 +48,14 @@ public class ShortTermForecast{
 		 *OpenWeatherMap returns a large JSONObject that contains multiple
 		 *smaller JSONObjects; we get these during this step
 		 */
-		this.jCity = j.getJSONObject("city");
-		this.jListArray = j.getJSONArray("list");
+		try{
 		this.jMainList = new ArrayList<JSONObject>();
 		this.jWeatherList = new ArrayList<JSONObject>();
+		this.jCity = j.getJSONObject("city");
+		
+		this.jListArray = j.getJSONArray("list");
+		
+		
 		for (int i = 0; i < 8; i++)
 		{
 			JSONObject nextObject = jListArray.getJSONObject(i);
@@ -79,6 +84,25 @@ public class ShortTermForecast{
 				System.out.println("Error: Can't obtain sky icon");
 			}
 			this.timeList.add(getTime(jListArray, i));
+		}
+		} catch (Exception e){
+			this.temperatureList = new ArrayList<String>();
+			this.skyConditionList = new ArrayList<String>();
+			this.skyIconList = new ArrayList<ImageIcon>();
+			this.timeList = new ArrayList<String>();
+			for (int i = 0; i < 8; i++)
+			{
+				this.timeList.add("No Data ");
+				this.temperatureList.add("No Data ");
+				try {
+					this.skyIconList.add(getSkyIcon(new JSONObject("{icon:01d}")));
+				} catch (JSONException e1) {
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				this.skyConditionList.add("No Data ");
+			} 
 		}
 
 	}

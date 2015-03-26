@@ -21,6 +21,7 @@ import org.json.JSONObject;
  */
 public class JSONRetriever {
 
+	static String appid = "&APPID=5e8db379b2d24bbfec1e845dfd19270d";
 	/**
 	 * The retrieveCurrent method retrieves the openweathermap data
 	 * in JSONObject format.
@@ -51,9 +52,9 @@ public class JSONRetriever {
 			
 			//Get name parameter and combine this to form the URL
 			String urlstring = "http://api.openweathermap.org/data/2.5/weather?q=";
-			String fullurl = urlstring + location;
+			String fullurl = urlstring + location + appid;
+			fullurl = fullurl.replaceAll("\\s+","%20");
 			URL url = new URL(fullurl);
-			System.out.println("TRYING TO CONNECT");
 			//Send GET request to retrieve JSON data
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
@@ -62,120 +63,8 @@ public class JSONRetriever {
 			//Throw error if connection failed
 			if (conn.getResponseCode() != 200) {
 				System.out.println("Error parsing data, please try again! HTTP Error Code: "+ conn.getResponseCode());
-				return new JSONObject("{\"Error\": \"5\"}");
-			}
-			
-			//If success, retrieve data, and save to str
-			BufferedReader br = new BufferedReader(new InputStreamReader(
-					(conn.getInputStream())));
-			String output;
-			System.out.println("Output from Server:");
-			while ((output = br.readLine()) != null) {
-				System.out.println(output+"\n");
-				str += output;
-			}
-			conn.disconnect();
-			
-		//If retrieved data is invalid, throw an error
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-			return new JSONObject("{\"Error\": \"3\"}");
-		} catch (IOException e) {
-			e.printStackTrace();
-			return new JSONObject("{\"Error\": \"4\"}");
-		}
-
-		//If the city could not be found, throw an error
-		if (str.contains("Error")) {
-			return new JSONObject("{\"Error\": \"1\"}");
-		} else if (str.equals("")) {
-			return new JSONObject("{\"Error\": \"2\"}");
-			
-		//If all data is valid, return the string
-		} else {
-			return new JSONObject(str);
-		}
-	}
-	
-	
-	public static JSONObject retrieveShortTerm(String location){
-		
-		//Initialize Empty String
-		String str = "";
-
-		//Attempt to parse data
-		try {
-			
-			//Get name parameter and combine this to form the URL
-			String urlstring = "http://api.openweathermap.org/data/2.5/forecast?q=";
-			String fullurl = urlstring + location;
-			URL url = new URL(fullurl);
-			
-			//Send GET request to retrieve JSON data
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setRequestMethod("GET");
-			conn.setRequestProperty("Accept", "application/json");
-			
-			//Throw error if connection failed
-			if (conn.getResponseCode() != 200) {
-				System.out.println("Error parsing data, please try again! HTTP Error Code: "+ conn.getResponseCode());
-				return new JSONObject("{\"Error\": \"5\"}");
-			}
-			
-			//If success, retrieve data, and save to str
-			BufferedReader br = new BufferedReader(new InputStreamReader(
-					(conn.getInputStream())));
-			String output;
-			System.out.println("Output from Server:");
-			while ((output = br.readLine()) != null) {
-				System.out.println(output+"\n");
-				str += output;
-			}
-			conn.disconnect();
-			
-		//If retrieved data is invalid, throw an error
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-			return new JSONObject("{\"Error\": \"3\"}");
-		} catch (IOException e) {
-			e.printStackTrace();
-			return new JSONObject("{\"Error\": \"4\"}");
-		}
-
-		//If the city could not be found, throw an error
-		if (str.contains("Error")) {
-			return new JSONObject("{\"Error\": \"1\"}");
-		} else if (str.equals("")) {
-			return new JSONObject("{\"Error\": \"2\"}");
-			
-		//If all data is valid, return the string
-		} else {
-			return new JSONObject(str);
-		}
-	}
-
-	public static JSONObject retrieveLongTerm(String location){
-		
-		//Initialize Empty String
-		String str = "";
-
-		//Attempt to parse data
-		try {
-			
-			//Get name parameter and combine this to form the URL
-			String urlstring = "http://api.openweathermap.org/data/2.5/forecast/daily?q=";
-			String fullurl = urlstring + location + "&units=metric&cnt=5";
-			URL url = new URL(fullurl);
-			
-			//Send GET request to retrieve JSON data
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setRequestMethod("GET");
-			conn.setRequestProperty("Accept", "application/json");
-			
-			//Throw error if connection failed
-			if (conn.getResponseCode() != 200) {
-				System.out.println("Error parsing data, please try again! HTTP Error Code: "+ conn.getResponseCode());
-				return new JSONObject("{\"Error\": \"5\"}");
+				return retrieveCurrent(location);
+				//return new JSONObject("{\"Error\": \"5\"}");
 			}
 			
 			//If success, retrieve data, and save to str
@@ -237,11 +126,13 @@ public class JSONRetriever {
 
         //Attempt to parse data
         try {
-            
+                  	
             //Get name parameter and combine this to form the URL
             String urlstring = "http://api.openweathermap.org/data/2.5/forecast?q=";
-            String fullurl = urlstring + location;
+            String fullurl = urlstring + location + appid;
+			fullurl = fullurl.replaceAll("\\s+","%20");
             URL url = new URL(fullurl);
+
             
             //Send GET request to retrieve JSON data
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -251,7 +142,8 @@ public class JSONRetriever {
             //Throw error if connection failed
             if (conn.getResponseCode() != 200) {
                 System.out.println("Error parsing data, please try again! HTTP Error Code: "+ conn.getResponseCode());
-                return new JSONObject("{\"Error\": \"5\"}");
+				return retrieveShort(location);
+                //return new JSONObject("{\"Error\": \"5\"}");
             }
             
             //If success, retrieve data, and save to str
@@ -316,9 +208,10 @@ public class JSONRetriever {
             
             //Get name parameter and combine this to form the URL
             String urlstring = "http://api.openweathermap.org/data/2.5/forecast/daily?q=";
-            String fullurl = urlstring + location + "&cnt=5";
+            String fullurl = urlstring + location + "&cnt=5"  + appid;
+			fullurl = fullurl.replaceAll("\\s+","%20");
             URL url = new URL(fullurl);
-            
+			
             //Send GET request to retrieve JSON data
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
@@ -327,7 +220,8 @@ public class JSONRetriever {
             //Throw error if connection failed
             if (conn.getResponseCode() != 200) {
                 System.out.println("Error parsing data, please try again! HTTP Error Code: "+ conn.getResponseCode());
-                return new JSONObject("{\"Error\": \"5\"}");
+                return retrieveLong(location);
+                //return new JSONObject("{\"Error\": \"5\"}");
             }
             
             //If success, retrieve data, and save to str

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -68,6 +69,7 @@ public class LongTermForecast {
          *OpenWeatherMap returns a large JSONObject that contains multiple
          *smaller JSONObjects; we get these during this step
          */
+    	try{
         this.jCity = j.getJSONObject("city");
         this.jListArray = j.getJSONArray("list");
         this.jTempList = new ArrayList<JSONObject>();
@@ -106,6 +108,29 @@ public class LongTermForecast {
             }
             this.dateList.add(getDate(jListArray, i + dateOffset));
         }
+    	} catch (Exception e){
+			this.temperatureList = new ArrayList<String>();
+			this.skyConditionList = new ArrayList<String>();
+			this.skyIconList = new ArrayList<ImageIcon>();
+			this.minTempList = new ArrayList<String>();
+			this.maxTempList = new ArrayList<String>();
+	        this.dateList = new ArrayList<String>();
+			for (int i = 0; i < 8; i++)
+			{
+				this.minTempList.add("No Data ");
+				this.maxTempList.add("No Data ");
+				this.temperatureList.add("No Data ");
+				this.dateList.add("No Data ");
+				try {
+					this.skyIconList.add(getSkyIcon(new JSONObject("{icon:01d}")));
+				} catch (JSONException e1) {
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				this.skyConditionList.add("No Data ");
+			} 
+		}
 
     }
 
