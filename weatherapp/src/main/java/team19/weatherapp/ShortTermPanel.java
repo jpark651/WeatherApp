@@ -23,6 +23,7 @@ public class ShortTermPanel extends JPanel {
 							lbl6thHrSkyIcon, lbl7thHrSkyIcon, lbl8thHrSkyIcon;
 	private static JLabel lbl1stHrSkyCondition, lbl2ndHrSkyCondition, lbl3rdHrSkyCondition, lbl4thHrSkyCondition,
 							lbl5thHrSkyCondition, lbl6thHrSkyCondition, lbl7thHrSkyCondition, lbl8thHrSkyCondition;
+	String cityid;
 
 	public ShortTermPanel(){
 		initLabels();
@@ -34,6 +35,7 @@ public class ShortTermPanel extends JPanel {
 			lblSTCity.setText("City Not Found");
 
 		} else {
+			this.cityid = city.shortTermForecast.getCityid();
 			lblSTCity.setText(city.shortTermForecast.fullCityName);
 			lbl1stHr.setText(city.shortTermForecast.timeList.get(0));
 			lbl2ndHr.setText(city.shortTermForecast.timeList.get(1));

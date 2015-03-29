@@ -23,6 +23,7 @@ public class ShortTermForecast{
 	private ArrayList<JSONObject> jMainList;
 	private ArrayList<JSONObject> jWeatherList;
 	private char tempUnits;
+	String id;
 
 	//Initialize data strings
 	//These can be accessed by the City Class
@@ -55,6 +56,7 @@ public class ShortTermForecast{
 		
 		this.jListArray = j.getJSONArray("list");
 		
+		this.id = jCity.get("id") +"";
 		
 		for (int i = 0; i < 8; i++)
 		{
@@ -118,6 +120,10 @@ public class ShortTermForecast{
 	public String getFullCityName(JSONObject j){
 		String fullCityName = j.getString("name") + ", " + j.getString("country");
 		return fullCityName;
+	}
+	
+	public String getCityid(){
+		return id;
 	}
 
 	/**

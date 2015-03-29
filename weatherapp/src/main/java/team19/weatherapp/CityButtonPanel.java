@@ -33,7 +33,7 @@ public class CityButtonPanel extends Panel {
 	public void removeButton(CityButton c) {
 		Component[] components = this.getComponents();
 		for (int i = 0; i < components.length; i++) {
-			if (((JButton) components[i]).getText().equals(c.getText())) {
+			if (((CityButton) components[i]).cityid.equals(c.cityid)) {
 				this.remove(components[i]);
 				citySize -= 1;
 			}
@@ -46,7 +46,8 @@ public class CityButtonPanel extends Panel {
 		String s = "_" + citySize;
 		Component[] components = this.getComponents();
 		for (int i = 0; i < components.length; i++) {
-				s += "_" + ((JButton)components[i]).getText();
+				s += "_" + ((CityButton)components[i]).getText();
+				s += "_" + ((CityButton)components[i]).cityid;
 		}
 		return s;
 	}

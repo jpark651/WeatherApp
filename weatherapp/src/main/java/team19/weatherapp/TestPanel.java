@@ -119,7 +119,7 @@ public class TestPanel extends JFrame{
 		showWindDirMenuBtn.setSelected(Boolean.parseBoolean(inputStr[11]));
 		showSkyCondMenuBtn.setSelected(Boolean.parseBoolean(inputStr[12]));
 		for(int i=0;i < Integer.parseInt(inputStr[13]);i++){
-			CityButton newButton = new CityButton(inputStr[14+i]);
+			CityButton newButton = new CityButton(inputStr[14+i*2],pnlCityButtons,inputStr[15+i*2]);
 			pnlCityButtons.addButton(newButton); 
 		}
 		CustomView.initCustomView(this);
@@ -137,6 +137,11 @@ public class TestPanel extends JFrame{
 		menuPanel.setBackground(new Color(220,220,220));
 		backPanel.setBackground(new Color(220,220,220));
 
+		Component[] cb = pnlCityButtons.getComponents();
+		for(int i=0;i<cb.length;i++){
+			cb[i].setBackground(new Color(240,240,240));
+		}
+		
 		/*
 		 * This sets current information from previous save
 		 */

@@ -13,8 +13,8 @@ public class Toolbar {
 	static void initToolbar(final TestPanel tp){
 		tp.toolbar = new JToolBar();
 		tp.toolbar.setEnabled(false);
-		tp.btnAddCity = new JButton("Add City");
-		tp.btnRemoveCity = new JButton("Remove City");
+		tp.btnAddCity = new JButton("Add To Favorites");
+		tp.btnRemoveCity = new JButton("Remove From Favorites");
 		tp.btnTempUnits = new JButton("C/F");
 		tp.btnWindUnits = new JButton("Miles/KM");
 		tp.btnRefresh = new JButton("Refresh");
@@ -60,7 +60,7 @@ public class Toolbar {
 
 		tp.btnAddCity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				CityButton newButton = new CityButton(tp.pnlLocal.lblCity.getText());
+				CityButton newButton = new CityButton(tp.pnlLocal.lblCity.getText(),tp.pnlCityButtons, tp.pnlShortTerm.cityid);
 				tp.pnlCityButtons.addButton(newButton); 
 				tp.menubar.revalidate();
 				tp.menubar.repaint();
@@ -68,7 +68,7 @@ public class Toolbar {
 
 		tp.btnRemoveCity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				CityButton oldButton = new CityButton(tp.pnlLocal.lblCity.getText());
+				CityButton oldButton = new CityButton(tp.pnlLocal.lblCity.getText(),tp.pnlCityButtons,tp.pnlShortTerm.cityid);
 				tp.pnlCityButtons.removeButton(oldButton); 
 				tp.menubar.revalidate();
 				tp.menubar.repaint();

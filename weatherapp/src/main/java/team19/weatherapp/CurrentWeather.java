@@ -52,6 +52,7 @@ public class CurrentWeather {
 	String skyCondition;
 	ImageIcon skyIcon;
 	String timeUpdated;
+	String id;
 	public double kelvin;
 
 	/**
