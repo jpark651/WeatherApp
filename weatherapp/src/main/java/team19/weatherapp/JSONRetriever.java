@@ -43,6 +43,7 @@ public class JSONRetriever{
 	 * 						data for
 	 * @return				Returns the JSONObject containing the data
 	 * 						for the specified location
+	 * @throws		Throws a JSONExcpetion, required for JSONObjects
 	 */
 	public static JSONObject retrieveCurrent(String location)  throws JSONException{
 		
@@ -129,6 +130,7 @@ public class JSONRetriever{
      *                      data for
      * @return              Returns the JSONObject containing the data
      *                      for the specified location
+     * @throws		Throws a JSONExcpetion, required for JSONObjects
      */
     public static JSONObject retrieveShort(String location)  throws JSONException{
         
@@ -214,6 +216,7 @@ public class JSONRetriever{
      *                      data for
      * @return              Returns the JSONObject containing the data
      *                      for the specified location
+     * @throws		Throws a JSONExcpetion, required for JSONObjects
      */
     public static JSONObject retrieveLong(String location)  throws JSONException{
         //Initialize Empty String

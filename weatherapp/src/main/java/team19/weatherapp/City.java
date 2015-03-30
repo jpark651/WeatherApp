@@ -38,6 +38,7 @@ public class City{
 	 * 						temperature data should be stored in
 	 * @param windUnits		The wind units show which units the wind data
 	 * 						should be stored in
+	 * @throws JSONException JSONException is required for JSONObjects
 	 */
 	public City(String name, char tempUnits, char windUnits)  throws JSONException{
 

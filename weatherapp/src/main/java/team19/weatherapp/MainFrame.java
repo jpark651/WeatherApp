@@ -83,7 +83,7 @@ public class MainFrame extends JFrame{
 	 * MainFrame constructor creates the main frame of the app and adds
 	 * each of the components needed for the entire app
 	 * @param inputStr the string that contains saved data from the user's previous session
-	 * @throws JSONException 
+	 * @throws		Throws a JSONExcpetion, required for JSONObjects
 	 */
 	public MainFrame(String[] inputStr)  throws JSONException{
 		this.setResizable(false);
