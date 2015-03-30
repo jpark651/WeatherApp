@@ -29,6 +29,7 @@ public class LocalWeatherPanel extends JPanel{
 	public static JLabel humidTitle, lblLocalHumidity;
 	public static JLabel windSpdTitle, lblLocalWindSpeed;
 	public static JLabel windDirTitle, lblLocalWindDirection;
+	private static ArrayList<JLabel> labels;
 	
 	public LocalWeatherPanel(){
 		initLabels();
@@ -43,10 +44,15 @@ public class LocalWeatherPanel extends JPanel{
 	public void update(City city, char tempUnits, char windUnits){
 		if (city.validate != true) {
 			lblCity.setText("City Not Found");
+			for(JLabel l : labels){
+				l.setText("");
+			}
+			lblLocalSkyIcon.setVisible(false);
 
 		} else {
 			lblCity.setText(city.currentWeather.fullCityName);
 			lblLocalSkyIcon.setIcon(city.currentWeather.skyIcon);
+			lblLocalSkyIcon.setVisible(true);
 			lblLocalTemperature.setText(city.currentWeather.temperature + " " + tempUnits);
 			lblLocalMinTemp.setText(city.currentWeather.minTemp + " " + tempUnits);
 			lblLocalMaxTemp.setText(city.currentWeather.maxTemp + " " + tempUnits);
@@ -66,21 +72,21 @@ public class LocalWeatherPanel extends JPanel{
 	 * be added onto the LocalWeatherPanel
 	 */
 	private static void initLabels(){
+		labels = new ArrayList<JLabel>();
 		lblCity = new JLabel("Enter the name of a city");
 		lblCity.setFont(new Font("Helvetica Neue", Font.BOLD, 25));
-		lblLocalTemperature = new JLabel();
-		lblLocalMinTemp = new JLabel();
-		lblLocalMaxTemp = new JLabel();
-		lblLocalSunrise = new JLabel();
-		lblLocalSunset = new JLabel();
-		lblLocalWindSpeed = new JLabel();
-		lblLocalWindDirection = new JLabel();
-		lblLocalAirPressure = new JLabel();
-		lblLocalHumidity = new JLabel();
-		lblLocalSkyCondition = new JLabel();
-		lblLocalSkyIcon = new JLabel();
+		labels.add(lblLocalTemperature = new JLabel());
+		labels.add(lblLocalMinTemp = new JLabel());
+		labels.add(lblLocalMaxTemp = new JLabel());
+		labels.add(lblLocalSunrise = new JLabel());
+		labels.add(lblLocalSunset = new JLabel());
+		labels.add(lblLocalWindSpeed = new JLabel());
+		labels.add(lblLocalWindDirection = new JLabel());
+		labels.add(lblLocalAirPressure = new JLabel());
+		labels.add(lblLocalHumidity = new JLabel());
+		labels.add(lblLocalSkyCondition = new JLabel());
+		labels.add(lblLocalSkyIcon = new JLabel());
 		
-
 		minTempTitle = new JLabel("Expected Min.:");
 		maxTempTitle = new JLabel("Expected Max.:");
 		sunrTitle = new JLabel("Sunrise: ");

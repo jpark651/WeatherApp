@@ -15,7 +15,7 @@ import javax.swing.SwingUtilities;
 
 public class ShortTermPanel extends JPanel {
 	private static JLabel lblSTCity;
-	private static ArrayList<JLabel> shortTermHours;
+	private static ArrayList<JLabel> shortTermHours, shortTermLabels, shortTermIcons;
 	private static JLabel lbl1stHr, lbl2ndHr, lbl3rdHr, lbl4thHr, lbl5thHr, lbl6thHr, lbl7thHr, lbl8thHr;
 	private static JLabel lbl1stHrTemp, lbl2ndHrTemp, lbl3rdHrTemp, lbl4thHrTemp, lbl5thHrTemp, lbl6thHrTemp, 
 							lbl7thHrTemp, lbl8thHrTemp;
@@ -33,7 +33,12 @@ public class ShortTermPanel extends JPanel {
 	public void update(City city, char tempUnits){
 		if (city.validate != true) {
 			lblSTCity.setText("City Not Found");
-
+			for(JLabel l : shortTermLabels){
+				l.setText("");
+			}
+			for(JLabel l : shortTermIcons){
+				l.setVisible(false);
+			}
 		} else {
 			this.cityid = city.shortTermForecast.getCityid();
 			lblSTCity.setText(city.shortTermForecast.fullCityName);
@@ -61,6 +66,9 @@ public class ShortTermPanel extends JPanel {
 			lbl6thHrSkyIcon.setIcon(city.shortTermForecast.skyIconList.get(5));
 			lbl7thHrSkyIcon.setIcon(city.shortTermForecast.skyIconList.get(6));
 			lbl8thHrSkyIcon.setIcon(city.shortTermForecast.skyIconList.get(7));
+			for(JLabel l : shortTermIcons){
+				l.setVisible(true);
+			}
 			lbl1stHrSkyCondition.setText(city.shortTermForecast.skyConditionList.get(0));
 			lbl2ndHrSkyCondition.setText(city.shortTermForecast.skyConditionList.get(1));
 			lbl3rdHrSkyCondition.setText(city.shortTermForecast.skyConditionList.get(2));
@@ -140,6 +148,8 @@ public class ShortTermPanel extends JPanel {
 	private static void initLabels(){
 		lblSTCity = new JLabel("Enter the name of a city");
 		lblSTCity.setFont(new Font("Helvetica Neue", Font.BOLD, 25));
+		shortTermLabels = new ArrayList<JLabel>();
+		shortTermIcons = new ArrayList<JLabel>();
 		shortTermHours = new ArrayList<JLabel>();
 		shortTermHours.add(lbl1stHr = new JLabel());
 		shortTermHours.add(lbl2ndHr = new JLabel());
@@ -152,30 +162,38 @@ public class ShortTermPanel extends JPanel {
 		for(JLabel l : shortTermHours){
 			l.setFont(new Font("Helvetica Neue", Font.BOLD, 15));
 		}
-		lbl1stHrTemp = new JLabel();
-		lbl2ndHrTemp = new JLabel();
-		lbl3rdHrTemp = new JLabel();
-		lbl4thHrTemp = new JLabel();
-		lbl5thHrTemp = new JLabel();
-		lbl6thHrTemp = new JLabel();
-		lbl7thHrTemp = new JLabel();
-		lbl8thHrTemp = new JLabel();
-		lbl1stHrSkyIcon = new JLabel();
-		lbl2ndHrSkyIcon = new JLabel();
-		lbl3rdHrSkyIcon = new JLabel();
-		lbl4thHrSkyIcon = new JLabel();
-		lbl5thHrSkyIcon = new JLabel();
-		lbl6thHrSkyIcon = new JLabel();
-		lbl7thHrSkyIcon = new JLabel();
-		lbl8thHrSkyIcon = new JLabel();
-		lbl1stHrSkyCondition = new JLabel();
-		lbl2ndHrSkyCondition = new JLabel();
-		lbl3rdHrSkyCondition = new JLabel();
-		lbl4thHrSkyCondition = new JLabel();
-		lbl5thHrSkyCondition = new JLabel();
-		lbl6thHrSkyCondition = new JLabel();
-		lbl7thHrSkyCondition = new JLabel();
-		lbl8thHrSkyCondition = new JLabel();
+		shortTermLabels.add(lbl1stHr);
+		shortTermLabels.add(lbl2ndHr);
+		shortTermLabels.add(lbl3rdHr);
+		shortTermLabels.add(lbl4thHr);
+		shortTermLabels.add(lbl5thHr);
+		shortTermLabels.add(lbl6thHr);
+		shortTermLabels.add(lbl7thHr);
+		shortTermLabels.add(lbl8thHr);
+		shortTermLabels.add(lbl1stHrTemp = new JLabel());
+		shortTermLabels.add(lbl2ndHrTemp = new JLabel());
+		shortTermLabels.add(lbl3rdHrTemp = new JLabel());
+		shortTermLabels.add(lbl4thHrTemp = new JLabel());
+		shortTermLabels.add(lbl5thHrTemp = new JLabel());
+		shortTermLabels.add(lbl6thHrTemp = new JLabel());
+		shortTermLabels.add(lbl7thHrTemp = new JLabel());
+		shortTermLabels.add(lbl8thHrTemp = new JLabel());
+		shortTermIcons.add(lbl1stHrSkyIcon = new JLabel());
+		shortTermIcons.add(lbl2ndHrSkyIcon = new JLabel());
+		shortTermIcons.add(lbl3rdHrSkyIcon = new JLabel());
+		shortTermIcons.add(lbl4thHrSkyIcon = new JLabel());
+		shortTermIcons.add(lbl5thHrSkyIcon = new JLabel());
+		shortTermIcons.add(lbl6thHrSkyIcon = new JLabel());
+		shortTermIcons.add(lbl7thHrSkyIcon = new JLabel());
+		shortTermIcons.add(lbl8thHrSkyIcon = new JLabel());
+		shortTermLabels.add(lbl1stHrSkyCondition = new JLabel());
+		shortTermLabels.add(lbl2ndHrSkyCondition = new JLabel());
+		shortTermLabels.add(lbl3rdHrSkyCondition = new JLabel());
+		shortTermLabels.add(lbl4thHrSkyCondition = new JLabel());
+		shortTermLabels.add(lbl5thHrSkyCondition = new JLabel());
+		shortTermLabels.add(lbl6thHrSkyCondition = new JLabel());
+		shortTermLabels.add(lbl7thHrSkyCondition = new JLabel());
+		shortTermLabels.add(lbl8thHrSkyCondition = new JLabel());
 	}
 	
 	private void insertJLabelIntoGrid(JLabel label, int gridwidth, 
