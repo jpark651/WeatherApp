@@ -1,5 +1,9 @@
 package team19.weatherapp;
-
+/**
+ * ShortTermPanel is a class that creates the panel with the proper layout
+ * to display the short-term weather forecast
+ * @author Team19
+ */
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -25,11 +29,20 @@ public class ShortTermPanel extends JPanel {
 							lbl5thHrSkyCondition, lbl6thHrSkyCondition, lbl7thHrSkyCondition, lbl8thHrSkyCondition;
 	String cityid;
 
+	/**
+	 * ShortTermPanel constructor creates a JPanel that can be used to display
+	 * data for the short-term weather forecast
+	 */
 	public ShortTermPanel(){
 		initLabels();
 		this.initUI();
 	}
 	
+	/**
+	 * update method updates the weather data displayed on the ShortTermPanel
+	 * @param city whose weather data will be updated and displayed on screen
+	 * @param tempUnits the user-specified unit in which to display the temperature
+	 */
 	public void update(City city, char tempUnits){
 		if (city.validate != true) {
 			lblSTCity.setText("City Not Found");
@@ -79,7 +92,10 @@ public class ShortTermPanel extends JPanel {
 			lbl8thHrSkyCondition.setText(city.shortTermForecast.skyConditionList.get(7));
 		}
 	}
-	
+	/**
+	 * initUI is a helper method that initializes the layout of the ShortTermPanel
+	 * and adds all labels to display the weather data into the layout
+	 */
 	private void initUI(){
 		GridBagLayout gbl= new GridBagLayout();
 		gbl.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -145,6 +161,10 @@ public class ShortTermPanel extends JPanel {
 		this.insertJLabelIntoGrid(lbl8thHrTemp, 0, 0, 0, 5, 5, 8, 12, false);
 	}
 	
+	/**
+	 * initLabels is a helper method that initializes all labels that will 
+	 * be added onto the ShortTermPanel
+	 */
 	private static void initLabels(){
 		lblSTCity = new JLabel("Enter the name of a city");
 		lblSTCity.setFont(new Font("Helvetica Neue", Font.BOLD, 25));
@@ -196,6 +216,19 @@ public class ShortTermPanel extends JPanel {
 		shortTermLabels.add(lbl8thHrSkyCondition = new JLabel());
 	}
 	
+	/**
+	 * insertJLabelIntoGrid is a helper method allows for the easy addition of labels
+	 * into the layout of the ShortTermPanel
+	 * @param label the label to be added to the panel
+	 * @param gridwidth the number of grids that the label will take up horizontally
+	 * @param inset1 
+	 * @param inset2
+	 * @param inset3
+	 * @param inset4
+	 * @param gridx
+	 * @param gridy
+	 * @param anchor
+	 */
 	private void insertJLabelIntoGrid(JLabel label, int gridwidth, 
 			int inset1, int inset2, int inset3, int inset4, int gridx, 
 			int gridy, boolean anchor){
@@ -209,7 +242,18 @@ public class ShortTermPanel extends JPanel {
 		gbc.gridy = gridy;
 		this.add(label, gbc);
 	}
-	
+	/**
+	 * insertStrut is a helper method that allows for the easy addition of struts
+	 * into the layout
+	 * @param strutType the type of strut to be inserted into the panel
+	 * @param strutSize the size of strut to be inserted into the panel
+	 * @param inset1
+	 * @param inset2
+	 * @param inset3
+	 * @param inset4
+	 * @param gridx
+	 * @param gridy
+	 */
 	private void insertStrut(char strutType, int strutSize,
 			int inset1, int inset2, int inset3, int inset4, 
 			int gridx, int gridy){
@@ -224,20 +268,4 @@ public class ShortTermPanel extends JPanel {
 		gbc.gridy = gridy;
 		this.add(strut, gbc);
 	}
-
-//	public static void main (String[] args){
-//	
-//	
-//		SwingUtilities.invokeLater(new Runnable() {
-//		public void run(){
-//			JFrame window = new JFrame();
-//			window.setSize(700,550);
-//			window.setLocationRelativeTo(null);
-//			
-//			ShortTermPanel pnl = new ShortTermPanel();
-//			window.add(pnl);
-//			window.setVisible(true);
-//			}
-//		});
-//	}
 }

@@ -1,5 +1,9 @@
 package team19.weatherapp;
-
+/**
+ * LongTermPanel is a class that creates the panel with the proper layout
+ * to display the long-term weather forecast
+ * @author Team19
+ */
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -25,11 +29,20 @@ public class LongTermPanel extends JPanel{
 	private static JLabel lbl1stDaySkyIcon, lbl2ndDaySkyIcon, lbl3rdDaySkyIcon, lbl4thDaySkyIcon, lbl5thDaySkyIcon;
 	private static JLabel lbl1stDaySkyCondition, lbl2ndDaySkyCondition, lbl3rdDaySkyCondition, lbl4thDaySkyCondition, lbl5thDaySkyCondition;
 	
+	/**
+	 * LongTermPanel constructor creates a JPanel that can be used to display
+	 * data for the long-term weather forecast
+	 */
 	public LongTermPanel(){
 		initLabels();
 		this.initUI();
 	}
 	
+	/**
+	 * update method updates the weather data displayed on the LongTermForecast
+	 * @param city whose weather data will be updated and displayed on screen
+	 * @param tempUnits the user-specified unit in which to display the temperature
+	 */
 	public void update(City city, char tempUnits){
 		if (city.validate != true) {
 			lblLTCity.setText("City Not Found");
@@ -77,7 +90,10 @@ public class LongTermPanel extends JPanel{
 			lbl5thDaySkyCondition.setText(city.longTermForecast.skyConditionList.get(4));
 		}
 	}
-	
+	/**
+	 * initLabels is a helper method that initializes all labels that will 
+	 * be added onto the LongTermPanel
+	 */
 	private static void initLabels(){
 		lblLTCity = new JLabel("Enter the name of a city");
 		lblLTCity.setFont(new Font("Helvetica Neue", Font.BOLD, 25));
@@ -123,7 +139,10 @@ public class LongTermPanel extends JPanel{
 		longTermLabels.add(lbl4thDaySkyCondition = new JLabel());
 		longTermLabels.add(lbl5thDaySkyCondition = new JLabel());
 	}
-	
+	/**
+	 * initUI is a helper method that initializes the layout of the LongTermPanel
+	 * and adds all labels to display the weather data into the layout
+	 */
 	private void initUI(){
 		GridBagLayout gbl= new GridBagLayout();
 		gbl.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -186,6 +205,19 @@ public class LongTermPanel extends JPanel{
 		
 	}
 	
+	/**
+	 * insertJLabelIntoGrid is a helper method allows for the easy addition of labels
+	 * into the layout of the LongTermPanel
+	 * @param label the label to be added to the panel
+	 * @param gridwidth the number of grids that the label will take up horizontally
+	 * @param inset1 
+	 * @param inset2
+	 * @param inset3
+	 * @param inset4
+	 * @param gridx
+	 * @param gridy
+	 * @param anchor
+	 */
 	private void insertJLabelIntoGrid(JLabel label, int gridwidth, 
 			int inset1, int inset2, int inset3, int inset4, int gridx, 
 			int gridy, boolean anchor){
@@ -197,9 +229,21 @@ public class LongTermPanel extends JPanel{
 		gbc.insets = new Insets(inset1, inset2, inset3, inset4);
 		gbc.gridx = gridx;
 		gbc.gridy = gridy;
-		this.add(label, gbc);	
+		this.add(label, gbc);
 	}
 	
+	/**
+	 * insertStrut is a helper method that allows for the easy addition of struts
+	 * into the layout
+	 * @param strutType the type of strut to be inserted into the panel
+	 * @param strutSize the size of strut to be inserted into the panel
+	 * @param inset1
+	 * @param inset2
+	 * @param inset3
+	 * @param inset4
+	 * @param gridx
+	 * @param gridy
+	 */
 	private void insertStrut(char strutType, int strutSize,
 			int inset1, int inset2, int inset3, int inset4, 
 			int gridx, int gridy){
@@ -214,21 +258,5 @@ public class LongTermPanel extends JPanel{
 		gbc.gridy = gridy;
 		this.add(strut, gbc);
 	}
-	
-//	public static void main (String[] args){
-//		
-//		
-//		SwingUtilities.invokeLater(new Runnable() {
-//			public void run(){
-//				JFrame window = new JFrame();
-//				window.setSize(700,550);
-//				window.setLocationRelativeTo(null);
-//				
-//				LongTermPanel pnl = new LongTermPanel();
-//				window.add(pnl);
-//				window.setVisible(true);
-//			}
-//		});
-//	}
 	
 }
