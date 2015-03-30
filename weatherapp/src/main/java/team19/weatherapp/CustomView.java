@@ -5,7 +5,7 @@ import java.awt.Panel;
 
 public class CustomView {
 
-	public static void initCustomView(TestPanel tp){
+	public static void initCustomView(MainFrame tp){
 		boolean selected = tp.showTempMenuBtn.getModel().isSelected();
 		if(selected){
 			tp.pnlLocal.lblLocalTemperature.setVisible(true);

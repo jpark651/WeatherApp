@@ -12,7 +12,7 @@ import javax.swing.JToolBar;
 import org.json.JSONException;
 
 public class Toolbar {
-	static void initToolbar(final TestPanel tp){
+	static void initToolbar(final MainFrame tp){
 		tp.toolbar = new JToolBar();
 		tp.toolbar.setEnabled(false);
 		tp.btnAddCity = new JButton("Add To Favorites");

@@ -43,7 +43,7 @@ public class App {
 	public static void main(String[] args) throws IOException {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				TestPanel window = null;	
+				MainFrame window = null;	
 				//Attempt to load previous user data
 				try
 			      {
@@ -54,15 +54,15 @@ public class App {
 					 * JPanel
 					 */
 					if (str.length > 13){
-						window = new TestPanel(str);
+						window = new MainFrame(str);
 					}else{
-						window = new TestPanel(empty);
+						window = new MainFrame(empty);
 				 		System.out.println("Previous Save Invalid");
 					}
 			      }catch(IOException i)
 			      {
 			 		try {
-						window = new TestPanel(empty);
+						window = new MainFrame(empty);
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -71,7 +71,7 @@ public class App {
 			      }catch(ClassNotFoundException c)
 			      {
 			 		try {
-						window = new TestPanel(empty);
+						window = new MainFrame(empty);
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

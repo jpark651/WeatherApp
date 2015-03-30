@@ -9,7 +9,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
 public class MenuView {
-	public static void initViewMenu(final TestPanel tp){
+	public static void initViewMenu(final MainFrame tp){
 		tp.menubar = new JMenuBar();
 		tp.viewMenu = new JMenu("View");
 		tp.menubar.add(tp.viewMenu);

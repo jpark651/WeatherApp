@@ -54,7 +54,7 @@ boolean selectMarker;
 			currentbutton.selectMarker = true;
 			currentbutton.setBackground(new Color(240,150,150));
 			try {
-				TestPanel.updateScreenWithCity(c);
+				MainFrame.updateScreenWithCity(c);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

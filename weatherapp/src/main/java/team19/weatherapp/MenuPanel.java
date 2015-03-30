@@ -12,7 +12,7 @@ import org.json.JSONException;
 
 public class MenuPanel {
 
-	public static void initMenuPanel(final TestPanel tp){
+	public static void initMenuPanel(final MainFrame tp){
 		JLabel searchbar = new JLabel();
 		searchbar.setText(" Search for a City");
 		JLabel favoritesbar = new JLabel();
