@@ -150,10 +150,12 @@ public class TestPanel extends JFrame{
 		 * This sets current information from previous save
 		 */
 		 if (cityName.length() > 0) {
-			 txtLocation.setText(cityName);
-			 city = new City(cityName, tempUnits, windUnits);
-			 updateScreen(city);
-			 txtLocation.setText("");
+			 if(!(cityName.equals("City Not Found"))){
+				 txtLocation.setText(cityName);
+				 city = new City(cityName, tempUnits, windUnits);
+				 updateScreen(city);
+				 txtLocation.setText("");
+			 }
 		 }
 		 
 		 this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE );
