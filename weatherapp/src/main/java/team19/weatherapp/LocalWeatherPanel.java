@@ -53,9 +53,9 @@ public class LocalWeatherPanel extends JPanel{
 			lblCity.setText(city.currentWeather.fullCityName);
 			lblLocalSkyIcon.setIcon(city.currentWeather.skyIcon);
 			lblLocalSkyIcon.setVisible(true);
-			lblLocalTemperature.setText(city.currentWeather.temperature + " " + tempUnits);
-			lblLocalMinTemp.setText(city.currentWeather.minTemp + " " + tempUnits);
-			lblLocalMaxTemp.setText(city.currentWeather.maxTemp + " " + tempUnits);
+			lblLocalTemperature.setText(city.currentWeather.temperature + " " + "°"+tempUnits);
+			lblLocalMinTemp.setText(city.currentWeather.minTemp + " " + "°"+tempUnits);
+			lblLocalMaxTemp.setText(city.currentWeather.maxTemp + " " + "°"+tempUnits);
 			lblLocalSunrise.setText(city.currentWeather.sunrise);
 			lblLocalSunset.setText(city.currentWeather.sunset);
 			lblLocalWindSpeed.setText(city.currentWeather.windSpeed + " " + windUnits + "PH");
