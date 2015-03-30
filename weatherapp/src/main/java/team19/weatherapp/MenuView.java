@@ -1,5 +1,10 @@
 package team19.weatherapp;
-
+/**
+ * MenuView is a class that creates the View Menu that will be used
+ * by the user to specify what weather data to be displayed on the local
+ * current weather screen
+ * @author Team19
+ */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,6 +14,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
 public class MenuView {
+	/**
+	 * initViewMenu initializes the view menu and menubar and adds it to the main frame
+	 * @param tp the JFrame on which this menubar will be added
+	 */
 	public static void initViewMenu(final MainFrame tp){
 		tp.menubar = new JMenuBar();
 		tp.viewMenu = new JMenu("View");

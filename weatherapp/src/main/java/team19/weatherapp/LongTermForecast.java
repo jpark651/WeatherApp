@@ -22,8 +22,6 @@ import org.json.JSONObject;
  * Once saved, a user can easy access any of these variables by
  * referencing them through the city object.
  * 
- * Currently, this is a placeholder for future development needs.
- * 
  * @author Scott Mackie
  *
  */

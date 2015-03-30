@@ -1,6 +1,17 @@
 package team19.weatherapp;
 
-
+/**
+ * The ShortTermForecast class holds all of the long term weather data
+ * for the specified city. When the json is parsed, it is passed into
+ * the ShortTermForecast constructor, which retrieves the data from the
+ * JSONObject and saves it into multiple variables.
+ * 
+ * Once saved, a user can easy access any of these variables by
+ * referencing them through the city object.
+ * 
+ * @author Scott Mackie
+ *
+ */
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -1,5 +1,9 @@
 package team19.weatherapp;
-
+/**
+ * MainFrame is the class that combines all the elements of the 
+ * app together onto a single frame. 
+ * @author Team19
+ */
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
@@ -75,6 +79,12 @@ public class MainFrame extends JFrame{
 	static char tempUnits;
 	static char windUnits;
 	
+	/**
+	 * MainFrame constructor creates the main frame of the app and adds
+	 * each of the components needed for the entire app
+	 * @param inputStr the string that contains saved data from the user's previous session
+	 * @throws JSONException 
+	 */
 	public MainFrame(String[] inputStr)  throws JSONException{
 		this.setResizable(false);
 		pnlLongTerm = new LongTermPanel();
@@ -203,6 +213,10 @@ public class MainFrame extends JFrame{
 	
 	//HELPER METHODS//////////////
 
+	/**
+	 * updateScreen method updates the screen of the main frame
+	 * @param city name of the city whose weather data will be updated to
+	 */
 	static void updateScreen(City city){
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a z");
 		Calendar cal = Calendar.getInstance();
@@ -210,12 +224,6 @@ public class MainFrame extends JFrame{
 		pnlLocal.update(city, tempUnits, windUnits);
 		
 		Component[] cb = pnlCityButtons.getComponents();
-
-		
-				
-	
-				
-			
 		
 		pnlShortTerm.update(city, tempUnits);
 		pnlLongTerm.update(city, tempUnits);
@@ -236,7 +244,6 @@ public class MainFrame extends JFrame{
 			
 		}
 		
-		
 		try{
 		int[] colarray = Utilities.convertColor((int)city.currentWeather.kelvin);
 		pnlLongTerm.setBackground(new Color(colarray[0],colarray[1],colarray[2]));
@@ -252,6 +259,11 @@ public class MainFrame extends JFrame{
 		
 	}
 	
+	/**
+	 * newCityUpdateScreen method updates the screen of the main frame
+	 * after the user enters something into the searchbar
+	 * @throws JSONException
+	 */
 	static void newCityUpdateScreen()  throws JSONException{
 		city = new City(txtLocation.getText(), tempUnits, windUnits);
 		if(city.validate==false){
@@ -263,6 +275,12 @@ public class MainFrame extends JFrame{
 		}
 	}
 
+	/**
+	 * updateScreenWithCity method updates the screen to show updated weather data
+	 * for the specified city
+	 * @param c name of the city for which the weather data will be updated
+	 * @throws JSONException
+	 */
 	static void updateScreenWithCity(String c)  throws JSONException{
 		city = new City(c, tempUnits, windUnits);
 		if(city.validate==false){
