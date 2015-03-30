@@ -31,6 +31,10 @@ public class LocalWeatherPanel extends JPanel{
 	public static JLabel windDirTitle, lblLocalWindDirection;
 	private static ArrayList<JLabel> labels;
 	
+	/**
+	 * LocalWeatherPanel constructor creates a JPanel that can be used to display
+	 * data for the current local weather forecast
+	 */
 	public LocalWeatherPanel(){
 		initLabels();
 		this.initUI();
@@ -138,7 +142,7 @@ public class LocalWeatherPanel extends JPanel{
 	}
 	
 	/**
-	 * insertJLavelIntoGrid is a helper method allows for the easy addition of labels
+	 * insertJLabelIntoGrid is a helper method allows for the easy addition of labels
 	 * into the layout of the LocalWeatherPanel
 	 * @param label the label to be added to the panel
 	 * @param gridwidth the number of grids that the label will take up horizontally
@@ -164,10 +168,10 @@ public class LocalWeatherPanel extends JPanel{
 		this.add(label, gbc);
 	}
 	/**
-	 * insertStrut is a helper method that allows for the easy additino of struts
+	 * insertStrut is a helper method that allows for the easy addition of struts
 	 * into the layout
-	 * @param strutType
-	 * @param strutSize
+	 * @param strutType the type of strut to be inserted into the panel
+	 * @param strutSize the size of strut to be inserted into the panel
 	 * @param inset1
 	 * @param inset2
 	 * @param inset3

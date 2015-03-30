@@ -1,5 +1,11 @@
 package team19.weatherapp;
-
+/**
+ * Toolbar is a class that creates the toolbar that contains buttons
+ * that the user will use to add/remove cities from their favourites,
+ * as well as buttons that will allow them to change their preferences
+ * for units
+ * @author Team19
+ */
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +18,12 @@ import javax.swing.JToolBar;
 import org.json.JSONException;
 
 public class Toolbar {
-	static void initToolbar(final TestPanel tp){
+	/**
+	 * initToolbar initializes the toolbar and it's accompanying buttons
+	 * and adds it the main frame of the app
+	 * @param tp the main frame on which the toolbar will be added
+	 */
+	static void initToolbar(final MainFrame tp){
 		tp.toolbar = new JToolBar();
 		tp.toolbar.setEnabled(false);
 		tp.btnAddCity = new JButton("Add To Favorites");

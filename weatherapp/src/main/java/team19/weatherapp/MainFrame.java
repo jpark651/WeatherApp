@@ -1,5 +1,9 @@
 package team19.weatherapp;
-
+/**
+ * MainFrame is the class that combines all the elements of the 
+ * app together onto a single frame. 
+ * @author Team19
+ */
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
@@ -41,7 +45,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 
-public class TestPanel extends JFrame{
+public class MainFrame extends JFrame{
 
 	static JTextField txtLocation;
 	static CityButtonPanel pnlCityButtons;
@@ -75,7 +79,13 @@ public class TestPanel extends JFrame{
 	static char tempUnits;
 	static char windUnits;
 	
-	public TestPanel(String[] inputStr)  throws JSONException{
+	/**
+	 * MainFrame constructor creates the main frame of the app and adds
+	 * each of the components needed for the entire app
+	 * @param inputStr the string that contains saved data from the user's previous session
+	 * @throws		Throws a JSONExcpetion, required for JSONObjects
+	 */
+	public MainFrame(String[] inputStr)  throws JSONException{
 		this.setResizable(false);
 		pnlLongTerm = new LongTermPanel();
 		pnlShortTerm = new ShortTermPanel();
@@ -158,7 +168,13 @@ public class TestPanel extends JFrame{
 			 if(!(cityName.equals("City Not Found"))){
 				 txtLocation.setText(cityName);
 				 city = new City(cityName, tempUnits, windUnits);
-				 updateScreen(city);
+				 if(city.validate==false){
+						if (city.errorval == 5){
+							pnlLocal.lblCity.setText("No Internet Connection");
+						}
+					}else{
+						updateScreen(city);
+					}
 				 txtLocation.setText("");
 			 }
 		 }
@@ -179,10 +195,12 @@ public class TestPanel extends JFrame{
 						 "Exit Application",
 						 JOptionPane.YES_NO_OPTION);
 				 if (result == JOptionPane.YES_OPTION){
+					 if(!pnlLocal.lblCity.getText().equals("No Internet Connection")){
 					 String saveFile = (pnlLocal.lblCity.getText() + "_" + tempUnits + "_" + windUnits + "_" + showTempMenuBtn.isSelected() + "_" + showMinTempMenuBtn.isSelected() + "_" + showMaxTempMenuBtn.isSelected() + "_" + showSunriseMenuBtn.isSelected() + "_" + showSunsetMenuBtn.isSelected() + "_" + showAirPMenuBtn.isSelected() + "_" + showHumidityMenuBtn.isSelected() + "_" + showWindSpdMenuBtn.isSelected() + "_" + showWindDirMenuBtn.isSelected() + "_" + showSkyCondMenuBtn.isSelected());
 					 saveFile += pnlCityButtons.buttonList();
 					 Serialize.saveOnExit(saveFile);
 					 System.out.println("Saved: " + Arrays.toString(saveFile.split("_")));
+					 }
 					 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 				 }
 			 }
@@ -195,6 +213,10 @@ public class TestPanel extends JFrame{
 	
 	//HELPER METHODS//////////////
 
+	/**
+	 * updateScreen method updates the screen of the main frame
+	 * @param city name of the city whose weather data will be updated to
+	 */
 	static void updateScreen(City city){
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a z");
 		Calendar cal = Calendar.getInstance();
@@ -202,16 +224,10 @@ public class TestPanel extends JFrame{
 		pnlLocal.update(city, tempUnits, windUnits);
 		
 		Component[] cb = pnlCityButtons.getComponents();
-
-		
-				
-	
-				
-			
 		
 		pnlShortTerm.update(city, tempUnits);
 		pnlLongTerm.update(city, tempUnits);
-		
+		try{
 		for(int j=0;j<cb.length;j++){
 			((JComponent) cb[j]).setOpaque(true);
 			((CityButton)cb[j]).selectMarker = false;
@@ -224,7 +240,9 @@ public class TestPanel extends JFrame{
 				((CityButton)cb[i]).setBackground(new Color(240,150,150));
 			}
 		}
-		
+		} catch (Exception e){
+			
+		}
 		
 		try{
 		int[] colarray = Utilities.convertColor((int)city.currentWeather.kelvin);
@@ -239,19 +257,39 @@ public class TestPanel extends JFrame{
 		menubar.revalidate();
 		menubar.repaint();
 		
-
-		
 	}
 	
+	/**
+	 * newCityUpdateScreen method updates the screen of the main frame
+	 * after the user enters something into the searchbar
+	 * @throws JSONException
+	 */
 	static void newCityUpdateScreen()  throws JSONException{
 		city = new City(txtLocation.getText(), tempUnits, windUnits);
-		updateScreen(city);
-
+		if(city.validate==false){
+			if (city.errorval == 5){
+				pnlLocal.lblCity.setText("No Internet Connection");
+			}
+		}else{
+			updateScreen(city);
+		}
 	}
 
+	/**
+	 * updateScreenWithCity method updates the screen to show updated weather data
+	 * for the specified city
+	 * @param c name of the city for which the weather data will be updated
+	 * @throws JSONException
+	 */
 	static void updateScreenWithCity(String c)  throws JSONException{
 		city = new City(c, tempUnits, windUnits);
-		updateScreen(city);
+		if(city.validate==false){
+			if (city.errorval == 5){
+				pnlLocal.lblCity.setText("No Internet Connection");
+			}
+		}else{
+			updateScreen(city);
+		}
 
 	}
 

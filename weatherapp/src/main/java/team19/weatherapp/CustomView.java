@@ -1,11 +1,18 @@
 package team19.weatherapp;
-
+/**
+ * MenuView is a class that creates the user's "custom view" depending on
+ * their previous settings
+ * @author Team19
+ */
 import java.awt.Frame;
 import java.awt.Panel;
 
 public class CustomView {
-
-	public static void initCustomView(TestPanel tp){
+	/**
+	 * initCustomView method implements the custom view on the main frame of the app
+	 * @param tp the main frame of the app on which the custom view will be implemented
+	 */
+	public static void initCustomView(MainFrame tp){
 		boolean selected = tp.showTempMenuBtn.getModel().isSelected();
 		if(selected){
 			tp.pnlLocal.lblLocalTemperature.setVisible(true);

@@ -1,5 +1,9 @@
 package team19.weatherapp;
-
+/**
+ * MenuPanel creates the panel for the "menu"
+ * This menu includes the search box and the user's favourites list
+ * @author Team19
+ */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,7 +16,12 @@ import org.json.JSONException;
 
 public class MenuPanel {
 
-	public static void initMenuPanel(final TestPanel tp){
+	/**
+	 * initMenuPanel initializes the menu panel and adds it to the main frame of the app
+	 * it also initializes the separate components to be included on it
+	 * @param tp the main frame of the app on which the menu panel will be added
+	 */
+	public static void initMenuPanel(final MainFrame tp){
 		JLabel searchbar = new JLabel();
 		searchbar.setText(" Search for a City");
 		JLabel favoritesbar = new JLabel();
