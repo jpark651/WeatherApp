@@ -158,7 +158,13 @@ public class MainFrame extends JFrame{
 			 if(!(cityName.equals("City Not Found"))){
 				 txtLocation.setText(cityName);
 				 city = new City(cityName, tempUnits, windUnits);
-				 updateScreen(city);
+				 if(city.validate==false){
+						if (city.errorval == 5){
+							pnlLocal.lblCity.setText("No Internet Connection");
+						}
+					}else{
+						updateScreen(city);
+					}
 				 txtLocation.setText("");
 			 }
 		 }
@@ -179,10 +185,12 @@ public class MainFrame extends JFrame{
 						 "Exit Application",
 						 JOptionPane.YES_NO_OPTION);
 				 if (result == JOptionPane.YES_OPTION){
+					 if(!pnlLocal.lblCity.getText().equals("No Internet Connection")){
 					 String saveFile = (pnlLocal.lblCity.getText() + "_" + tempUnits + "_" + windUnits + "_" + showTempMenuBtn.isSelected() + "_" + showMinTempMenuBtn.isSelected() + "_" + showMaxTempMenuBtn.isSelected() + "_" + showSunriseMenuBtn.isSelected() + "_" + showSunsetMenuBtn.isSelected() + "_" + showAirPMenuBtn.isSelected() + "_" + showHumidityMenuBtn.isSelected() + "_" + showWindSpdMenuBtn.isSelected() + "_" + showWindDirMenuBtn.isSelected() + "_" + showSkyCondMenuBtn.isSelected());
 					 saveFile += pnlCityButtons.buttonList();
 					 Serialize.saveOnExit(saveFile);
 					 System.out.println("Saved: " + Arrays.toString(saveFile.split("_")));
+					 }
 					 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 				 }
 			 }
@@ -211,7 +219,7 @@ public class MainFrame extends JFrame{
 		
 		pnlShortTerm.update(city, tempUnits);
 		pnlLongTerm.update(city, tempUnits);
-		
+		try{
 		for(int j=0;j<cb.length;j++){
 			((JComponent) cb[j]).setOpaque(true);
 			((CityButton)cb[j]).selectMarker = false;
@@ -223,6 +231,9 @@ public class MainFrame extends JFrame{
 				((CityButton)cb[i]).selectMarker = true;
 				((CityButton)cb[i]).setBackground(new Color(240,150,150));
 			}
+		}
+		} catch (Exception e){
+			
 		}
 		
 		
@@ -239,19 +250,28 @@ public class MainFrame extends JFrame{
 		menubar.revalidate();
 		menubar.repaint();
 		
-
-		
 	}
 	
 	static void newCityUpdateScreen()  throws JSONException{
 		city = new City(txtLocation.getText(), tempUnits, windUnits);
-		updateScreen(city);
-
+		if(city.validate==false){
+			if (city.errorval == 5){
+				pnlLocal.lblCity.setText("No Internet Connection");
+			}
+		}else{
+			updateScreen(city);
+		}
 	}
 
 	static void updateScreenWithCity(String c)  throws JSONException{
 		city = new City(c, tempUnits, windUnits);
-		updateScreen(city);
+		if(city.validate==false){
+			if (city.errorval == 5){
+				pnlLocal.lblCity.setText("No Internet Connection");
+			}
+		}else{
+			updateScreen(city);
+		}
 
 	}
 

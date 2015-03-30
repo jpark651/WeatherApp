@@ -23,6 +23,7 @@ public class City{
 
 	//Properties of the city object: "validate" shows weather the city exists or not
 	boolean validate;
+	int errorval = 0;
 	CurrentWeather currentWeather;
 	LongTermForecast longTermForecast;
 	ShortTermForecast shortTermForecast;
@@ -54,6 +55,9 @@ public class City{
 			this.longTermForecast = new LongTermForecast(jl,tempUnits);
 		} else {
 			this.validate = false;
+			this.errorval = Integer.parseInt(j.get("Error") + "");
+			System.out.println("Error creating city: ERROR " + this.errorval);
+
 		}
 
 	}

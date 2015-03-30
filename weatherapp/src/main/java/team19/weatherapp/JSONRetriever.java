@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.UnknownHostException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -62,11 +63,13 @@ public class JSONRetriever{
 			conn.setRequestProperty("Accept", "application/json");
 			
 			//Throw error if connection failed
+			try{
 			if (conn.getResponseCode() != 200) {
 				System.out.println("Error parsing data, please try again! HTTP Error Code: "+ conn.getResponseCode());
 				return retrieveCurrent(location);
-				//return new JSONObject("{\"Error\": \"5\"}");
 			}
+			
+			
 			
 			//If success, retrieve data, and save to str
 			BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -78,6 +81,10 @@ public class JSONRetriever{
 				str += output;
 			}
 			conn.disconnect();
+			} catch (UnknownHostException e){
+				System.out.println("No Internet Connection! Please try again.");
+                return new JSONObject("{\"Error\": \"5\"}");
+			}
 			
 		//If retrieved data is invalid, throw an error
 		} catch (MalformedURLException e) {
@@ -144,11 +151,12 @@ public class JSONRetriever{
             conn.setRequestProperty("Accept", "application/json");
             
             //Throw error if connection failed
+            try{
             if (conn.getResponseCode() != 200) {
                 System.out.println("Error parsing data, please try again! HTTP Error Code: "+ conn.getResponseCode());
 				return retrieveShort(location);
-                //return new JSONObject("{\"Error\": \"5\"}");
             }
+        
             
             //If success, retrieve data, and save to str
             BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -160,6 +168,10 @@ public class JSONRetriever{
                 str += output;
             }
             conn.disconnect();
+            } catch (UnknownHostException e){
+            	System.out.println("No Internet Connection! Please try again.");
+                return new JSONObject("{\"Error\": \"5\"}");
+    		}
             
         //If retrieved data is invalid, throw an error
         } catch (MalformedURLException e) {
@@ -222,11 +234,12 @@ public class JSONRetriever{
             conn.setRequestProperty("Accept", "application/json");
             
             //Throw error if connection failed
+            try{
             if (conn.getResponseCode() != 200) {
                 System.out.println("Error parsing data, please try again! HTTP Error Code: "+ conn.getResponseCode());
                 return retrieveLong(location);
-                //return new JSONObject("{\"Error\": \"5\"}");
             }
+        
             
             //If success, retrieve data, and save to str
             BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -238,6 +251,10 @@ public class JSONRetriever{
                 str += output;
             }
             conn.disconnect();
+            } catch (UnknownHostException e){
+            	System.out.println("No Internet Connection! Please try again.");
+                return new JSONObject("{\"Error\": \"5\"}");
+    		}
             
         //If retrieved data is invalid, throw an error
         } catch (MalformedURLException e) {
