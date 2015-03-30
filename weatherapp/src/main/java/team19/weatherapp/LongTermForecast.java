@@ -139,7 +139,7 @@ public class LongTermForecast{
      * 
      * @param j     The JSONObject that contains the City Name
      * @return      Returns the name of the city in String Format
-     * @throws		Throws a JSONExcpetion, required for JSONObjects
+     * @throws JSONException		Throws a JSONExcpetion, required for JSONObjects
      */
     public String getFullCityName(JSONObject j)  throws JSONException{
         String fullCityName = j.getString("name") + ", " + j.getString("country");
@@ -153,7 +153,7 @@ public class LongTermForecast{
      * 
      * @param j     The JSONObject that contains the city temperature
      * @return      Returns the temperature of the city in String Format
-     * @throws		Throws a JSONExcpetion, required for JSONObjects
+     * @throws JSONException		Throws a JSONExcpetion, required for JSONObjects
      */
     public String getTemperature(JSONObject j)  throws JSONException{
         return roundTwoDecimals(Utilities.convertTemp(tempUnits,j.getDouble("day"))) + "";
@@ -166,7 +166,7 @@ public class LongTermForecast{
      * 
      * @param j     The JSONObject that contains the minimum city temperature
      * @return      Returns the minimum temperature of the city in String Format
-     * @throws		Throws a JSONExcpetion, required for JSONObjects
+     * @throws JSONException		Throws a JSONExcpetion, required for JSONObjects
      */
     public String getMinTemp(JSONObject j)  throws JSONException{
         return roundTwoDecimals(Utilities.convertTemp(tempUnits,j.getDouble("min"))) + "";
@@ -179,7 +179,7 @@ public class LongTermForecast{
      * 
      * @param j     The JSONObject that contains the maximum city temperature
      * @return      Returns the maximum temperature of the city in String Format
-     * @throws		Throws a JSONExcpetion, required for JSONObjects
+     * @throws JSONException		Throws a JSONExcpetion, required for JSONObjects
      */
     public String getMaxTemp(JSONObject j)  throws JSONException{
         return roundTwoDecimals(Utilities.convertTemp(tempUnits,j.getDouble("max"))) + "";
@@ -192,7 +192,7 @@ public class LongTermForecast{
      * 
      * @param j     The JSONObject that contains the city sky condition
      * @return      Returns the sky condition of the city in String Format
-     * @throws		Throws a JSONExcpetion, required for JSONObjects
+     * @throws JSONException		Throws a JSONExcpetion, required for JSONObjects
      */
     public String getSkyCondition(JSONObject j)  throws JSONException{
         return j.getString("description");
@@ -206,10 +206,9 @@ public class LongTermForecast{
      * that matches this file name
      * 
      * @param j     The JSONObject that contains the city Sky Icon
-     * @param index	Index is important for compiling
      * @return      Returns the Sky Icon of the city in ImageIcon Format
      * @throws IOException      If the image cannot be found, throws an error
-     * @throws		Throws a JSONExcpetion, required for JSONObjects
+     * @throws JSONException		Throws a JSONExcpetion, required for JSONObjects
      */
     public ImageIcon getSkyIcon(JSONObject j) throws IOException, JSONException{
         BufferedImage img = Utilities.getImage(j.getString("icon") + "-small.png");
@@ -225,8 +224,9 @@ public class LongTermForecast{
      * within that JSON Object.
      * 
      * @param j     The JSONObject that contains the forecast date
+     * @param index	The index that should be selected
      * @return      Returns the forecast date in String Format
-     * @throws		Throws a JSONExcpetion, required for JSONObjects
+     * @throws JSONException		Throws a JSONExcpetion, required for JSONObjects
      */
     public String getDate(JSONArray j, int index)  throws JSONException{
         long time = j.getJSONObject(index).getLong("dt");

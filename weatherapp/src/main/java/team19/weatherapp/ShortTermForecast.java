@@ -54,6 +54,7 @@ public class ShortTermForecast{
 	 *                      retrieved from
 	 * @param tempUnits     The temperature units shows which units the
 	 *                      temperature data should be stored in
+	 * @throws JSONException		Throws a JSONExcpetion, required for JSONObjects
 	 */
 	public ShortTermForecast(JSONObject j, char tempUnits) throws JSONException{
 
@@ -128,6 +129,7 @@ public class ShortTermForecast{
 	 * 
 	 * @param j     The JSONObject that contains the City Name
 	 * @return      Returns the name of the city in String Format
+	 * @throws JSONException		Throws a JSONExcpetion, required for JSONObjects
 	 */
 	public String getFullCityName(JSONObject j)  throws JSONException{
 		String fullCityName = j.getString("name") + ", " + j.getString("country");
@@ -145,6 +147,7 @@ public class ShortTermForecast{
 	 * 
 	 * @param j     The JSONObject that contains the city temperature
 	 * @return      Returns the temperature of the city in String Format
+	 * @throws JSONException		Throws a JSONExcpetion, required for JSONObjects
 	 */
 	public String getTemperature(JSONObject j)  throws JSONException{
 		return roundTwoDecimals(Utilities.convertTemp(tempUnits,j.getDouble("temp"))) + "";
@@ -157,6 +160,7 @@ public class ShortTermForecast{
 	 * 
 	 * @param j     The JSONObject that contains the city sky condition
 	 * @return      Returns the sky condition of the city in String Format
+	 * @throws JSONException		Throws a JSONExcpetion, required for JSONObjects
 	 */
 	public String getSkyCondition(JSONObject j)  throws JSONException{
 		return j.getString("description");
@@ -172,6 +176,7 @@ public class ShortTermForecast{
 	 * @param j     The JSONObject that contains the city Sky Icon
 	 * @return      Returns the Sky Icon of the city in ImageIcon Format
 	 * @throws IOException      If the image cannot be found, throws an error
+	 * @throws JSONException		Throws a JSONExcpetion, required for JSONObjects
 	 */
 	public ImageIcon getSkyIcon(JSONObject j) throws IOException, JSONException{
 		BufferedImage img = null;
@@ -195,6 +200,7 @@ public class ShortTermForecast{
 	 * @param j     The JSONArray that contains the forecast data
 	 * @param index The index of the forecast within the JSONArray
 	 * @return      Returns the time of the given forecast in String Format
+	 * @throws JSONException		Throws a JSONExcpetion, required for JSONObjects
 	 */
 	public String getTime(JSONArray j, int index)  throws JSONException{
 		String time = j.getJSONObject(index).getString("dt_txt");
