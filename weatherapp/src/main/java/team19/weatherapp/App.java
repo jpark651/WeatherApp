@@ -70,7 +70,7 @@ public class App {
 				
 				//Set window preferences
 				window.setTitle("WeatherApp");
-				window.setSize(780,730);
+				window.setSize(775,735);
 				window.setResizable(false);
 				window.setVisible(true);
 				window.setLocationRelativeTo(null);

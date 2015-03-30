@@ -106,6 +106,10 @@ public class TestPanel extends JFrame{
 			public void stateChanged(ChangeEvent arg0) {
 				menubar.revalidate();
 				menubar.repaint();
+				 if (mainPanel.getSelectedIndex() == 0)
+					 viewMenu.setEnabled(true);
+			     else
+			    	 viewMenu.setEnabled(false);
 			}
 		});
 		showTempMenuBtn.setSelected(Boolean.parseBoolean(inputStr[3]));

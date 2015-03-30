@@ -73,8 +73,6 @@ public class Utilities {
 		if(temp<0)
 			temp=0;
 		
-		
-		
 		if(temp > 100)
 			rval = 100+(temp/2);
 		
