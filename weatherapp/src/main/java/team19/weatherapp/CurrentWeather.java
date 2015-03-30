@@ -52,6 +52,8 @@ public class CurrentWeather {
 	String skyCondition;
 	ImageIcon skyIcon;
 	String timeUpdated;
+	String id;
+	public double kelvin;
 
 	/**
 	 * The CurrentWeather constructor retrieves the JSONObject data, and saves
@@ -138,7 +140,7 @@ public class CurrentWeather {
 	 * @return		Returns the min temperature of the city in String Format
 	 */
 	public String getMinTemp(JSONObject j){
-
+		this.kelvin = j.getDouble("temp_min");
 		return roundTwoDecimals(Utilities.convertTemp(tempUnits,j.getDouble("temp_min"))) + "";
 	}
 

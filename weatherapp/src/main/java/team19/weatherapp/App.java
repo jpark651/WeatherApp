@@ -22,6 +22,8 @@ import javax.swing.SwingUtilities;
  */
 public class App {
 	
+	static String[] empty = {"","","","true","true","true","true","true","true","true","true","true","true","0"};
+
 	/**
 	 * 
 	 * Main method is initialized at startup.
@@ -49,26 +51,31 @@ public class App {
 					 * the specified information. If not, create a new
 					 * JPanel
 					 */
-					if (str.length == 3){
-						window = new TestPanel(str[0],str[1],str[2]);
+					if (str.length > 13){
+						window = new TestPanel(str);
 					}else{
-						window = new TestPanel("","","");
+						window = new TestPanel(empty);
 				 		System.out.println("Previous Save Invalid");
 					}
 			      }catch(IOException i)
 			      {
-			 		window = new TestPanel("","","");
+			 		window = new TestPanel(empty);
 			 		System.out.println("Previous Save Not Found");
 			      }catch(ClassNotFoundException c)
 			      {
-			 		window = new TestPanel("","","");
+			 		window = new TestPanel(empty);
 			 		System.out.println("Previous Save Not Found");
 			      }
 				
 				
 				//Set window preferences
+				window.setTitle("WeatherApp");
+				window.setSize(800,735);
+				window.setResizable(false);
 				window.setVisible(true);
 				window.setLocationRelativeTo(null);
+			
+				
 				
 			}
 		});
