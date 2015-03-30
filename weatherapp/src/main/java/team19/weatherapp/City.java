@@ -1,5 +1,6 @@
 package team19.weatherapp;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -18,10 +19,11 @@ import org.json.JSONObject;
  * @author Scott Mackie
  *
  */
-public class City {
+public class City{
 
 	//Properties of the city object: "validate" shows weather the city exists or not
 	boolean validate;
+	int errorval = 0;
 	CurrentWeather currentWeather;
 	LongTermForecast longTermForecast;
 	ShortTermForecast shortTermForecast;
@@ -36,13 +38,12 @@ public class City {
 	 * 						temperature data should be stored in
 	 * @param windUnits		The wind units show which units the wind data
 	 * 						should be stored in
+	 * @throws JSONException JSONException is required for JSONObjects
 	 */
-	public City(String name, char tempUnits, char windUnits) {
+	public City(String name, char tempUnits, char windUnits)  throws JSONException{
 
 		//Parses the JSON Data for the specified city
 		JSONObject j = JSONRetriever.retrieveCurrent(name);
-		//JSONObject jShortTerm = JSONRetriever.retrieveShortTerm(name);
-		//JSONObject jLongTerm = JSONRetriever.retrieveLongTerm(name);
 	    JSONObject js = JSONRetriever.retrieveShort(name);
 	    JSONObject jl = JSONRetriever.retrieveLong(name);
 
@@ -51,12 +52,13 @@ public class City {
 		if (!j.has("Error")) {
 			this.validate = true;
 			this.currentWeather = new CurrentWeather(j,tempUnits,windUnits);
-			//this.shortTermForecast = new ShortTermForecast(jShortTerm,tempUnits);
-			//this.longTermForecast = new LongTermForecast(jLongTerm,tempUnits);
 			this.shortTermForecast = new ShortTermForecast(js,tempUnits);
 			this.longTermForecast = new LongTermForecast(jl,tempUnits);
 		} else {
 			this.validate = false;
+			this.errorval = Integer.parseInt(j.get("Error") + "");
+			System.out.println("Error creating city: ERROR " + this.errorval);
+
 		}
 
 	}

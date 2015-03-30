@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -52,6 +53,8 @@ public class CurrentWeather {
 	String skyCondition;
 	ImageIcon skyIcon;
 	String timeUpdated;
+	String id;
+	public double kelvin;
 
 	/**
 	 * The CurrentWeather constructor retrieves the JSONObject data, and saves
@@ -64,8 +67,9 @@ public class CurrentWeather {
 	 * 						temperature data should be stored in
 	 * @param windUnits		The wind units show which units the wind data
 	 * 						should be stored in
+	 * @throws		Throws a JSONExcpetion, required for JSONObjects
 	 */
-	public CurrentWeather(JSONObject j, char tempUnits, char windUnits){
+	public CurrentWeather(JSONObject j, char tempUnits, char windUnits) throws JSONException{
 		
 		/*Set sub-JSONObjects
 		 *OpenWeatherMap returns a large JSONObject that contains multiple
@@ -111,8 +115,9 @@ public class CurrentWeather {
 	 * 
 	 * @param j		The JSONObject that contains the City Name
 	 * @return		Returns the name of the city in String Format
+	 * @throws 		Throws a JSONExcpetion, required for JSONObjects
 	 */
-	public String getFullCityName(JSONObject j){
+	public String getFullCityName(JSONObject j)  throws JSONException{
 		String fullCityName = j.getString("name") + ", " + jSys.getString("country");
 		return fullCityName;
 	}
@@ -124,8 +129,9 @@ public class CurrentWeather {
 	 * 
 	 * @param j		The JSONObject that contains the city temperature
 	 * @return		Returns the temperature of the city in String Format
+	 * @throws		Throws a JSONExcpetion, required for JSONObjects
 	 */
-	public String getTemperature(JSONObject j){
+	public String getTemperature(JSONObject j)  throws JSONException{
 		return roundTwoDecimals(Utilities.convertTemp(tempUnits,j.getDouble("temp"))) + "";
 	}
 
@@ -136,9 +142,10 @@ public class CurrentWeather {
 	 * 
 	 * @param j		The JSONObject that contains the city min temperature
 	 * @return		Returns the min temperature of the city in String Format
+	 * @throws		Throws a JSONExcpetion, required for JSONObjects
 	 */
-	public String getMinTemp(JSONObject j){
-
+	public String getMinTemp(JSONObject j)  throws JSONException{
+		this.kelvin = j.getDouble("temp_min");
 		return roundTwoDecimals(Utilities.convertTemp(tempUnits,j.getDouble("temp_min"))) + "";
 	}
 
@@ -149,8 +156,9 @@ public class CurrentWeather {
 	 * 
 	 * @param j		The JSONObject that contains the city max temperature
 	 * @return		Returns the max temperature of the city in String Format
+	 * @throws		Throws a JSONExcpetion, required for JSONObjects
 	 */
-	public String getMaxTemp(JSONObject j){
+	public String getMaxTemp(JSONObject j)  throws JSONException{
 
 		return roundTwoDecimals(Utilities.convertTemp(tempUnits,j.getDouble("temp_max"))) + "";
 	}
@@ -162,8 +170,9 @@ public class CurrentWeather {
 	 * 
 	 * @param j		The JSONObject that contains the city sunrise
 	 * @return		Returns the sunrise of the city in String Format
+	 * @throws		Throws a JSONExcpetion, required for JSONObjects
 	 */
-	public String getSunrise(JSONObject j){
+	public String getSunrise(JSONObject j)  throws JSONException{
 
 		return timeFormat(j.getLong("sunrise")) + "";
 	}
@@ -175,8 +184,9 @@ public class CurrentWeather {
 	 * 
 	 * @param j		The JSONObject that contains the city sunset
 	 * @return		Returns the sunset of the city in String Format
+	 * @throws		Throws a JSONExcpetion, required for JSONObjects
 	 */
-	public String getSunset(JSONObject j){
+	public String getSunset(JSONObject j)  throws JSONException{
 
 		return timeFormat(j.getLong("sunset")) + "";
 	}
@@ -188,8 +198,9 @@ public class CurrentWeather {
 	 * 
 	 * @param j		The JSONObject that contains the city windspeed
 	 * @return		Returns the windspeed of the city in String Format
+	 * @throws		Throws a JSONExcpetion, required for JSONObjects
 	 */
-	public String getWindSpeed(JSONObject j){
+	public String getWindSpeed(JSONObject j)  throws JSONException{
 	    
 	    return roundTwoDecimals(Utilities.convertSpeed(windUnits,j.getDouble("speed"))) + "";
 	}
@@ -201,8 +212,9 @@ public class CurrentWeather {
 	 * 
 	 * @param j		The JSONObject that contains the city wind direction
 	 * @return		Returns the wind direction of the city in String Format
+	 * @throws		Throws a JSONExcpetion, required for JSONObjects
 	 */
-	public String getWindDirection(JSONObject j){
+	public String getWindDirection(JSONObject j)  throws JSONException{
 		return windDirectionForDegrees(j.getInt("deg")) + " (" + j.getInt("deg") + ")"; 
 
 	}
@@ -214,8 +226,9 @@ public class CurrentWeather {
 	 * 
 	 * @param j		The JSONObject that contains the city air pressure
 	 * @return		Returns the v of the city in String Format
+	 * @throws		Throws a JSONExcpetion, required for JSONObjects
 	 */
-	public String getAirPressure(JSONObject j){
+	public String getAirPressure(JSONObject j)  throws JSONException{
 		return j.getDouble("pressure") + " hPa";
 	}
 	
@@ -226,8 +239,9 @@ public class CurrentWeather {
 	 * 
 	 * @param j		The JSONObject that contains the city humidity
 	 * @return		Returns the humidity of the city in String Format
+	 * @throws		Throws a JSONExcpetion, required for JSONObjects
 	 */
-	public String getHumidity(JSONObject j){
+	public String getHumidity(JSONObject j)  throws JSONException{
 		return j.getLong("humidity") + "%";
 	}
 	
@@ -239,7 +253,7 @@ public class CurrentWeather {
 	 * @param j		The JSONObject that contains the city sky condition
 	 * @return		Returns the sky condition of the city in String Format
 	 */
-	public String getSkyCondition(JSONObject j){
+	public String getSkyCondition(JSONObject j)  throws JSONException{
 		return j.getString("description");
 	}
 	
@@ -254,7 +268,7 @@ public class CurrentWeather {
 	 * @return		Returns the Sky Icon of the city in ImageIcon Format
 	 * @throws IOException		If the image cannot be found, throws an error
 	 */
-	public ImageIcon getSkyIcon(JSONObject j) throws IOException{
+	public ImageIcon getSkyIcon(JSONObject j) throws IOException, JSONException{
 		BufferedImage img = Utilities.getImage(j.getString("icon") + ".png");
 		ImageIcon icon = new ImageIcon(img);
 		return icon;
@@ -269,8 +283,9 @@ public class CurrentWeather {
 	 * 
 	 * @param j		The JSONObject that contains the last updated time
 	 * @return		Returns the last updated time of the city in String Format
+	 * @throws		Throws a JSONExcpetion, required for JSONObjects
 	 */
-	public String getTimeUpdated(JSONObject j){
+	public String getTimeUpdated(JSONObject j)  throws JSONException{
 		long timeUpdated = j.getLong("dt");
 		String time = new SimpleDateFormat("MM/dd/yyyy hh:mm a z").format(new Date(timeUpdated*1000));
 	    

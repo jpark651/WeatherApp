@@ -5,6 +5,8 @@ import java.util.Arrays;
 
 import javax.swing.SwingUtilities;
 
+import org.json.JSONException;
+
 /**
  * App is the main class that will be loaded. 
  *
@@ -22,6 +24,8 @@ import javax.swing.SwingUtilities;
  */
 public class App {
 	
+	static String[] empty = {"","","","true","true","true","true","true","true","true","true","true","true","0"};
+
 	/**
 	 * 
 	 * Main method is initialized at startup.
@@ -39,7 +43,7 @@ public class App {
 	public static void main(String[] args) throws IOException {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				TestPanel window = null;	
+				MainFrame window = null;	
 				//Attempt to load previous user data
 				try
 			      {
@@ -49,26 +53,44 @@ public class App {
 					 * the specified information. If not, create a new
 					 * JPanel
 					 */
-					if (str.length == 3){
-						window = new TestPanel(str[0],str[1],str[2]);
+					if (str.length > 13){
+						window = new MainFrame(str);
 					}else{
-						window = new TestPanel("","","");
+						window = new MainFrame(empty);
 				 		System.out.println("Previous Save Invalid");
 					}
 			      }catch(IOException i)
 			      {
-			 		window = new TestPanel("","","");
+			 		try {
+						window = new MainFrame(empty);
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 			 		System.out.println("Previous Save Not Found");
 			      }catch(ClassNotFoundException c)
 			      {
-			 		window = new TestPanel("","","");
+			 		try {
+						window = new MainFrame(empty);
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 			 		System.out.println("Previous Save Not Found");
-			      }
+			      } catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				
 				//Set window preferences
+				window.setTitle("WeatherApp");
+				window.setSize(900,735);
+				window.setResizable(false);
 				window.setVisible(true);
 				window.setLocationRelativeTo(null);
+			
+				
 				
 			}
 		});

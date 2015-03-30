@@ -1,7 +1,19 @@
 package team19.weatherapp;
 
-
+/**
+ * The ShortTermForecast class holds all of the long term weather data
+ * for the specified city. When the json is parsed, it is passed into
+ * the ShortTermForecast constructor, which retrieves the data from the
+ * JSONObject and saves it into multiple variables.
+ * 
+ * Once saved, a user can easy access any of these variables by
+ * referencing them through the city object.
+ * 
+ * @author Scott Mackie
+ *
+ */
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -9,6 +21,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +35,7 @@ public class ShortTermForecast{
 	private ArrayList<JSONObject> jMainList;
 	private ArrayList<JSONObject> jWeatherList;
 	private char tempUnits;
+	String id;
 
 	//Initialize data strings
 	//These can be accessed by the City Class
@@ -41,16 +55,21 @@ public class ShortTermForecast{
 	 * @param tempUnits     The temperature units shows which units the
 	 *                      temperature data should be stored in
 	 */
-	public ShortTermForecast(JSONObject j, char tempUnits){
+	public ShortTermForecast(JSONObject j, char tempUnits) throws JSONException{
 
 		/*Set sub-JSONObjects
 		 *OpenWeatherMap returns a large JSONObject that contains multiple
 		 *smaller JSONObjects; we get these during this step
 		 */
-		this.jCity = j.getJSONObject("city");
-		this.jListArray = j.getJSONArray("list");
+		try{
 		this.jMainList = new ArrayList<JSONObject>();
 		this.jWeatherList = new ArrayList<JSONObject>();
+		this.jCity = j.getJSONObject("city");
+		
+		this.jListArray = j.getJSONArray("list");
+		
+		this.id = jCity.get("id") +"";
+		
 		for (int i = 0; i < 8; i++)
 		{
 			JSONObject nextObject = jListArray.getJSONObject(i);
@@ -80,6 +99,25 @@ public class ShortTermForecast{
 			}
 			this.timeList.add(getTime(jListArray, i));
 		}
+		} catch (Exception e){
+			this.temperatureList = new ArrayList<String>();
+			this.skyConditionList = new ArrayList<String>();
+			this.skyIconList = new ArrayList<ImageIcon>();
+			this.timeList = new ArrayList<String>();
+			for (int i = 0; i < 8; i++)
+			{
+				this.timeList.add("No Data ");
+				this.temperatureList.add("No Data ");
+				try {
+					this.skyIconList.add(getSkyIcon(new JSONObject("{icon:01d}")));
+				} catch (JSONException e1) {
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				this.skyConditionList.add("No Data ");
+			} 
+		}
 
 	}
 
@@ -91,9 +129,13 @@ public class ShortTermForecast{
 	 * @param j     The JSONObject that contains the City Name
 	 * @return      Returns the name of the city in String Format
 	 */
-	public String getFullCityName(JSONObject j){
+	public String getFullCityName(JSONObject j)  throws JSONException{
 		String fullCityName = j.getString("name") + ", " + j.getString("country");
 		return fullCityName;
+	}
+	
+	public String getCityid(){
+		return id;
 	}
 
 	/**
@@ -104,7 +146,7 @@ public class ShortTermForecast{
 	 * @param j     The JSONObject that contains the city temperature
 	 * @return      Returns the temperature of the city in String Format
 	 */
-	public String getTemperature(JSONObject j){
+	public String getTemperature(JSONObject j)  throws JSONException{
 		return roundTwoDecimals(Utilities.convertTemp(tempUnits,j.getDouble("temp"))) + "";
 	}
 
@@ -116,7 +158,7 @@ public class ShortTermForecast{
 	 * @param j     The JSONObject that contains the city sky condition
 	 * @return      Returns the sky condition of the city in String Format
 	 */
-	public String getSkyCondition(JSONObject j){
+	public String getSkyCondition(JSONObject j)  throws JSONException{
 		return j.getString("description");
 	}
 
@@ -131,8 +173,14 @@ public class ShortTermForecast{
 	 * @return      Returns the Sky Icon of the city in ImageIcon Format
 	 * @throws IOException      If the image cannot be found, throws an error
 	 */
-	public ImageIcon getSkyIcon(JSONObject j) throws IOException{
-		BufferedImage img = Utilities.getImage(j.getString("icon") + "-small.png");
+	public ImageIcon getSkyIcon(JSONObject j) throws IOException, JSONException{
+		BufferedImage img = null;
+		try {
+			img = Utilities.getImage(j.getString("icon") + "-small.png");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ImageIcon icon = new ImageIcon(img);
 		return icon;
 	}
@@ -148,9 +196,24 @@ public class ShortTermForecast{
 	 * @param index The index of the forecast within the JSONArray
 	 * @return      Returns the time of the given forecast in String Format
 	 */
-	public String getTime(JSONArray j, int index){
+	public String getTime(JSONArray j, int index)  throws JSONException{
 		String time = j.getJSONObject(index).getString("dt_txt");
-		return time;
+		
+		String ok = time;
+		java.util.Date date = null;
+		
+		try {
+			date = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss").parse(time);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		String formattedDate = new SimpleDateFormat("EEEE  hh:mm a").format(date);
+		
+		
+		
+		return formattedDate;
 	}
 
 
@@ -167,4 +230,6 @@ public class ShortTermForecast{
 		DecimalFormat twoDForm = new DecimalFormat("#.##"); 
 		return Double.valueOf(twoDForm.format(d));
 	}  
+	
+
 }
