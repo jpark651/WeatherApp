@@ -210,13 +210,14 @@ public class TestPanel extends JFrame{
 		pnlShortTerm.update(city, tempUnits);
 		pnlLongTerm.update(city, tempUnits);
 		
+		for(int j=0;j<cb.length;j++){
+			((JComponent) cb[j]).setOpaque(true);
+			((CityButton)cb[j]).selectMarker = false;
+			cb[j].setBackground(new Color(240,240,240));
+		}
+		
 		for(int i=0;i<cb.length;i++){
 			if(((CityButton)cb[i]).cityid.equals(city.shortTermForecast.id)){
-				for(int j=0;j<cb.length;j++){
-					((JComponent) cb[j]).setOpaque(true);
-					((CityButton)cb[j]).selectMarker = false;
-					cb[j].setBackground(new Color(240,240,240));
-				}
 				((CityButton)cb[i]).selectMarker = true;
 				((CityButton)cb[i]).setBackground(new Color(240,150,150));
 			}
