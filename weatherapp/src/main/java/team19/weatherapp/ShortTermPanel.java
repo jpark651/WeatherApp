@@ -1,9 +1,5 @@
 package team19.weatherapp;
-/**
- * ShortTermPanel is a class that creates the panel with the proper layout
- * to display the short-term weather forecast
- * @author Team19
- */
+
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -16,7 +12,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-
+/**
+ * ShortTermPanel is a class that creates the panel with the proper layout
+ * to display the short-term weather forecast
+ * @author Team19
+ */
 public class ShortTermPanel extends JPanel {
 	private static JLabel lblSTCity;
 	private static ArrayList<JLabel> shortTermHours, shortTermLabels, shortTermIcons;

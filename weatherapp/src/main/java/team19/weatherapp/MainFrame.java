@@ -1,9 +1,5 @@
 package team19.weatherapp;
-/**
- * MainFrame is the class that combines all the elements of the 
- * app together onto a single frame. 
- * @author Team19
- */
+
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
@@ -44,7 +40,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-
+/**
+ * MainFrame is the class that combines all the elements of the 
+ * app together onto a single frame. 
+ * @author Team19
+ */
 public class MainFrame extends JFrame{
 
 	static JTextField txtLocation;

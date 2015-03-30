@@ -1,9 +1,5 @@
 package team19.weatherapp;
-/**
- * LongTermPanel is a class that creates the panel with the proper layout
- * to display the long-term weather forecast
- * @author Team19
- */
+
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -18,7 +14,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import org.json.JSONException;
-
+/**
+ * LongTermPanel is a class that creates the panel with the proper layout
+ * to display the long-term weather forecast
+ * @author Team19
+ */
 public class LongTermPanel extends JPanel{
 	private static JLabel lblLTCity;
 	private static ArrayList<JLabel> longTermDays, longTermLabels, longTermIcons;

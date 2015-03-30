@@ -1,16 +1,16 @@
 package team19.weatherapp;
-/**
- * CityButtonPanel is the class that implements the "favourites" list for the user.
- * The user can add their favourite cities to the list for easy future searching
- * @author Team19
- */
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Panel;
 
 import javax.swing.JButton;
-
+/**
+ * CityButtonPanel is the class that implements the "favourites" list for the user.
+ * The user can add their favourite cities to the list for easy future searching
+ * @author Team19
+ */
 public class CityButtonPanel extends Panel {
 	int citySize;
 	CityButtonPanel() {

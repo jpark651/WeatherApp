@@ -1,8 +1,5 @@
 package team19.weatherapp;
-/**
- * CityButton is a class that creates the buttons to be added to the CityButtonPanel
- * @author Team19
- */
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -12,7 +9,13 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 
 import org.json.JSONException;
-
+/**
+ * 
+ * CityButton is a class that creates the buttons to be added to the CityButtonPanel
+ * 
+ * @author Team19
+ * 
+ */
 public class CityButton extends JButton{
 	private CityButton currentbutton;
 	private CityButtonPanel cbp;

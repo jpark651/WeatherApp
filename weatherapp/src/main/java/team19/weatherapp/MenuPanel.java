@@ -1,9 +1,5 @@
 package team19.weatherapp;
-/**
- * MenuPanel creates the panel for the "menu"
- * This menu includes the search box and the user's favourites list
- * @author Team19
- */
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,7 +9,11 @@ import javax.swing.JTextField;
 import javax.swing.GroupLayout.Alignment;
 
 import org.json.JSONException;
-
+/**
+ * MenuPanel creates the panel for the "menu"
+ * This menu includes the search box and the user's favourites list
+ * @author Team19
+ */
 public class MenuPanel {
 
 	/**

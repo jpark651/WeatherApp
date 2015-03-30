@@ -1,8 +1,4 @@
-/**
- * LocalWeatherPanel is a class that creates the panel with the proper layout
- * to display the current local weather forecast
- * @author Team19
- */
+
 package team19.weatherapp;
 
 import java.awt.Component;
@@ -16,7 +12,11 @@ import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-
+/**
+ * LocalWeatherPanel is a class that creates the panel with the proper layout
+ * to display the current local weather forecast
+ * @author Team19
+ */
 public class LocalWeatherPanel extends JPanel{
 	public static JLabel lblCity;
 	public static JLabel lblLocalTemperature;
