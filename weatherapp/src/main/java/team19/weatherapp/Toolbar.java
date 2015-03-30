@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JToolBar;
 
+import org.json.JSONException;
+
 public class Toolbar {
 	static void initToolbar(final TestPanel tp){
 		tp.toolbar = new JToolBar();
@@ -30,14 +32,20 @@ public class Toolbar {
 		tp.toolbar.add(tp.btnWindUnits);
 		tp.toolbar.add(tp.btnRefresh);
 
-		tp.btnTempUnits.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {
+		tp.btnTempUnits.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event){
 				if(tp.tempUnits=='C'){
 					tp.tempUnits = 'F';
 				}else{
 					tp.tempUnits = 'C';
 				}
-				City city = new City(tp.city.currentWeather.fullCityName, tp.tempUnits, tp.windUnits);
+				City city = null;
+				try {
+					city = new City(tp.city.currentWeather.fullCityName, tp.tempUnits, tp.windUnits);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				tp.updateScreen(city);
 			}});
 
@@ -48,13 +56,25 @@ public class Toolbar {
 				}else{
 					tp.windUnits = 'M';
 				}
-				City city = new City(tp.city.currentWeather.fullCityName, tp.tempUnits, tp.windUnits);
+				City city = null;
+				try {
+					city = new City(tp.city.currentWeather.fullCityName, tp.tempUnits, tp.windUnits);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				tp.updateScreen(city);
 			}});
 
 		tp.btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				City city = new City(tp.city.currentWeather.fullCityName, tp.tempUnits, tp.windUnits);
+				City city =null;
+				try {
+					city = new City(tp.city.currentWeather.fullCityName, tp.tempUnits, tp.windUnits);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				tp.updateScreen(city);
 			}});
 

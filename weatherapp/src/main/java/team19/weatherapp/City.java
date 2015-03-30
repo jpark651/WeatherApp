@@ -1,5 +1,6 @@
 package team19.weatherapp;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -18,7 +19,7 @@ import org.json.JSONObject;
  * @author Scott Mackie
  *
  */
-public class City {
+public class City{
 
 	//Properties of the city object: "validate" shows weather the city exists or not
 	boolean validate;
@@ -37,7 +38,7 @@ public class City {
 	 * @param windUnits		The wind units show which units the wind data
 	 * 						should be stored in
 	 */
-	public City(String name, char tempUnits, char windUnits) {
+	public City(String name, char tempUnits, char windUnits)  throws JSONException{
 
 		//Parses the JSON Data for the specified city
 		JSONObject j = JSONRetriever.retrieveCurrent(name);

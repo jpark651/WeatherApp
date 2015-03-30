@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.GroupLayout.Alignment;
 
+import org.json.JSONException;
+
 public class MenuPanel {
 
 	public static void initMenuPanel(final TestPanel tp){
@@ -45,7 +47,12 @@ public class MenuPanel {
 		tp.menuPanel.setLayout(gl_panel);
 		tp.txtLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				tp.newCityUpdateScreen();
+				try {
+					tp.newCityUpdateScreen();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}});
 
 	}

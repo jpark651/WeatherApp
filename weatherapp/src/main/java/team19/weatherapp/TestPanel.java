@@ -29,6 +29,8 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import org.json.JSONException;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -73,7 +75,7 @@ public class TestPanel extends JFrame{
 	static char tempUnits;
 	static char windUnits;
 	
-	public TestPanel(String[] inputStr) {
+	public TestPanel(String[] inputStr)  throws JSONException{
 		this.setResizable(false);
 		pnlLongTerm = new LongTermPanel();
 		pnlShortTerm = new ShortTermPanel();
@@ -241,13 +243,13 @@ public class TestPanel extends JFrame{
 		
 	}
 	
-	static void newCityUpdateScreen(){
+	static void newCityUpdateScreen()  throws JSONException{
 		city = new City(txtLocation.getText(), tempUnits, windUnits);
 		updateScreen(city);
 
 	}
 
-	static void updateScreenWithCity(String c){
+	static void updateScreenWithCity(String c)  throws JSONException{
 		city = new City(c, tempUnits, windUnits);
 		updateScreen(city);
 

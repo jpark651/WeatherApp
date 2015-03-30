@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 
+import org.json.JSONException;
+
 public class CityButton extends JButton{
 private CityButton currentbutton;
 private CityButtonPanel cbp;
@@ -51,7 +53,12 @@ boolean selectMarker;
 			}
 			currentbutton.selectMarker = true;
 			currentbutton.setBackground(new Color(240,150,150));
-			TestPanel.updateScreenWithCity(c);
+			try {
+				TestPanel.updateScreenWithCity(c);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}});
 	
 	}
