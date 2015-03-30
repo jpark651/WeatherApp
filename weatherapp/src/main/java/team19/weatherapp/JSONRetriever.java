@@ -85,7 +85,10 @@ public class JSONRetriever {
 		} catch (IOException e) {
 			e.printStackTrace();
 			return new JSONObject("{\"Error\": \"4\"}");
+		} catch (Exception e){
+			return new JSONObject("{\"Error\": \"6\"}");
 		}
+		
 
 		//If the city could not be found, throw an error
 		if (str.contains("Error")) {

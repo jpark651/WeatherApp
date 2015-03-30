@@ -1,3 +1,8 @@
+/**
+ * LocalWeatherPanel is a class that creates the panel with the proper layout
+ * to display the current local weather forecast
+ * @author Team19
+ */
 package team19.weatherapp;
 
 import java.awt.Component;
@@ -10,6 +15,7 @@ import java.util.ArrayList;
 import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 public class LocalWeatherPanel extends JPanel{
 	public static JLabel lblCity;
@@ -23,22 +29,33 @@ public class LocalWeatherPanel extends JPanel{
 	public static JLabel humidTitle, lblLocalHumidity;
 	public static JLabel windSpdTitle, lblLocalWindSpeed;
 	public static JLabel windDirTitle, lblLocalWindDirection;
+	private static ArrayList<JLabel> labels;
 	
 	public LocalWeatherPanel(){
 		initLabels();
 		this.initUI();
 	}
-	
+	/**
+	 * update method updates the weather data displayed on the LocalWeatherPanel
+	 * @param city whose weather data will be updated and displayed on screen
+	 * @param tempUnits the user-specified unit in which to display the temperature
+	 * @param windUnits the user-specified unit in which to display the wind speed
+	 */
 	public void update(City city, char tempUnits, char windUnits){
 		if (city.validate != true) {
 			lblCity.setText("City Not Found");
+			for(JLabel l : labels){
+				l.setText("");
+			}
+			lblLocalSkyIcon.setVisible(false);
 
 		} else {
 			lblCity.setText(city.currentWeather.fullCityName);
 			lblLocalSkyIcon.setIcon(city.currentWeather.skyIcon);
-			lblLocalTemperature.setText(city.currentWeather.temperature + " " + tempUnits);
-			lblLocalMinTemp.setText(city.currentWeather.minTemp + " " + tempUnits);
-			lblLocalMaxTemp.setText(city.currentWeather.maxTemp + " " + tempUnits);
+			lblLocalSkyIcon.setVisible(true);
+			lblLocalTemperature.setText(city.currentWeather.temperature + " " + "°"+tempUnits);
+			lblLocalMinTemp.setText(city.currentWeather.minTemp + " " + "°"+tempUnits);
+			lblLocalMaxTemp.setText(city.currentWeather.maxTemp + " " + "°"+tempUnits);
 			lblLocalSunrise.setText(city.currentWeather.sunrise);
 			lblLocalSunset.setText(city.currentWeather.sunset);
 			lblLocalWindSpeed.setText(city.currentWeather.windSpeed + " " + windUnits + "PH");
@@ -50,23 +67,26 @@ public class LocalWeatherPanel extends JPanel{
 		}
 		
 	}
-	
+	/**
+	 * initLabels is a helper method that initializes all labels that will 
+	 * be added onto the LocalWeatherPanel
+	 */
 	private static void initLabels(){
+		labels = new ArrayList<JLabel>();
 		lblCity = new JLabel("Enter the name of a city");
 		lblCity.setFont(new Font("Helvetica Neue", Font.BOLD, 25));
-		lblLocalTemperature = new JLabel();
-		lblLocalMinTemp = new JLabel();
-		lblLocalMaxTemp = new JLabel();
-		lblLocalSunrise = new JLabel();
-		lblLocalSunset = new JLabel();
-		lblLocalWindSpeed = new JLabel();
-		lblLocalWindDirection = new JLabel();
-		lblLocalAirPressure = new JLabel();
-		lblLocalHumidity = new JLabel();
-		lblLocalSkyCondition = new JLabel();
-		lblLocalSkyIcon = new JLabel();
+		labels.add(lblLocalTemperature = new JLabel());
+		labels.add(lblLocalMinTemp = new JLabel());
+		labels.add(lblLocalMaxTemp = new JLabel());
+		labels.add(lblLocalSunrise = new JLabel());
+		labels.add(lblLocalSunset = new JLabel());
+		labels.add(lblLocalWindSpeed = new JLabel());
+		labels.add(lblLocalWindDirection = new JLabel());
+		labels.add(lblLocalAirPressure = new JLabel());
+		labels.add(lblLocalHumidity = new JLabel());
+		labels.add(lblLocalSkyCondition = new JLabel());
+		labels.add(lblLocalSkyIcon = new JLabel());
 		
-
 		minTempTitle = new JLabel("Expected Min.:");
 		maxTempTitle = new JLabel("Expected Max.:");
 		sunrTitle = new JLabel("Sunrise: ");
@@ -77,6 +97,10 @@ public class LocalWeatherPanel extends JPanel{
 		windDirTitle = new JLabel("Wind Direction: ");
 	}
 	
+	/**
+	 * initUI is a helper method that initializes the layout of the LocalWeatherPanel
+	 * and adds all labels to display the weather data into the layout
+	 */
 	private void initUI(){
 		GridBagLayout gbl= new GridBagLayout();
 		gbl.columnWidths = new int[]{0, 0, 0, 0};
@@ -103,10 +127,7 @@ public class LocalWeatherPanel extends JPanel{
 		insertJLabelIntoGrid(lblLocalSunrise, 0, 0, 0, 5, 5, 3, 8, true);
 		insertJLabelIntoGrid(sunsTitle, 0, 0, 0, 5, 5, 1, 9, true);
 		insertJLabelIntoGrid(lblLocalSunset, 0, 0, 0, 5, 5, 3, 9, true);
-		//insertStrut('H', 20, 0, 0, 5, 5, 4, 6);
-		//insertStrut('H', 20, 0, 0, 5, 5, 5, 6);
 		insertJLabelIntoGrid(airTitle, 0, 0, 0, 5, 5, 1, 10, true);
-		//insertStrut('H', 20, 0, 0, 5, 5, 7, 6);
 		insertJLabelIntoGrid(lblLocalAirPressure, 0, 0, 0, 5, 5, 3, 10, true);
 		insertJLabelIntoGrid(humidTitle, 0, 0, 0, 5, 5, 1, 11, true);
 		insertJLabelIntoGrid(lblLocalHumidity, 0, 0, 0, 5, 5, 3, 11, true);
@@ -116,6 +137,19 @@ public class LocalWeatherPanel extends JPanel{
 		insertJLabelIntoGrid(lblLocalWindDirection, 0, 0, 0, 5, 5, 3, 13, true);
 	}
 	
+	/**
+	 * insertJLavelIntoGrid is a helper method allows for the easy addition of labels
+	 * into the layout of the LocalWeatherPanel
+	 * @param label the label to be added to the panel
+	 * @param gridwidth the number of grids that the label will take up horizontally
+	 * @param inset1 
+	 * @param inset2
+	 * @param inset3
+	 * @param inset4
+	 * @param gridx
+	 * @param gridy
+	 * @param anchor
+	 */
 	private void insertJLabelIntoGrid(JLabel label, int gridwidth, 
 			int inset1, int inset2, int inset3, int inset4, int gridx, 
 			int gridy, boolean anchor){
@@ -129,7 +163,18 @@ public class LocalWeatherPanel extends JPanel{
 		gbc.gridy = gridy;
 		this.add(label, gbc);
 	}
-	
+	/**
+	 * insertStrut is a helper method that allows for the easy additino of struts
+	 * into the layout
+	 * @param strutType
+	 * @param strutSize
+	 * @param inset1
+	 * @param inset2
+	 * @param inset3
+	 * @param inset4
+	 * @param gridx
+	 * @param gridy
+	 */
 	private void insertStrut(char strutType, int strutSize,
 			int inset1, int inset2, int inset3, int inset4, 
 			int gridx, int gridy){

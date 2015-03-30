@@ -14,14 +14,14 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 public class LongTermPanel extends JPanel{
-	public static JLabel lblLTCity;
-	public static ArrayList<JLabel> longTermDays;
-	public static JLabel lbl1stDay, lbl2ndDay, lbl3rdDay, lbl4thDay, lbl5thDay;
-	public static JLabel lbl1stDayTemp, lbl2ndDayTemp, lbl3rdDayTemp, lbl4thDayTemp, lbl5thDayTemp;
-	public static JLabel lbl1stDayMinTemp,lbl2ndDayMinTemp, lbl3rdDayMinTemp, lbl4thDayMinTemp, lbl5thDayMinTemp;
-	public static JLabel lbl1stDayMaxTemp, lbl2ndDayMaxTemp, lbl3rdDayMaxTemp, lbl4thDayMaxTemp, lbl5thDayMaxTemp;
-	public static JLabel lbl1stDaySkyIcon, lbl2ndDaySkyIcon, lbl3rdDaySkyIcon, lbl4thDaySkyIcon, lbl5thDaySkyIcon;
-	public static JLabel lbl1stDaySkyCondition, lbl2ndDaySkyCondition, lbl3rdDaySkyCondition, lbl4thDaySkyCondition, lbl5thDaySkyCondition;
+	private static JLabel lblLTCity;
+	private static ArrayList<JLabel> longTermDays, longTermLabels, longTermIcons;
+	private static JLabel lbl1stDay, lbl2ndDay, lbl3rdDay, lbl4thDay, lbl5thDay;
+	private static JLabel lbl1stDayTemp, lbl2ndDayTemp, lbl3rdDayTemp, lbl4thDayTemp, lbl5thDayTemp;
+	private static JLabel lbl1stDayMinTemp,lbl2ndDayMinTemp, lbl3rdDayMinTemp, lbl4thDayMinTemp, lbl5thDayMinTemp;
+	private static JLabel lbl1stDayMaxTemp, lbl2ndDayMaxTemp, lbl3rdDayMaxTemp, lbl4thDayMaxTemp, lbl5thDayMaxTemp;
+	private static JLabel lbl1stDaySkyIcon, lbl2ndDaySkyIcon, lbl3rdDaySkyIcon, lbl4thDaySkyIcon, lbl5thDaySkyIcon;
+	private static JLabel lbl1stDaySkyCondition, lbl2ndDaySkyCondition, lbl3rdDaySkyCondition, lbl4thDaySkyCondition, lbl5thDaySkyCondition;
 	
 	public LongTermPanel(){
 		initLabels();
@@ -31,6 +31,12 @@ public class LongTermPanel extends JPanel{
 	public void update(City city, char tempUnits){
 		if (city.validate != true) {
 			lblLTCity.setText("City Not Found");
+			for(JLabel l : longTermIcons){
+				l.setVisible(false);
+			}
+			for(JLabel l : longTermLabels){
+				l.setText("");
+			}
 
 		} else {
 			lblLTCity.setText(city.shortTermForecast.fullCityName);
@@ -39,26 +45,29 @@ public class LongTermPanel extends JPanel{
 			lbl3rdDay.setText(city.longTermForecast.dateList.get(2));
 			lbl4thDay.setText(city.longTermForecast.dateList.get(3));
 			lbl5thDay.setText(city.longTermForecast.dateList.get(4));
-			lbl1stDayTemp.setText(city.longTermForecast.temperatureList.get(0)+tempUnits);
-			lbl2ndDayTemp.setText(city.longTermForecast.temperatureList.get(1)+tempUnits);
-			lbl3rdDayTemp.setText(city.longTermForecast.temperatureList.get(2)+tempUnits);
-			lbl4thDayTemp.setText(city.longTermForecast.temperatureList.get(3)+tempUnits);
-			lbl5thDayTemp.setText(city.longTermForecast.temperatureList.get(4)+tempUnits);
-			lbl1stDayMinTemp.setText("Min: " + city.longTermForecast.minTempList.get(0)+tempUnits);
-			lbl2ndDayMinTemp.setText("Min: " + city.longTermForecast.minTempList.get(1)+tempUnits);
-			lbl3rdDayMinTemp.setText("Min: " + city.longTermForecast.minTempList.get(2)+tempUnits);
-			lbl4thDayMinTemp.setText("Min: " + city.longTermForecast.minTempList.get(3)+tempUnits);
-			lbl5thDayMinTemp.setText("Min: " + city.longTermForecast.minTempList.get(4)+tempUnits);
-			lbl1stDayMaxTemp.setText("Max: " + city.longTermForecast.maxTempList.get(0)+tempUnits);
-			lbl2ndDayMaxTemp.setText("Max: " + city.longTermForecast.maxTempList.get(1)+tempUnits);
-			lbl3rdDayMaxTemp.setText("Max: " + city.longTermForecast.maxTempList.get(2)+tempUnits);
-			lbl4thDayMaxTemp.setText("Max: " + city.longTermForecast.maxTempList.get(3)+tempUnits);
-			lbl5thDayMaxTemp.setText("Max: " + city.longTermForecast.maxTempList.get(4)+tempUnits);
+			lbl1stDayTemp.setText(city.longTermForecast.temperatureList.get(0)+"°"+tempUnits);
+			lbl2ndDayTemp.setText(city.longTermForecast.temperatureList.get(1)+"°"+tempUnits);
+			lbl3rdDayTemp.setText(city.longTermForecast.temperatureList.get(2)+"°"+tempUnits);
+			lbl4thDayTemp.setText(city.longTermForecast.temperatureList.get(3)+"°"+tempUnits);
+			lbl5thDayTemp.setText(city.longTermForecast.temperatureList.get(4)+"°"+tempUnits);
+			lbl1stDayMinTemp.setText("Min: " + city.longTermForecast.minTempList.get(0)+"°"+tempUnits);
+			lbl2ndDayMinTemp.setText("Min: " + city.longTermForecast.minTempList.get(1)+"°"+tempUnits);
+			lbl3rdDayMinTemp.setText("Min: " + city.longTermForecast.minTempList.get(2)+"°"+tempUnits);
+			lbl4thDayMinTemp.setText("Min: " + city.longTermForecast.minTempList.get(3)+"°"+tempUnits);
+			lbl5thDayMinTemp.setText("Min: " + city.longTermForecast.minTempList.get(4)+"°"+tempUnits);
+			lbl1stDayMaxTemp.setText("Max: " + city.longTermForecast.maxTempList.get(0)+"°"+tempUnits);
+			lbl2ndDayMaxTemp.setText("Max: " + city.longTermForecast.maxTempList.get(1)+"°"+tempUnits);
+			lbl3rdDayMaxTemp.setText("Max: " + city.longTermForecast.maxTempList.get(2)+"°"+tempUnits);
+			lbl4thDayMaxTemp.setText("Max: " + city.longTermForecast.maxTempList.get(3)+"°"+tempUnits);
+			lbl5thDayMaxTemp.setText("Max: " + city.longTermForecast.maxTempList.get(4)+"°"+tempUnits);
 			lbl1stDaySkyIcon.setIcon(city.longTermForecast.skyIconList.get(0));
 			lbl2ndDaySkyIcon.setIcon(city.longTermForecast.skyIconList.get(1));
 			lbl3rdDaySkyIcon.setIcon(city.longTermForecast.skyIconList.get(2));
 			lbl4thDaySkyIcon.setIcon(city.longTermForecast.skyIconList.get(3));
 			lbl5thDaySkyIcon.setIcon(city.longTermForecast.skyIconList.get(4));
+			for(JLabel l : longTermIcons){
+				l.setVisible(true);
+			}
 			lbl1stDaySkyCondition.setText(city.longTermForecast.skyConditionList.get(0));
 			lbl2ndDaySkyCondition.setText(city.longTermForecast.skyConditionList.get(1));
 			lbl3rdDaySkyCondition.setText(city.longTermForecast.skyConditionList.get(2));
@@ -70,6 +79,8 @@ public class LongTermPanel extends JPanel{
 	private static void initLabels(){
 		lblLTCity = new JLabel("Enter the name of a city");
 		lblLTCity.setFont(new Font("Helvetica Neue", Font.BOLD, 25));
+		longTermLabels = new ArrayList<JLabel>();
+		longTermIcons = new ArrayList<JLabel>();
 		longTermDays = new ArrayList<JLabel>();
 		longTermDays.add(lbl1stDay = new JLabel());
 		longTermDays.add(lbl2ndDay = new JLabel());
@@ -79,31 +90,36 @@ public class LongTermPanel extends JPanel{
 		for(JLabel l : longTermDays){
 			l.setFont(new Font("Helvetica Neue", Font.BOLD, 15));
 		}
-		lbl1stDayTemp = new JLabel();
-		lbl2ndDayTemp = new JLabel();
-		lbl3rdDayTemp = new JLabel();
-		lbl4thDayTemp = new JLabel();
-		lbl5thDayTemp = new JLabel();
-		lbl1stDayMinTemp = new JLabel();
-		lbl2ndDayMinTemp = new JLabel();
-		lbl3rdDayMinTemp = new JLabel();
-		lbl4thDayMinTemp = new JLabel();
-		lbl5thDayMinTemp = new JLabel();
-		lbl1stDayMaxTemp = new JLabel();
-		lbl2ndDayMaxTemp = new JLabel();
-		lbl3rdDayMaxTemp = new JLabel();
-		lbl4thDayMaxTemp = new JLabel();
-		lbl5thDayMaxTemp = new JLabel();
-		lbl1stDaySkyIcon = new JLabel();
-		lbl2ndDaySkyIcon = new JLabel();
-		lbl3rdDaySkyIcon = new JLabel();
-		lbl4thDaySkyIcon = new JLabel();
-		lbl5thDaySkyIcon = new JLabel();
-		lbl1stDaySkyCondition = new JLabel();
-		lbl2ndDaySkyCondition = new JLabel();
-		lbl3rdDaySkyCondition = new JLabel();
-		lbl4thDaySkyCondition = new JLabel();
-		lbl5thDaySkyCondition = new JLabel();
+		longTermLabels.add(lbl1stDay);
+		longTermLabels.add(lbl2ndDay);
+		longTermLabels.add(lbl3rdDay);
+		longTermLabels.add(lbl4thDay);
+		longTermLabels.add(lbl5thDay);
+		longTermLabels.add(lbl1stDayTemp = new JLabel());
+		longTermLabels.add(lbl2ndDayTemp = new JLabel());
+		longTermLabels.add(lbl3rdDayTemp = new JLabel());
+		longTermLabels.add(lbl4thDayTemp = new JLabel());
+		longTermLabels.add(lbl5thDayTemp = new JLabel());
+		longTermLabels.add(lbl1stDayMinTemp = new JLabel());
+		longTermLabels.add(lbl2ndDayMinTemp = new JLabel());
+		longTermLabels.add(lbl3rdDayMinTemp = new JLabel());
+		longTermLabels.add(lbl4thDayMinTemp = new JLabel());
+		longTermLabels.add(lbl5thDayMinTemp = new JLabel());
+		longTermLabels.add(lbl1stDayMaxTemp = new JLabel());
+		longTermLabels.add(lbl2ndDayMaxTemp = new JLabel());
+		longTermLabels.add(lbl3rdDayMaxTemp = new JLabel());
+		longTermLabels.add(lbl4thDayMaxTemp = new JLabel());
+		longTermLabels.add(lbl5thDayMaxTemp = new JLabel());
+		longTermIcons.add(lbl1stDaySkyIcon = new JLabel());
+		longTermIcons.add(lbl2ndDaySkyIcon = new JLabel());
+		longTermIcons.add(lbl3rdDaySkyIcon = new JLabel());
+		longTermIcons.add(lbl4thDaySkyIcon = new JLabel());
+		longTermIcons.add(lbl5thDaySkyIcon = new JLabel());
+		longTermLabels.add(lbl1stDaySkyCondition = new JLabel());
+		longTermLabels.add(lbl2ndDaySkyCondition = new JLabel());
+		longTermLabels.add(lbl3rdDaySkyCondition = new JLabel());
+		longTermLabels.add(lbl4thDaySkyCondition = new JLabel());
+		longTermLabels.add(lbl5thDaySkyCondition = new JLabel());
 	}
 	
 	private void initUI(){
