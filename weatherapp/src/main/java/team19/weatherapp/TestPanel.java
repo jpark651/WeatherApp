@@ -6,11 +6,13 @@ import javax.swing.JTabbedPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JTextField;
@@ -33,6 +35,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 
@@ -189,8 +192,31 @@ public class TestPanel extends JFrame{
 		Calendar cal = Calendar.getInstance();
 		lblRefreshTime.setText("Last refreshed:" + dateFormat.format(cal.getTime()));
 		pnlLocal.update(city, tempUnits, windUnits);
+		
+		Component[] cb = pnlCityButtons.getComponents();
+
+		
+				
+	
+				
+			
+		
 		pnlShortTerm.update(city, tempUnits);
 		pnlLongTerm.update(city, tempUnits);
+		
+		for(int i=0;i<cb.length;i++){
+			if(((CityButton)cb[i]).cityid.equals(city.shortTermForecast.id)){
+				for(int j=0;j<cb.length;j++){
+					((JComponent) cb[j]).setOpaque(true);
+					((CityButton)cb[j]).selectMarker = false;
+					cb[j].setBackground(new Color(240,240,240));
+				}
+				((CityButton)cb[i]).selectMarker = true;
+				((CityButton)cb[i]).setBackground(new Color(240,150,150));
+			}
+		}
+		
+		
 		try{
 		int[] colarray = Utilities.convertColor((int)city.currentWeather.kelvin);
 		pnlLongTerm.setBackground(new Color(colarray[0],colarray[1],colarray[2]));

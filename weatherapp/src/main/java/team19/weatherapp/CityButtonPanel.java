@@ -1,5 +1,6 @@
 package team19.weatherapp;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Panel;
@@ -23,6 +24,10 @@ public class CityButtonPanel extends Panel {
 		}
 		if (flag == false && !c.getText().equals("City Not Found") && citySize < 20) {
 			c.setSize(50, 100);
+			
+			
+			
+			
 			this.add(c);
 			this.revalidate();
 			this.repaint();
@@ -30,13 +35,14 @@ public class CityButtonPanel extends Panel {
 		}
 	}
 
-	public void removeButton(CityButton c) {
+	public void removeButton() {
 		Component[] components = this.getComponents();
 		for (int i = 0; i < components.length; i++) {
-			if (((CityButton) components[i]).cityid.equals(c.cityid)) {
+			if (((CityButton) components[i]).selectMarker == true) {
 				this.remove(components[i]);
 				citySize -= 1;
 			}
+
 		}
 		this.revalidate();
 		this.repaint();

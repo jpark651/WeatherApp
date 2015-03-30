@@ -68,8 +68,8 @@ public class Toolbar {
 
 		tp.btnRemoveCity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				CityButton oldButton = new CityButton(tp.pnlLocal.lblCity.getText(),tp.pnlCityButtons,tp.pnlShortTerm.cityid);
-				tp.pnlCityButtons.removeButton(oldButton); 
+				CityButton oldButton = new CityButton(tp.pnlCityButtons,tp.pnlLocal.lblCity.getText(),tp.pnlShortTerm.cityid);
+				tp.pnlCityButtons.removeButton(); 
 				tp.menubar.revalidate();
 				tp.menubar.repaint();
 			}});
