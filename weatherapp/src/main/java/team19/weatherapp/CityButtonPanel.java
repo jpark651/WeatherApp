@@ -1,5 +1,9 @@
 package team19.weatherapp;
-
+/**
+ * CityButtonPanel is the class that implements the "favourites" list for the user.
+ * The user can add their favourite cities to the list for easy future searching
+ * @author Team19
+ */
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -12,7 +16,11 @@ public class CityButtonPanel extends Panel {
 	CityButtonPanel() {
 		citySize = 0;
 	}
-
+	
+	/**
+	 * addButton method adds the specified city button to the panel
+	 * @param c the city button to be added to the panel
+	 */
 	public void addButton(CityButton c) {
 		c.setPreferredSize(new Dimension(140, 20));
 		boolean flag = false;
@@ -24,10 +32,7 @@ public class CityButtonPanel extends Panel {
 		}
 		if (flag == false && !c.getText().equals("City Not Found") && citySize < 20) {
 			c.setSize(50, 100);
-			
-			
-			
-			
+				
 			this.add(c);
 			this.revalidate();
 			this.repaint();
@@ -35,6 +40,9 @@ public class CityButtonPanel extends Panel {
 		}
 	}
 
+	/**
+	 * removeButton method removes the button for the current city
+	 */
 	public void removeButton() {
 		Component[] components = this.getComponents();
 		for (int i = 0; i < components.length; i++) {
@@ -48,6 +56,11 @@ public class CityButtonPanel extends Panel {
 		this.repaint();
 	}
 	
+	/**
+	 * buttonList method returns a string to be stored for serialization
+	 * at the termination of the program
+	 * @return String to be stored
+	 */
 	public String buttonList() {
 		String s = "_" + citySize;
 		Component[] components = this.getComponents();
