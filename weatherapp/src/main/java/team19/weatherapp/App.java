@@ -5,6 +5,8 @@ import java.util.Arrays;
 
 import javax.swing.SwingUtilities;
 
+import org.json.JSONException;
+
 /**
  * App is the main class that will be loaded. 
  *
@@ -59,13 +61,26 @@ public class App {
 					}
 			      }catch(IOException i)
 			      {
-			 		window = new TestPanel(empty);
+			 		try {
+						window = new TestPanel(empty);
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 			 		System.out.println("Previous Save Not Found");
 			      }catch(ClassNotFoundException c)
 			      {
-			 		window = new TestPanel(empty);
+			 		try {
+						window = new TestPanel(empty);
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 			 		System.out.println("Previous Save Not Found");
-			      }
+			      } catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				
 				//Set window preferences

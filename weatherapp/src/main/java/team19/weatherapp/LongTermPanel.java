@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import org.json.JSONException;
+
 public class LongTermPanel extends JPanel{
 	private static JLabel lblLTCity;
 	private static ArrayList<JLabel> longTermDays, longTermLabels, longTermIcons;

@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -19,7 +20,7 @@ import org.json.JSONObject;
  * @author Scott Mackie
  *
  */
-public class JSONRetriever {
+public class JSONRetriever{
 
 	static String appid = "&APPID=5e8db379b2d24bbfec1e845dfd19270d";
 	/**
@@ -42,7 +43,7 @@ public class JSONRetriever {
 	 * @return				Returns the JSONObject containing the data
 	 * 						for the specified location
 	 */
-	public static JSONObject retrieveCurrent(String location){
+	public static JSONObject retrieveCurrent(String location)  throws JSONException{
 		
 		//Initialize Empty String
 		String str = "";
@@ -122,7 +123,7 @@ public class JSONRetriever {
      * @return              Returns the JSONObject containing the data
      *                      for the specified location
      */
-    public static JSONObject retrieveShort(String location){
+    public static JSONObject retrieveShort(String location)  throws JSONException{
         
         //Initialize Empty String
         String str = "";
@@ -202,7 +203,7 @@ public class JSONRetriever {
      * @return              Returns the JSONObject containing the data
      *                      for the specified location
      */
-    public static JSONObject retrieveLong(String location){
+    public static JSONObject retrieveLong(String location)  throws JSONException{
         //Initialize Empty String
         String str = "";
 
