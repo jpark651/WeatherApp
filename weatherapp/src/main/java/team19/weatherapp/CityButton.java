@@ -15,6 +15,7 @@ String cityid;
 
 	public CityButton(final String c, CityButtonPanel cp, String ctid){
 		this.setOpaque(true);
+		this.setBorderPainted(false);
 		this.setBackground(new Color(240,240,240));
 
 
@@ -29,6 +30,7 @@ String cityid;
 			for(int i=0;i<cb.length;i++){
 				((JComponent) cb[i]).setOpaque(true);
 				cb[i].setBackground(new Color(240,240,240));
+				
 			}
 			currentbutton.setBackground(new Color(240,150,150));
 			TestPanel.updateScreenWithCity(c);
