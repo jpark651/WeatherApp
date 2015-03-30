@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -180,7 +181,22 @@ public class ShortTermForecast{
 	 */
 	public String getTime(JSONArray j, int index){
 		String time = j.getJSONObject(index).getString("dt_txt");
-		return time;
+		
+		String ok = time;
+		java.util.Date date = null;
+		
+		try {
+			date = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss").parse(time);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		String formattedDate = new SimpleDateFormat("EEEE  hh:mm a").format(date);
+		
+		
+		
+		return formattedDate;
 	}
 
 
@@ -197,4 +213,6 @@ public class ShortTermForecast{
 		DecimalFormat twoDForm = new DecimalFormat("#.##"); 
 		return Double.valueOf(twoDForm.format(d));
 	}  
+	
+
 }
