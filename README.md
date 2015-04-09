@@ -11,11 +11,17 @@ WeatherApp was developed in Java and has a Swing graphical user interface. The p
 
 ## Installation
 
-o How would one go about downloading, installing and using the software? (add a version of the jar to your repo)
+Downloading and running the application is simple!
+Simply download the JAR from our repository (Visible directly above this readme)
+Next, navigate to the JAR's folder and run the following command:
+```
+$ java -jar weatherapp-0.0.1-SNAPSHOT-jar-with-dependancies.jar
+```
+As soon as you run that command, the application will launch!
+As well, the data save file will be automatically created if it does not already exist.
 
 ## Build
-
-To build:
+If you would like to package/build the application yourself, you would use the following:
 ```
 $ git clone https://github.com/UWO-2212-W2015/team19.git
 $ cd weatherapp/
