@@ -16,9 +16,17 @@ o How would one go about downloading, installing and using the software? (add a 
 o How would one go about building the software?
 o List any dependencies/programs that are required
 
+```
+Write how to build it
+```
+
 ## Usage Example
 
 o provide a link to the video you made showing the project in action
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=YOUTUBE_VIDEO_ID_HERE
+" target="_blank"><img src="http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg" 
+alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 
 ## Documentation
 
