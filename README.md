@@ -1,3 +1,4 @@
+<img src="http://i.imgur.com/6GWQNtr.png">
 # Team 19 - WeatherApp 
 
 Made for the second-year CS2212b: Introduction to Software Engineering course in the Department of Computer Science at Western University in London, Ontario, Canada
