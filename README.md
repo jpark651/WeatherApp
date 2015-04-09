@@ -15,7 +15,7 @@ Downloading and running the application is simple!
 Simply download the JAR from our repository (Visible directly above this readme)
 Next, navigate to the JAR's folder and run the following command:
 ```
-$ java -jar weatherapp-0.0.1-SNAPSHOT-jar-with-dependancies.jar
+$ java -jar weatherapp-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 ```
 As soon as you run that command, the application will launch!
 As well, the data save file will be automatically created if it does not already exist.
@@ -35,7 +35,7 @@ You will need Java 7 or later.
 
 ## Usage Example
 
-A narrated video demonstrating the use and various features of the WeatherApp program can below.
+A narrated video demonstrating the use and various features of the WeatherApp program can be viewed by clicking the thumbnail below.
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=-uPnkzjPZyQ
 " target="_blank"><img src="http://img.youtube.com/vi/-uPnkzjPZyQ/0.jpg" 
