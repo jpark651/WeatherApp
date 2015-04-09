@@ -31,9 +31,9 @@ You will need Java 7 or later.
 
 A narrated video demonstrating the use and various features of the WeatherApp program can below.
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=YOUTUBE_VIDEO_ID_HERE
-" target="_blank"><img src="http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg" 
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=-uPnkzjPZyQ
+" target="_blank"><img src="http://img.youtube.com/vi/-uPnkzjPZyQ/0.jpg" 
+alt="Youtube Video Link" width="240" height="180" border="10" /></a>
 
 ## Documentation
 
